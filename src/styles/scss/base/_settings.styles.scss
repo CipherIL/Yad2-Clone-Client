@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    color: #000;
+    direction: rtl;
+}
+
+body {
+    margin: 0;
+    background-color: $light-gray;
+}
+
+a {
+    text-decoration: none;
+}

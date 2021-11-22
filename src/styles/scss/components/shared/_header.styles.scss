@@ -1,0 +1,126 @@
+.header-container {
+    width: 100%;
+    height: 70px;
+    border-top: 5px solid $orange;
+    padding: 0 20px;
+    box-shadow: 0 5px 6px 0 rgba(0,0,0,0.1);
+    position: relative;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    
+    .header__nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+
+        .header__nav-logo__container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            .header__nav-logo{
+                width: 90px;
+                
+            }
+        }
+
+        .header__nav-item {
+            flex-shrink: 0;
+            height: 100%;
+            display:flex;
+            align-items: center;
+            .header__nav-item__link {
+                height: 100%;
+                .header__nav-item__link__inner-container {
+                    height: 100%;
+                    padding: 0 20px;
+                    display: flex;
+                    align-items: center;
+                    .header__nav-item__link__text {
+                        color: rgba(0,0,0,0.6);
+                        font-size: 1rem;
+                    }
+                }
+            }
+            
+            .header__nav-item__expandable-menu {
+                display: none;
+                position: absolute;
+                top: 66px;
+                min-width: 250px;
+                background-color: #fff;
+                padding: 25px;
+                border-radius: 0 0 4px 4px;
+                box-shadow: 0 3px 10px 0 rgba(0,0,0,0.2);
+                .header__nav-item__expandable-menu__section {
+                    display: flex;
+                    flex-direction: column;
+                    min-width: 160px;
+                    &.ml {
+                        margin-left: 40px;
+                    }
+                    .header__nav-item__expandable-menu__link {
+                        padding: 8px 0;
+                        display: flex;
+                        column-gap: 10px;
+                        .header__nav-item__expandable-menu__link__img {
+                            width: 25px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            img {
+                                width: 25px;
+                            }
+                        }
+                        &:hover {
+                            .header__nav-item__expandable-menu__link__text{
+                                color: $orange;
+                            }
+                            .header__nav-item__expandable-menu__link__img svg {
+                                filter: invert(51%) sepia(82%) saturate(3452%) hue-rotate(0deg) brightness(105%) contrast(105%);
+                            }
+                        }
+                    }
+                }
+            }
+            &:hover {
+                .header__nav-item__link__inner-container {
+                    background-color: rgba(54,54,54,5%);
+                }
+                .header__nav-item__expandable-menu {
+                    display: flex;
+                }
+            }
+            @media (max-width: $hamburger-breakpoint) {
+                display:none;
+            }
+        }
+
+    }
+
+    .header__personal {
+        display: flex;
+        justify-content: center;
+        
+        .header__personal__section{
+            height: 100%;            
+            &:hover {
+                .header__personal__section__icon__container {
+                    background-color: $light-gray;
+                }
+            }
+
+            .header__personal__section__icon__container{
+                height:100%;
+                max-width: 70px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px 18px 0;
+            }
+
+        }
+    }
+}

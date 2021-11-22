@@ -1,0 +1,13 @@
+//imports
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap');
+
+//base
+@import './base/variables.styles';
+@import './base/settings.styles';
+
+//shared components
+@import './components/shared/header.styles';
+
+//custom components
+@import './components/custom/publishAdButton.styles';
+@import './components/custom/userAvatar.styles';
