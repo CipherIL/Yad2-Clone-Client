@@ -1,12 +1,14 @@
 //imports
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 
 //base
 @import './base/variables.styles';
 @import './base/settings.styles';
 
 //shared components
-@import './components/shared/header.styles';
+@import './components/shared/header/header.styles';
+@import './components/shared/header/hamburgerMenuIcon.styles';
+@import './components/shared/header/hamburgerMenuMenu.styles';
 
 //custom components
 @import './components/custom/publishAdButton.styles';

@@ -4,7 +4,8 @@ import ExpandableNavigationMenu from "./ExpandableNavigationMenu.component";
 import { headerNavItems } from "../../../data/headerNavItems";
 import { nanoid } from "nanoid";
 import HeaderPersonalArea from "./HeaderPersonalArea.component";
-import useWindowDimensions from '../../../hooks/useWindowDimensions.hook';
+import useWindowDimensions from '../../../hooks/useWindowDimensions';
+import HamburgerMenu from "./hambugerMenu/HamburgerMenu.component";
 
 const Header = () => {
     const {width} = useWindowDimensions();
@@ -17,11 +18,13 @@ const Header = () => {
     return (
         <div className="header-container">
             <div className="header__nav">
+                {width <= 900 && <div className="header__nav__empty-div"></div>}
                 <Link to="/">
                     <div className="header__nav-logo__container">
                         <img src="images/yad2Logo.png" alt="yad2Logo" className="header__nav-logo"/>
                     </div>
                 </Link>
+                {width < 1261 && <HamburgerMenu/>}
                 {headerNavItems.map(navItem=>{
                     return (
                         <div className="header__nav-item" key={nanoid()}>

@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Rubik', sans-serif;
     color: #000;
     direction: rtl;
 }
@@ -8,6 +8,7 @@
 body {
     margin: 0;
     background-color: $light-gray;
+    min-width: 350px;
 }
 
 a {

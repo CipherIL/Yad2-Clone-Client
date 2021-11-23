@@ -1,6 +1,6 @@
 .header-container {
     width: 100%;
-    height: 70px;
+    height: 75px;
     border-top: 5px solid $orange;
     padding: 0 20px;
     box-shadow: 0 5px 6px 0 rgba(0,0,0,0.1);
@@ -97,15 +97,23 @@
                 display:none;
             }
         }
+        @media (max-width:$mobile-breakpoint) {
+            width:100%;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            .header__nav__empty-div {
+                width: 30px;
+            }
+        }
 
     }
 
     .header__personal {
         display: flex;
-        justify-content: center;
-        
+        justify-content: flex-start;
         .header__personal__section{
-            height: 100%;            
+            height: 100%;
+                   
             &:hover {
                 .header__personal__section__icon__container {
                     background-color: $light-gray;
@@ -114,11 +122,16 @@
 
             .header__personal__section__icon__container{
                 height:100%;
-                max-width: 70px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 padding: 5px 18px 0;
+                
+
+                .header__personal__section__icon__text {
+                    white-space: nowrap;
+                    margin: 0 5px;
+                }
             }
 
         }
