@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginForm from "./LoginForm.component";
 import { Link } from 'react-router-dom';
+import LoginAd from "./LoginAd.component";
+import RegistrationForm from "./RegistrationForm.component";
 
 const Login = () => {
+    const [isLoggingIn,setIsLoggingIn] = useState(true)
     return (
         <div className="page-content login">
             <div className="login__page-header">
@@ -11,7 +14,9 @@ const Login = () => {
                 </Link>
             </div>
             <div className="login__page-main">
-                <LoginForm/>
+                {isLoggingIn && <LoginForm/>}
+                {!isLoggingIn && <RegistrationForm/>}
+                <LoginAd/>
             </div>
         </div>
     )

@@ -7,7 +7,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { BrowserRouter,Routes,Route,Outlet } from "react-router-dom";
 import Home from "./pages/home/Home.component";
-import Login from "./pages/login/Login.component";
+import Login from "./pages/login-register/Login.component";
 
 library.add(fas,fab);
 
@@ -19,6 +19,8 @@ function App() {
         {/* Routes that fall under the regular layout with header and footer */}
         <Route path="/" element={<Layout />}> 
           <Route index element={<Home />} />
+          <Route path="publish"/>
+          <Route path="realastate"/>
         </Route>
         {/* Routes that do not follow the regular layout */}
         <Route path="/login" element={<Login />} />
