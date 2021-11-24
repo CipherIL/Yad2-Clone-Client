@@ -1,0 +1,17 @@
+.login__page-header {
+    .login__page-header__logo__container {
+        padding: 30px;
+        display: flex;
+        .login__page-header__logo {
+            width: 90px;
+        }
+    }
+}
+
+.login__page-main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 114px;
+}

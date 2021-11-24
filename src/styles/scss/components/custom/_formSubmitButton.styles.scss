@@ -1,0 +1,19 @@
+.form-submit-button {
+    //size
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    //style
+    background: $orange;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    //text
+    font-size: 1rem;
+    color: #fff;
+
+    transition: all .1s linear;
+    &:hover{
+        background: $dark-orange;
+    }
+}

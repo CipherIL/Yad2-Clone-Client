@@ -1,0 +1,12 @@
+.page-content {
+    min-height: calc(100vh - 75px);
+
+    &.login {
+        height: 100vh;
+        width: 100%;
+        padding: 0 3.5vw;
+        background: $peach;
+        display: flex;
+        flex-direction: column;
+    }
+}

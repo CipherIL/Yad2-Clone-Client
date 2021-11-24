@@ -27,12 +27,17 @@ const HamburgerMenuMenu = ({showHamburgerMenu,setShowHamburgerMenu}) => {
     }
 
     const handleCategoryClick = (e) => {
-        if(!selectedCategory) setSelectedCategory(e.target);  
+        if(e.target.children.length === 1) { //not a category,but link
+            alert("This button is not functional");
+        }
         else {
-            selectedCategory.children[1].children[0].classList.remove('rotate');
-            selectedCategory.nextSibling.classList.remove('show');
-            if(selectedCategory === e.target) setSelectedCategory(undefined);
-            else setSelectedCategory(e.target);
+            if(!selectedCategory) setSelectedCategory(e.target);  
+            else {
+                selectedCategory.children[1].children[0].classList.remove('rotate');
+                selectedCategory.nextSibling.classList.remove('show');
+                if(selectedCategory === e.target) setSelectedCategory(undefined);
+                else setSelectedCategory(e.target);
+            }
         }
     }
     useEffect(()=>{
@@ -64,7 +69,7 @@ const HamburgerMenuMenu = ({showHamburgerMenu,setShowHamburgerMenu}) => {
         <div className={modlaClassName} onClick={closeHamburgerMenu}>
             <div className={modalBGClassName}></div>
             <div className={modalSideBarClassName} onClick={handleSidebarClick}>
-                <div className="hamburger-menu__menu__modal__sidebar__close">&#10005;</div>
+                <div className="hamburger-menu__menu__modal__sidebar__close" onClick={closeHamburgerMenu}>&#10005;</div>
                 <div className="hamburger-menu__menu__modal__sidebar__section personal">
                     <Link to="/personal-area">
                         <UserAvatar size={"2x"}/>

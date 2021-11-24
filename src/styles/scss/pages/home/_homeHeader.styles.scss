@@ -1,0 +1,29 @@
+.home-header {
+    display: flex;
+    overflow: hidden;
+    align-content: center;
+    height: 504px;
+    width: 100%;
+    position: relative;
+    
+    .home-header__content__wrapper {
+        flex: 1 0 100%;
+        background-size: cover;
+        margin: 0 auto;
+        background-position: 50%;
+
+        .home-header__content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            height: 100%;
+            width: 1000px;
+            .home-header__content__image {
+                max-width: 500px;
+                position: absolute;
+                bottom: 0;
+            }
+        }
+    }
+}

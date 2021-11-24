@@ -1,15 +1,24 @@
-//imports
+/////////////////////////////////imports/////////////////////////////////
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 
-//base
+/////////////////////////////////base/////////////////////////////////
 @import './base/variables.styles';
 @import './base/settings.styles';
 
-//shared components
+/////////////////////////////////Shared Components/////////////////////////////////
 @import './components/shared/header/header.styles';
 @import './components/shared/header/hamburgerMenuIcon.styles';
 @import './components/shared/header/hamburgerMenuMenu.styles';
 
-//custom components
+/////////////////////////////////Custom Components/////////////////////////////////
 @import './components/custom/publishAdButton.styles';
 @import './components/custom/userAvatar.styles';
+@import './components/custom/formSubmitButton.styles';
+
+/////////////////////////////////Pages/////////////////////////////////
+@import './pages/page-content.styles';
+//Home
+@import './pages/home/homeHeader.styles';
+//Login
+@import './pages/login/login.styles';
+@import './pages/login/loginForm.styles';
