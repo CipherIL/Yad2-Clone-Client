@@ -52,6 +52,9 @@
                     &:focus-visible{
                         border: 1px solid black;
                     }
+                    &.error {
+                        border: 1px solid $error-red !important;
+                    }
                 }
                 .form-field__input__icon {
                     position: absolute;
@@ -63,6 +66,82 @@
                         filter: invert(0%) sepia(100%) saturate(7458%) hue-rotate(109deg) brightness(87%) contrast(109%);
                     }
                 }
+                .form-field__input__bubble {
+                    border: 1px solid rgb(204,204,204);
+                    border-radius: 4px;
+                    max-width: 100%;
+                    min-width: 205px;
+                    background: #fff;
+                    padding: 20px;
+                    position: absolute;
+                    top: -125px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    display: none;
+                    .form-field__input__bubble__title {
+                        color: $dark-gray;
+                        font-size: 14px;
+                        font-weight: 500;
+                        margin-bottom: 10px;
+                    }
+                    .form-field__input__bubble__list {
+                        display: flex;
+                        flex-direction: column;
+                        row-gap: 10px;
+                        padding: 0;
+                        margin: 0;
+                        list-style-type: none;
+                        //text
+                        font-size: 14px;
+                        color: $dark-gray;
+                        .form-field__input__bubble__list-item {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+                            
+                            img {
+                                width: 17px;
+                                height: 17px;
+                                margin-left: 5px;
+                            }
+                        }
+
+                    }
+                    .tri-point {
+                        position: absolute;
+                        bottom: -10px;
+                        left: 50%;
+                        width: 10px;
+                        height: 10px;
+                        .gray-triangle {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 0;
+                            height: 0;
+                            border: 8px solid transparent;
+                            border-top: 10px solid rgb(204,204,204);
+                        }
+                        .white-triangle {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 0;
+                            height: 0;
+                            border: 6px solid transparent;
+                            border-top: 8px solid #fff;
+                            transform: translateX(2px);
+                        }
+                    }
+                    &.show {
+                        display: block;
+                    }
+                }
+            }
+            .form-field__error {
+                color: $error-red;
+                font-size: 14px;
+                padding: 10px 5px 0 0;
             }
         }
         @media (max-width:880px) {

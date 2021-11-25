@@ -8,7 +8,7 @@ const LoginForm = ({toggleForm}) => {
     return (
         <div className="login__form__container">
             <div className="login__form__title">
-                <img src="/svgs/icon_login.svg" alt="login" class="login__form__title__icon"/>
+                <img src="/svgs/icon_login.svg" alt="login" className="login__form__title__icon"/>
                 <h1 className="login__form__title__text">היי, טוב לראות אותך</h1>
             </div>
             <form className="login__form">

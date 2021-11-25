@@ -689,6 +689,9 @@ svg {
 .register__form__container .register__form .form-field .form-field__input .form-field__input__input:hover, .register__form__container .register__form .form-field .form-field__input .form-field__input__input:focus-visible {
   border: 1px solid black;
 }
+.register__form__container .register__form .form-field .form-field__input .form-field__input__input.error {
+  border: 1px solid #FF2A2B !important;
+}
 .register__form__container .register__form .form-field .form-field__input .form-field__input__icon {
   position: absolute;
   top: 18px;
@@ -698,6 +701,79 @@ svg {
 }
 .register__form__container .register__form .form-field .form-field__input .form-field__input__icon:hover {
   filter: invert(0%) sepia(100%) saturate(7458%) hue-rotate(109deg) brightness(87%) contrast(109%);
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__bubble {
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  max-width: 100%;
+  min-width: 205px;
+  background: #fff;
+  padding: 20px;
+  position: absolute;
+  top: -125px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__bubble .form-field__input__bubble__title {
+  color: #363636;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__bubble .form-field__input__bubble__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  font-size: 14px;
+  color: #363636;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__bubble .form-field__input__bubble__list .form-field__input__bubble__list-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__bubble .form-field__input__bubble__list .form-field__input__bubble__list-item img {
+  width: 17px;
+  height: 17px;
+  margin-left: 5px;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__bubble .tri-point {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__bubble .tri-point .gray-triangle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-top: 10px solid #cccccc;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__bubble .tri-point .white-triangle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top: 8px solid #fff;
+  transform: translateX(2px);
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__bubble.show {
+  display: block;
+}
+.register__form__container .register__form .form-field .form-field__error {
+  color: #FF2A2B;
+  font-size: 14px;
+  padding: 10px 5px 0 0;
 }
 @media (max-width: 880px) {
   .register__form__container .register__form {
