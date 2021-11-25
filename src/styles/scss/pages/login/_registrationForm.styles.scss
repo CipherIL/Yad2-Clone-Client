@@ -1,6 +1,7 @@
 .register__form__container {
-    width: 510px;
+    width: 100%;
     @media (min-width: 881px) {
+        width: 510px;
         background: #fff;
         border-radius: 4px;
         box-shadow: 0 3px 10px 0 rgba(0,0,0,0.1);
@@ -63,6 +64,9 @@
                     }
                 }
             }
+        }
+        @media (max-width:880px) {
+            padding :10px;
         }
     }
 

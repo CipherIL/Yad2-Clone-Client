@@ -6,6 +6,16 @@
             width: 90px;
         }
     }
+    .login__page-header__return-button {
+        display: flex;
+        flex-direction: row-reverse;
+        padding: 30px 20px 0;
+        img {
+            pointer-events: none;
+            width: 20px;
+            transform: rotateZ(90deg);
+        }
+    }
 }
 
 .login__page-main {
@@ -13,5 +23,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 114px;
+    @media (min-width:881px) {
+        padding-bottom: 114px;
+        
+    }
 }

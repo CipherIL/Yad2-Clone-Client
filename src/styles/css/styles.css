@@ -482,13 +482,27 @@ svg {
 .login__page-header .login__page-header__logo__container .login__page-header__logo {
   width: 90px;
 }
+.login__page-header .login__page-header__return-button {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 30px 20px 0;
+}
+.login__page-header .login__page-header__return-button img {
+  pointer-events: none;
+  width: 20px;
+  transform: rotateZ(90deg);
+}
 
 .login__page-main {
   flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 114px;
+}
+@media (min-width: 881px) {
+  .login__page-main {
+    padding-bottom: 114px;
+  }
 }
 
 .login__form__container {
@@ -619,10 +633,11 @@ svg {
 }
 
 .register__form__container {
-  width: 510px;
+  width: 100%;
 }
 @media (min-width: 881px) {
   .register__form__container {
+    width: 510px;
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
@@ -683,6 +698,11 @@ svg {
 }
 .register__form__container .register__form .form-field .form-field__input .form-field__input__icon:hover {
   filter: invert(0%) sepia(100%) saturate(7458%) hue-rotate(109deg) brightness(87%) contrast(109%);
+}
+@media (max-width: 880px) {
+  .register__form__container .register__form {
+    padding: 10px;
+  }
 }
 .register__form__container .submit-and-errors {
   margin-top: 20px;

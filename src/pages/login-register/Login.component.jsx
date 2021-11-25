@@ -16,7 +16,9 @@ const Login = () => {
                 {width>880 && <Link to="/" className="login__page-header__logo__container">
                     <img src="/images/yad2Logo.png" alt="logo" className="login__page-header__logo"/>
                 </Link>}
-                {width<=880 && <div></div>}
+                {width<=880 && <div className="login__page-header__return-button">
+                    <img src="/images/button-arrow.png" alt="arrow" />    
+                </div>}
             </div>
             <div className="login__page-main">
                 {isLoggingIn && <LoginForm toggleForm={toggleForm}/>}
