@@ -8,5 +8,16 @@
         background: $peach;
         display: flex;
         flex-direction: column;
+        @media (max-width:880px) {
+            background: #fff;
+            padding: 0 10px 25px;
+        }
+    }
+    &.page-not-found {
+        min-height: calc(100vh - 75px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
     }
 }

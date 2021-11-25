@@ -8,6 +8,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { BrowserRouter,Routes,Route,Outlet } from "react-router-dom";
 import Home from "./pages/home/Home.component";
 import Login from "./pages/login-register/Login.component";
+import PageNotFound from "./pages/notFound/PageNotFound.component";
 
 library.add(fas,fab);
 
@@ -24,6 +25,7 @@ function App() {
         </Route>
         {/* Routes that do not follow the regular layout */}
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={[<Header />,<PageNotFound />]}/>
       </Routes>
     </BrowserRouter>
   );

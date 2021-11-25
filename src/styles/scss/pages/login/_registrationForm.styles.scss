@@ -1,20 +1,19 @@
-.login__form__container {
-    width: 100%;
+.register__form__container {
+    width: 510px;
     @media (min-width: 881px) {
-        width: 510px;
         background: #fff;
         border-radius: 4px;
         box-shadow: 0 3px 10px 0 rgba(0,0,0,0.1);
         padding: 35px;
     }
 
-    .login__form__title {
+    .register__form__title {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         row-gap: 10px;
-        .login__form__title__text {
+        .register__form__title__text {
             text-align: center;
             font-size: 24px;
             font-weight: 400;
@@ -22,7 +21,7 @@
         }
     }
 
-    .login__form {
+    .register__form {
         margin-top: 25px;
         .form-field {
             margin-bottom: 10px;
@@ -65,34 +64,20 @@
                 }
             }
         }
-
-        .login__form__password-reset {
-            color: $orange;
-            font-weight: bold;
-            font-size: 0.9rem;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .submit-and-errors {
-            margin-top: 20px;
-        }
-
-        .go-to-register {
-            margin-top: 30px;
-            text-align: center;
-            .go-to-register__button {
-                margin: 0 5px;
-                font-weight: bold;
-                color: $orange;
-                cursor: pointer;
-            }
-        }
-
-        @media (max-width:880px) {
-            padding :10px;
-        }
     }
+
+    .submit-and-errors {
+        margin-top: 20px;
+    }
+
+    .go-to-login {
+        margin-top: 30px;
+        text-align: center;
+        .go-to-login__button {
+            margin: 0 5px;
+            font-weight: bold;
+            color: $orange;
+            cursor: pointer;
+        }
+    }   
 }

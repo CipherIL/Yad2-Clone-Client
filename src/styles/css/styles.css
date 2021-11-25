@@ -433,6 +433,19 @@ svg {
   display: flex;
   flex-direction: column;
 }
+@media (max-width: 880px) {
+  .page-content.login {
+    background: #fff;
+    padding: 0 10px 25px;
+  }
+}
+.page-content.page-not-found {
+  min-height: calc(100vh - 75px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .home-header {
   display: flex;
@@ -479,15 +492,23 @@ svg {
 }
 
 .login__form__container {
-  width: 510px;
+  width: 100%;
 }
 @media (min-width: 881px) {
   .login__form__container {
+    width: 510px;
     background: #fff;
     border-radius: 4px;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
     padding: 35px;
   }
+}
+.login__form__container .login__form__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 10px;
 }
 .login__form__container .login__form__title .login__form__title__text {
   text-align: center;
@@ -559,6 +580,11 @@ svg {
   color: #ff7100;
   cursor: pointer;
 }
+@media (max-width: 880px) {
+  .login__form__container .login__form {
+    padding: 10px;
+  }
+}
 
 .login__ad {
   margin-right: 200px;
@@ -590,4 +616,124 @@ svg {
   font-size: 14px;
   color: #363636;
   margin-top: 10px;
+}
+
+.register__form__container {
+  width: 510px;
+}
+@media (min-width: 881px) {
+  .register__form__container {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 35px;
+  }
+}
+.register__form__container .register__form__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 10px;
+}
+.register__form__container .register__form__title .register__form__title__text {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  color: #363636;
+}
+.register__form__container .register__form {
+  margin-top: 25px;
+}
+.register__form__container .register__form .form-field {
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.register__form__container .register__form .form-field .form-field__label {
+  color: #363636;
+  margin-bottom: 5px;
+  padding-top: 20px;
+}
+.register__form__container .register__form .form-field .form-field__input {
+  position: relative;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__input {
+  height: 50px;
+  width: 100%;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 100%;
+  padding: 10px 15px 10px 35px;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__input::placeholder {
+  color: rgba(128, 128, 128, 0.6);
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__input:hover, .register__form__container .register__form .form-field .form-field__input .form-field__input__input:focus-visible {
+  border: 1px solid black;
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__icon {
+  position: absolute;
+  top: 18px;
+  left: 10px;
+  cursor: pointer;
+  filter: invert(50%) sepia(23%) saturate(0%) hue-rotate(153deg) brightness(95%) contrast(82%);
+}
+.register__form__container .register__form .form-field .form-field__input .form-field__input__icon:hover {
+  filter: invert(0%) sepia(100%) saturate(7458%) hue-rotate(109deg) brightness(87%) contrast(109%);
+}
+.register__form__container .submit-and-errors {
+  margin-top: 20px;
+}
+.register__form__container .go-to-login {
+  margin-top: 30px;
+  text-align: center;
+}
+.register__form__container .go-to-login .go-to-login__button {
+  margin: 0 5px;
+  font-weight: bold;
+  color: #ff7100;
+  cursor: pointer;
+}
+
+.page-not-found__content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  flex-grow: 1;
+}
+.page-not-found__content-container .page-not-found__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.page-not-found__content-container .page-not-found__text .page-not-found__text__title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #363636;
+}
+.page-not-found__content-container .page-not-found__text .page-not-found__text__subtitle {
+  font-size: 18px;
+  color: #363636;
+}
+.page-not-found__content-container .page-not-found__button {
+  width: 186px;
+  border: none;
+  border-radius: 4px;
+  background: #ff7100;
+  padding: 0.8em 1em;
+  margin: 30px 0 0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.page-not-found__status {
+  padding-bottom: 15px;
+  font-size: 18px;
+  color: #999999;
 }

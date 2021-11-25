@@ -1,13 +1,14 @@
 import React from "react";
 import FormFieldSingleInput from "../../components/custom/FormFieldSingleInput.component";
 import FormSubmitButton from "../../components/custom/FormSubmitButton.component";
-const LoginForm = () => {
+const LoginForm = ({toggleForm}) => {
     const handleNotRegistered = () => {
-
+        toggleForm();
     }
     return (
         <div className="login__form__container">
             <div className="login__form__title">
+                <img src="/svgs/icon_login.svg" alt="login" class="login__form__title__icon"/>
                 <h1 className="login__form__title__text">היי, טוב לראות אותך</h1>
             </div>
             <form className="login__form">
