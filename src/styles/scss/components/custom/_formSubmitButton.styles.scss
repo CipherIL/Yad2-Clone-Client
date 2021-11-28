@@ -16,4 +16,8 @@
     &:hover{
         background: $dark-orange;
     }
+    &:disabled {
+        background: $dark-orange;
+        cursor: not-allowed;
+    }
 }

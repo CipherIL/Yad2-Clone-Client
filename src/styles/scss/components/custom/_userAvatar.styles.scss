@@ -11,4 +11,16 @@
     svg {
         margin: 12px 13px;
     }
+
+    .user-avatar__text {
+        color: red;
+        background: rgb(255, 216, 216);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        
+    }
 }

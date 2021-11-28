@@ -405,6 +405,16 @@ svg {
 .user-avatar__container svg {
   margin: 12px 13px;
 }
+.user-avatar__container .user-avatar__text {
+  color: red;
+  background: #ffd8d8;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
 
 .form-submit-button {
   width: 100%;
@@ -420,6 +430,10 @@ svg {
 }
 .form-submit-button:hover {
   background: #d86000;
+}
+.form-submit-button:disabled {
+  background: #d86000;
+  cursor: not-allowed;
 }
 
 .page-content {
@@ -666,6 +680,16 @@ svg {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+.register__form__container .register__form .form-field.checkbox {
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 5px;
+}
+.register__form__container .register__form .form-field.checkbox .form-field__label {
+  padding-top: 0;
+  margin: 3px;
+  font-size: 14px;
 }
 .register__form__container .register__form .form-field .form-field__label {
   color: #363636;

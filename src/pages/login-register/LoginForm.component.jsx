@@ -5,6 +5,8 @@ const LoginForm = ({toggleForm}) => {
     const handleNotRegistered = () => {
         toggleForm();
     }
+
+    //TODO: make this form functional
     return (
         <div className="login__form__container">
             <div className="login__form__title">

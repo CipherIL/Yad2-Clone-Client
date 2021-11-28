@@ -9,13 +9,14 @@ import { BrowserRouter,Routes,Route,Outlet } from "react-router-dom";
 import Home from "./pages/home/Home.component";
 import Login from "./pages/login-register/Login.component";
 import PageNotFound from "./pages/notFound/PageNotFound.component";
+import UserContextProvider from "./contexts/User.context";
 
 library.add(fas,fab);
-
 
 function App() {
   return (
     <BrowserRouter>
+    <UserContextProvider>
       <Routes>
         {/* Routes that fall under the regular layout with header and footer */}
         <Route path="/" element={<Layout />}> 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={[<Header />,<PageNotFound />]}/>
       </Routes>
+    </UserContextProvider>
     </BrowserRouter>
   );
 }

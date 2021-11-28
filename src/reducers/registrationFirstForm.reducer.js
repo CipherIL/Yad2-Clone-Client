@@ -1,8 +1,8 @@
-import registrationFormActionTypes from '../types/registrationFormAction.types';
+import registrationFirstFormActionTypes from '../types/registrationFirstFormAction.types';
 import validator from 'validator';
 import {passwordRegex} from '../utils/passwordRegex';
 
-export const REGISTRATION_FORM_INITIAL_STATE = {
+export const REGISTRATION_FIRST_FORM_INITIAL_STATE = {
     values: {
         email:"",
         password:"",
@@ -29,9 +29,9 @@ export const REGISTRATION_FORM_INITIAL_STATE = {
     },
 }
 
-const registrationFormReducer = (state,action) => {
+const registrationFirstFormReducer = (state,action) => {
     switch(action.type) {
-        case registrationFormActionTypes.CHANGE_EMAIL_STATE : {
+        case registrationFirstFormActionTypes.CHANGE_EMAIL_STATE : {
             const {value} = action.payload;
             const isValidEmail = validator.isEmail(value);
             let emailErrorMessage = ""
@@ -51,7 +51,7 @@ const registrationFormReducer = (state,action) => {
                 formMessage: {text:"",addClass:""},
             }
         }
-        case registrationFormActionTypes.CHANGE_PASSWORD_STATE : {
+        case registrationFirstFormActionTypes.CHANGE_PASSWORD_STATE : {
             const {value} = action.payload;
             const isValidPassword = passwordRegex.test(value);
             let passwordErrorMessage = "";
@@ -72,7 +72,7 @@ const registrationFormReducer = (state,action) => {
                 formMessage: {text:"",addClass:""},
             }
         }
-        case registrationFormActionTypes.CHANGE_PASSWORD_REAPET_STATE : {
+        case registrationFirstFormActionTypes.CHANGE_PASSWORD_REAPET_STATE : {
             const {value} = action.payload;
             const isValidPasswordRepeat = value === state.values.password;
             let passwordRepeatErrorMessage = "";
@@ -92,14 +92,14 @@ const registrationFormReducer = (state,action) => {
             }
             
         }
-        case registrationFormActionTypes.CHANGE_FORM_MESSAGE_STATE : {
+        case registrationFirstFormActionTypes.CHANGE_FORM_MESSAGE_STATE : {
             const {value} = action.payload;
             return {
                 ...state,
                 formMessage: {text: value.text,addClass: value.addClass},
             }
         }
-        case registrationFormActionTypes.CHANGE_SHOW_ERROR_MESSAGES_STATE : {
+        case registrationFirstFormActionTypes.CHANGE_SHOW_ERROR_MESSAGES_STATE : {
             return {
                 ...state,
                 showErrorMessages: {email: true,password: true,passwordRepeat: true,},
@@ -109,4 +109,4 @@ const registrationFormReducer = (state,action) => {
     }
 }
 
-export default registrationFormReducer;
+export default registrationFirstFormReducer;

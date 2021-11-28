@@ -30,6 +30,18 @@
             width: 100%;
             display: flex;
             flex-direction: column;
+
+            &.checkbox {
+                flex-direction: row;
+                align-items: center;
+                padding-bottom: 5px;
+                .form-field__label {
+                    padding-top: 0;
+                    margin: 3px;
+                    font-size: 14px;
+                }
+            }
+
             .form-field__label {
                 color: $dark-gray;
                 margin-bottom: 5px;

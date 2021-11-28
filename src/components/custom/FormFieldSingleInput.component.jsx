@@ -31,7 +31,7 @@ const FormFieldSingleInput = ({labelText,inputType="text",updateFunction,errorMe
                                         e.target.previousSibling.classList.add('show')}}
                        onBlur={(e)=>{if(e.target.type==='password' && e.target.previousSibling) 
                                         e.target.previousSibling.classList.remove('show')}}
-                    className={`form-field__input__input ${(errorMessage!==""?"error":"")}`}
+                    className={`form-field__input__input ${(errorMessage ? "error":"")}`}
                     type={inputType} 
                     onInput={updateFunction} 
                     placeholder={placeHolder}
@@ -39,8 +39,6 @@ const FormFieldSingleInput = ({labelText,inputType="text",updateFunction,errorMe
                 {inputType==="password" && <div onClick={toggleRevealPassword} className="form-field__input__icon">
                     <FontAwesomeIcon icon={["fas","eye"]}/>
                 </div>}
-                
-                
             </div>
             {errorMessage!=="" && <span className="form-field__error">{errorMessage}</span>}
         </div>
