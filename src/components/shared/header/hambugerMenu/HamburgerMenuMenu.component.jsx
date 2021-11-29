@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import UserAvatar from '../../../custom/UserAvatar.component';
 import PublishAdButton from '../../../custom/PublishAdButton.component';
@@ -6,13 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { hamburgerMenuQuickList, navigationList, footerButtons } from "../../../../data/hambugerMenuLists";
 import { nanoid } from 'nanoid';
 import HamburgerMenuFooterButton from "./HamburgerMenuFooterButton.component";
+import { UserContext } from "../../../../contexts/User.context";
 
 const HamburgerMenuMenu = ({showHamburgerMenu,setShowHamburgerMenu}) => {
     const [modlaClassName,setModalClassName] = useState("hamburger-menu__menu__modal hide");
     const [modalBGClassName,setModalBGClassName] = useState("hamburger-menu__menu__modal__background hide");
     const [modalSideBarClassName,setModalSideBarClassName] = useState("hamburger-menu__menu__modal__sidebar hide");
     const [selectedCategory,setSelectedCategory] = useState(undefined);
-
+    const {user,setUser} = useContext(UserContext);
     const closeHamburgerMenu = () => {
         setShowHamburgerMenu(false);
     }
@@ -71,9 +72,9 @@ const HamburgerMenuMenu = ({showHamburgerMenu,setShowHamburgerMenu}) => {
             <div className={modalSideBarClassName} onClick={handleSidebarClick}>
                 <div className="hamburger-menu__menu__modal__sidebar__close" onClick={closeHamburgerMenu}>&#10005;</div>
                 <div className="hamburger-menu__menu__modal__sidebar__section personal">
-                    <Link to="/personal-area">
+                    <Link to={user?"/personal-area":"/login"}>
                         <UserAvatar size={"2x"}/>
-                        <span>התחברות</span>
+                        <span>{user?user.name:"התחברות"}</span>
                     </Link>
                     <PublishAdButton buttonText={"פרסום מודעה"} classname={"publish-ad-button hamburger"}/>
                     <div className="links__container">

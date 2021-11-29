@@ -135,6 +135,9 @@ svg {
 .header-container .header__personal .header__personal__section:hover .header__personal__section__icon__container {
   background-color: #f9f9f9;
 }
+.header-container .header__personal .header__personal__section:hover .user-avatar__expandable-content {
+  display: flex;
+}
 .header-container .header__personal .header__personal__section .header__personal__section__icon__container {
   height: 100%;
   display: flex;
@@ -145,6 +148,33 @@ svg {
 .header-container .header__personal .header__personal__section .header__personal__section__icon__container .header__personal__section__icon__text {
   white-space: nowrap;
   margin: 0 5px;
+}
+.header-container .header__personal .header__personal__section .user-avatar__expandable-content {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  left: 192px;
+  background: #fff;
+  width: 150px;
+  z-index: 1;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px rgba(0, 0, 0, 0.14);
+}
+.header-container .header__personal .header__personal__section .user-avatar__expandable-content .user-avatar__expandable-content__link {
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-right: 10px;
+}
+.header-container .header__personal .header__personal__section .user-avatar__expandable-content .user-avatar__expandable-content__link:hover {
+  background: #f9f9f9;
+}
+.header-container .header__personal .header__personal__section .user-avatar__expandable-content .user-avatar__expandable-content__link .user-avatar__expandable-content__link__text {
+  font-size: 14px;
+  color: #363636;
+  margin-right: 10px;
 }
 
 .hamburger-menu-icon__contianer {
@@ -401,6 +431,8 @@ svg {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative;
+  aspect-ratio: 1/1;
 }
 .user-avatar__container svg {
   margin: 12px 13px;

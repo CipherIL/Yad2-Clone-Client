@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PublishAdButton from "../../custom/PublishAdButton.component";
 import UserAvatar from "../../custom/UserAvatar.component";
 import HeaderPersonalAreaUserExpand from "./HeaderPesonalAreaUserExpand.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import { UserContext } from "../../../contexts/User.context";
 
 const HeaderPersonalArea = () => {
+    const {user,setUser} = useContext(UserContext);
     const { width } = useWindowDimensions();
     const handleLinkClick = (e,url) => {
         if(url==="") {
@@ -32,10 +34,10 @@ const HeaderPersonalArea = () => {
             <div className="header__personal__section">
                 <Link to="/login" className="header__personal__section__icon__container" onClick={(e)=>handleLinkClick(e,"/login")}>
                     <UserAvatar size={"1x"}/>
-                    {width>1640 && <div className="header__personal__section__icon__text">התחברות</div>}
+                    {width>1640 && <div className="header__personal__section__icon__text">{user?user.name:"התחברות"}</div>}
                 </Link>
                 <div className="header__personal__section__expandable-content__container">
-                    <HeaderPersonalAreaUserExpand/>
+                    <HeaderPersonalAreaUserExpand user={user} setUser={setUser}/>
                 </div>
             </div>
             <PublishAdButton buttonText="+ פרסום מודעה חדשה"/>

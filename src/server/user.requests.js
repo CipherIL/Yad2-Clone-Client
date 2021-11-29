@@ -19,3 +19,15 @@ export const checkIfValidAuthToken = async () => {
     const response = await axios.get(link,{withCredentials:true})
     return response;
 }
+
+export const logoutUser = async () => {
+    const link = apiUrl+"/user/logout";
+    const response = await axios.get(link,{withCredentials:true});
+    return response;
+}
+
+export const loginUser = async (email,password) => {
+    const link = apiUrl+"/user/login";
+    const response = await axios.post(link,{email,password},{withCredentials:true});
+    return response;
+}

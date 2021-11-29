@@ -119,6 +119,9 @@
                 .header__personal__section__icon__container {
                     background-color: $light-gray;
                 }
+                .user-avatar__expandable-content {
+                    display: flex;
+                }
             }
 
             .header__personal__section__icon__container{
@@ -132,6 +135,34 @@
                 .header__personal__section__icon__text {
                     white-space: nowrap;
                     margin: 0 5px;
+                }
+            }
+
+            .user-avatar__expandable-content {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                left: 192px;
+                background: #fff;
+                width: 150px;
+                z-index: 1;
+                box-shadow: 0 3px 5px rgba(0,0,0,0.2), 0 1px 18px 0 rgba(0,0,0,0.12), 0 6px 10px rgba(0,0,0,0.14);
+                .user-avatar__expandable-content__link {
+                    height: 40px;
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: center;
+                    padding-right: 10px;
+                    &:hover {
+                        background: $light-gray;
+                    }
+                    .user-avatar__expandable-content__link__text {
+                        font-size: 14px;
+                        color: $dark-gray;
+                        margin-right: 10px;
+                    }
                 }
             }
 

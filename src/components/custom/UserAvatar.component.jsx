@@ -8,7 +8,7 @@ const UserAvatar = ({size}) => {
     }
 
     return (
-        <div to="/personal-area" className="user-avatar__container">
+        <div className="user-avatar__container">
             {user && <div className="user-avatar__text">{generateUserAvatarText()}</div>}
             {!user && <FontAwesomeIcon icon={["fas","user"]} size={size}/>}
         </div>
