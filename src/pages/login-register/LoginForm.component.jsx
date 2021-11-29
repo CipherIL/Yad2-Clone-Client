@@ -37,7 +37,6 @@ const LoginForm = ({toggleForm}) => {
         else {
             loginUser(formState.values.email,formState.values.password)
             .then(res=>{
-                console.log(res)
                 setUser(res.data);
             })
             .catch(err=>{

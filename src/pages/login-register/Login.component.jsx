@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 //Components
 import LoginForm from "./LoginForm.component";
 import LoginAd from "./LoginAd.component";
@@ -13,6 +13,9 @@ const Login = () => {
     const {width} = useWindowDimensions();
     const {user,setUser} = useContext(UserContext);
     const [isLoggingIn,setIsLoggingIn] = useState(true);
+    const [redirect,setRedirect] = useState();
+    const location = useLocation();
+
     const toggleForm = () => {
         setIsLoggingIn(!isLoggingIn);
     }
@@ -20,11 +23,14 @@ const Login = () => {
     //reload user context if has a valid token but not logged in
     useEffect(()=>{
         if(!user) reloadUserContext(user,setUser);
+        const redirectUrl = location.search.replace('?redirect=',"")
+        if(redirectUrl === "") setRedirect("/")
+        else setRedirect(location.search.replace('?redirect=',""));
+        
     },[user,setUser])
-    
     return (
         <>
-        {user && <Navigate to="/"/>}
+        {user && <Navigate to={redirect}/>}
         <div className="page-content login">
                 <div className="login__page-header">
                     {width>880 && <Link to="/" className="login__page-header__logo__container">

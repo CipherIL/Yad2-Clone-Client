@@ -14,6 +14,7 @@ const HamburgerMenuMenu = ({showHamburgerMenu,setShowHamburgerMenu}) => {
     const [modalSideBarClassName,setModalSideBarClassName] = useState("hamburger-menu__menu__modal__sidebar hide");
     const [selectedCategory,setSelectedCategory] = useState(undefined);
     const {user,setUser} = useContext(UserContext);
+    
     const closeHamburgerMenu = () => {
         setShowHamburgerMenu(false);
     }
