@@ -1,0 +1,51 @@
+.private-realestate__selection.realestate__type {
+
+    .private-realestate__selection__selections {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        margin: 30px 0 20px;
+
+        @media (max-width: 880px) {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 15px;
+            column-gap: 15px;
+            padding: 20px;
+            .private-realestate__selection__button {
+                width: 100% !important;
+            }
+        }
+
+        .private-realestate__selection__button {
+            height: 152px;
+            width: 162px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 1px 2px 4px 0 rgba(0,0,0,0.1);
+            cursor: pointer;
+
+            .private-realestate__selection__button__title {
+                pointer-events: none;
+                font-size: 16px;
+                font-weight: 500;
+                color: $dark-gray;
+                height: 27px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 10px;
+            }
+
+            &:hover {
+                border: 1px solid $orange;
+                .private-realestate__selection__button__icon {
+                    filter: $orange-filter;
+                }
+            }
+        }
+
+    }
+}

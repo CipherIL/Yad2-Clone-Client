@@ -1,33 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
-import PublishMainFirstRow from "./PublishMainFirstRow.component";
-import PublishMainSecondRow from "./PublishMainSecondRow.component";
-import PublishMainThirdRow from "./PublishMainThirdRow.component";
+import PublishPrivateRealestate from "./PublishPrivateRealestate.component";
+import PublishSelection from "./PublishSelection.component";
 
-//TODO: fix categories on hover
 
 const PublishMain = () => {
     const {width} = useWindowDimensions();
+    const [selectedCategory,setSelectedCategory] = useState("");
+    const location = useLocation();
+
+    useEffect(()=>{
+        const searchParams = location.search;
+        if(searchParams!=="") {
+            const category = searchParams.split("=")[1];
+            setSelectedCategory(category);
+        }
+    },[location.search])
+
     return (
-        <div className="publish-page__main">
-            <span className="publish-page__main__title">אני רוצה לפרסם מודעה בלוח...</span>
-            { width>620 && <div className="publish-page__main__catergories">
-                <div className="publish-page__main__catergories__first-row">
-                    <PublishMainFirstRow/>
-                </div>
-                <div className="publish-page__main__catergories__second-row">
-                    <PublishMainSecondRow/>
-                </div>
-                <div className="publish-page__main__catergories__third-row">
-                    <PublishMainThirdRow width={width}/>
-                </div>
-            </div>}
-            { width<=620 && <div className="publish-page__main__catergories">
-                <PublishMainFirstRow/>
-                <PublishMainSecondRow/>
-                <PublishMainThirdRow width={width}/>
-            </div>}
-        </div>
+        <>
+            {selectedCategory === "" && <PublishSelection width={width}/>}
+            {selectedCategory === "realestate-private" && <PublishPrivateRealestate width={width}/>}
+        </>
     )
 }
 

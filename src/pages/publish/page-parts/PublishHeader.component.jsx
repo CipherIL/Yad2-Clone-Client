@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import { UserContext } from '../../../contexts/User.context'
 
-const PublishHeader = ({user}) => {
+const PublishHeader = () => {
+    const {user} = useContext(UserContext)
     const {width} = useWindowDimensions();
     const handleInactiveLink = (e) => {
         alert("This link is not functional")

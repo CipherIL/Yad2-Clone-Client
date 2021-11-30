@@ -1,0 +1,57 @@
+.private-realestate__selection.realestate__address {
+    
+    .form-container {
+        margin: 20px 40px;
+        .form-field {
+
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+
+            .form-field__label {
+                font-size: 14px;
+                color: #333333;
+            }
+
+            .form-field__select {
+                height: 35px;
+                width: 33%;
+                font-size: 14px;
+                
+                option {
+                    font-size: 14px;
+                }
+            }
+            
+            .form-field__input {
+                height: 35px;
+                width: 33%;
+            }
+        }
+        .form-section {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: flex-start;
+            align-items: center;
+            column-gap: 20px;
+
+            .form-field {
+                width: 23%;
+
+                .form-field__input {
+                    height: 35px;
+                    width: 100%;
+                }
+
+                &.checkbox {
+                    flex-direction: row-reverse;
+                    justify-content: flex-end;
+                    align-items: center;
+                    padding-top: 17px;
+                }
+            }
+        }
+
+    }
+}

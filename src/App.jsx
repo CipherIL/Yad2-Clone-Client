@@ -8,12 +8,15 @@ import UserContextProvider from "./contexts/User.context";
 import Home from "./pages/home/Home.component";
 import Login from "./pages/login-register/Login.component";
 import PageNotFound from "./pages/notFound/PageNotFound.component";
-import Publish from './pages/publish/Publish.component'
 import Realastate from './pages/realastate/Realastate.component'
+import PublishHeader from "./pages/publish/page-parts/PublishHeader.component";
+import PublishPrivateRealestate from "./pages/publish/page-parts/PublishPrivateRealestate.component";
+
 //FontAwesome imports
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
+import PublishMain from "./pages/publish/page-parts/PublishMain.component";
 library.add(fas,fab);
 
 function App() {
@@ -25,9 +28,13 @@ function App() {
         <Route path="/" element={<Layout />}> 
           <Route index element={<Home />} />
         </Route>
+        {/* Publish Routes */}
+        <Route path="/publish" element={<PrivateUserRoute><PublishLayout/></PrivateUserRoute>}>
+          <Route index element={<PublishMain/>}/>
+          <Route path="?cat=realestate-private" element={<PublishPrivateRealestate/>}/>
+        </Route>
         {/* Routes that do not follow the regular layout */}
         <Route path="/login" element={<Login />} />
-        <Route path="/publish" element={<PrivateUserRoute><Publish/></PrivateUserRoute>}/>
         <Route path="realastate" element={<PrivateUserRoute><Realastate/></PrivateUserRoute>}/>
         <Route path="*" element={[<Header />,<PageNotFound />]}/>
       </Routes>
@@ -44,6 +51,17 @@ function Layout () {
         <Outlet />
       </main>
     </div>
+  )
+}
+
+function PublishLayout () {
+  return (
+    <>
+      <PublishHeader/>
+      <main>
+        <Outlet/>
+      </main>
+    </>
   )
 }
 
