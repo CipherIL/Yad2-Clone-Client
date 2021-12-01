@@ -1,13 +1,21 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const FormFieldSingleInput = ({labelText,inputType="text",updateFunction,errorMessage="",placeHolder="",passwordBubble=false,customClass=""}) => {
+const FormFieldSingleInput = ({
+    labelText,inputType="text",
+    updateFunction,errorMessage="",
+    placeHolder="",
+    passwordBubble=false,
+    customClass="",
+    isDisabled=false,
+    customValue=undefined,
+}) => {
     
     const toggleRevealPassword = (e) => {
         e.target.previousSibling.setAttribute('type',(e.target.previousSibling.type === "password" ? "text" : "password"));
     }
     return (
-        <div className={"form-field"+customClass}>
+        <div className={"form-field"+customClass+(isDisabled?" disabled":"")}>
             <label className="form-field__label">{labelText}</label>
             <div className="form-field__input">
                 {passwordBubble && <div className="form-field__input__bubble">
@@ -35,6 +43,7 @@ const FormFieldSingleInput = ({labelText,inputType="text",updateFunction,errorMe
                     type={inputType} 
                     onInput={updateFunction} 
                     placeholder={placeHolder}
+                    disabled={isDisabled}
                 />
                 {inputType==="password" && <div onClick={toggleRevealPassword} className="form-field__input__icon">
                     <FontAwesomeIcon icon={["fas","eye"]}/>
