@@ -4,6 +4,7 @@ import { firstRowCategories } from "../../../../data/publishCategories";
 import { nanoid } from 'nanoid';
 const PublishMainFirstRow = ({width}) => {
     const navigate = useNavigate();
+    // const [redirect,]
     const switchModalOn = (e) => {
         e.target.nextSibling.classList.add("show");
     }
@@ -14,6 +15,7 @@ const PublishMainFirstRow = ({width}) => {
         if(url==="") alert("This link is not functional");
         else navigate(url);
     }
+    
     return (
         <>
         {firstRowCategories.map(cat=>{

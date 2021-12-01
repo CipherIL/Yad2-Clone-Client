@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import RealestateAddress from "./publishPrivateRealestate/RealestateAddress.component";
-import RealestateTypeSelection from "./publishPrivateRealestate/RealestateTypeSelection.component";
+import PublishPrivateRealestatePartOne from "./PublishPrivateRealestatePartOne.component";
+import PublishPrivateRealestatePartTwo from "./PublishPrivateRealestatePartTwo.component";
 
 const PublishPrivateRealestate = () => {
-
+    
     const [realestateType,setRealestateType] = useState({completed:false,value:""});
     const [realestateAddress,setRealestateAddress] = useState({completed:false,
         value:{
@@ -23,8 +23,8 @@ const PublishPrivateRealestate = () => {
 
     return (
         <div className="private-realestate__selections">
-            <RealestateTypeSelection state={realestateType} setState={setRealestateType}/>
-            <RealestateAddress state={realestateAddress} setState={setRealestateAddress} selected={realestateType.completed && !realestateAddress.completed}/>
+            <PublishPrivateRealestatePartOne state={realestateType} setState={setRealestateType}/>
+            <PublishPrivateRealestatePartTwo state={realestateAddress} setState={setRealestateAddress} selected={realestateType.completed && !realestateAddress.completed}/>
         </div>
     )
 }

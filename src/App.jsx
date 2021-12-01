@@ -9,15 +9,15 @@ import Home from "./pages/home/Home.component";
 import Login from "./pages/login-register/Login.component";
 import PageNotFound from "./pages/notFound/PageNotFound.component";
 import Realastate from './pages/realastate/Realastate.component'
-import PublishHeader from "./pages/publish/page-parts/PublishHeader.component";
-import PublishPrivateRealestate from "./pages/publish/page-parts/PublishPrivateRealestate.component";
+import PublishHeader from "./pages/publish/publish-parts/publishHeader/PublishHeader.component";
+import PublishMain from "./pages/publish/publish-parts/publishMain/PublishMain.component";
+import PublishPrivateRealestate from "./pages/publish/publish-parts/publishPrivateRealestate/PublishPrivateRealestate.component";
 
 //FontAwesome imports
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import PublishMain from "./pages/publish/page-parts/PublishMain.component";
-import Loader from "./pages/loader/Loader.component";
+
 library.add(fas,fab);
 
 function App() {
@@ -30,9 +30,9 @@ function App() {
         <Route path="/realastate" element={<PrivateUserRoute><Realastate/></PrivateUserRoute>}/>
         
         {/* Publish Routes */}
-        <Route path="/publish" element={<PrivateUserRoute><PublishLayout/></PrivateUserRoute>}>
+        <Route path="/publish" element={<PublishLayout/>}>
           <Route index element={<PublishMain/>}/>
-          <Route path="?cat=realestate-private" element={<PublishPrivateRealestate/>}/>
+          <Route path="realestate-private" element={<PublishPrivateRealestate/>}/>
         </Route>
 
         {/* Routes that fall under the regular layout with header and footer */}
@@ -59,12 +59,12 @@ function Layout () {
 
 function PublishLayout () {
   return (
-    <>
+    <PrivateUserRoute>
       <PublishHeader/>
       <main>
         <Outlet/>
       </main>
-    </>
+    </PrivateUserRoute>
   )
 }
 

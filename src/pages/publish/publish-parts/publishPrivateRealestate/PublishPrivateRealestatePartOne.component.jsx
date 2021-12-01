@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const RealestateTypeSelection = ({state,setState}) => {
+
+const PublishPrivateRealestatePartOne = ({state,setState}) => {
 
     const getTitle = (value) => {
         switch(value) {
@@ -68,4 +69,4 @@ const RealestateTypeSelection = ({state,setState}) => {
     )
 }
 
-export default RealestateTypeSelection;
+export default PublishPrivateRealestatePartOne;

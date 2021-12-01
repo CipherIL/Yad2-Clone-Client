@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import useWindowDimensions from "../../../hooks/useWindowDimensions";
-import { UserContext } from '../../../contexts/User.context'
+import useWindowDimensions from "../../../../hooks/useWindowDimensions";
+import { UserContext } from '../../../../contexts/User.context'
 
 const PublishHeader = () => {
     const {user} = useContext(UserContext)

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, Navigate, useSearchParams } from 'react-router-dom';
 //Components
 import LoginForm from "./LoginForm.component";
 import LoginAd from "./LoginAd.component";
@@ -15,8 +15,8 @@ const Login = () => {
     const {user,setUser} = useContext(UserContext);
     const [isLoggingIn,setIsLoggingIn] = useState(true);
     const [isLoading,setIsLoading] = useState(true);
-    const [redirect,setRedirect] = useState();
-    const location = useLocation();
+    const [redirect,setRedirect] = useState("/");
+    const [searchParams,setSearchParams] = useSearchParams();
 
     const toggleForm = () => {
         setIsLoggingIn(!isLoggingIn);
@@ -26,16 +26,15 @@ const Login = () => {
     useEffect(()=>{
         if(!user) getUserInfo()
         .then(res=>{
-            setRedirect(location.search.split("=")[1])
+            const urlToRedirect = searchParams.get("redirect")
+            if(urlToRedirect) setRedirect(urlToRedirect)
             setIsLoading(false);
             setUser(res);
         })
         .catch(err=>{
             setIsLoading(false);
         })
-    },[user,setUser,location.search])
-
-    console.log(isLoading,user)
+    },[user,setUser])
 
     return (
         <>

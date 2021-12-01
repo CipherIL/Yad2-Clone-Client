@@ -17,6 +17,7 @@ const Home = () => {
             .catch(err=>{
                 setIsLoading(false);
             })
+        else setIsLoading(false);
     },[])
 
     return (

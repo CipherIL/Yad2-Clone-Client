@@ -3,7 +3,7 @@ export const firstRowCategories = [
         name:'נדל"ן',
         subtitle:'מכירה, השכרה, מסחרי',
         logo:'/svgs/nadlan.svg',
-        buttons:[{text:"פרטי",url:"/publish?cat=realestate-private"},{text:"מתווך",url:""}]
+        buttons:[{text:"פרטי",url:"/publish/realestate-private"},{text:"מתווך",url:""}]
     },
     {name:'כלי רכב',subtitle:'כלי רכב, דו גלגלי, כלי שיט, מיוחדים',logo:'/svgs/car.svg',},
     {name:'יד שניה',subtitle:'לבית לגינה ולמשרד, חשמל, ספורט, פנאי ושונות',logo:'/svgs/yad2.svg',},

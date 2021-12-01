@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { typeofEstate, estateCondition } from "../../../../data/privateRealestatePublishFormData";
 import FormFieldSingleInput from "../../../../components/custom/FormFieldSingleInput.component";
-const RealestateAddress = ({state,setState,selected}) => {
+const PublishPrivateRealestatePartTwo = ({state,setState,selected}) => {
 
     return (
         <div className="private-realestate__selection realestate__address">
@@ -61,4 +61,4 @@ const RealestateAddress = ({state,setState,selected}) => {
     )
 }
 
-export default RealestateAddress;
+export default PublishPrivateRealestatePartTwo;
