@@ -26,6 +26,27 @@
             .form-field__input {
                 height: 35px;
                 width: 33%;
+                .form-field__input__input {
+                    height: 35px;
+                    width: 100%;
+                }
+            }
+
+            &.checkbox {
+                flex-direction: row-reverse;
+                justify-content: flex-end;
+                align-items: center;
+                column-gap: 5px;
+                .form-field__input {
+                    width: 20px !important;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .form-field__input__input {
+                    height: 15px;
+                    width: 15px;
+                }
             }
         }
         .form-section {

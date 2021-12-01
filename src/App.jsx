@@ -17,6 +17,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import PublishMain from "./pages/publish/page-parts/PublishMain.component";
+import Loader from "./pages/loader/Loader.component";
 library.add(fas,fab);
 
 function App() {
@@ -24,19 +25,21 @@ function App() {
     <BrowserRouter>
     <UserContextProvider>
       <Routes>
-        {/* Routes that fall under the regular layout with header and footer */}
-        <Route path="/" element={<Layout />}> 
-          <Route index element={<Home />} />
-        </Route>
+        {/* Routes that do not follow a layout */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/realastate" element={<PrivateUserRoute><Realastate/></PrivateUserRoute>}/>
+        
         {/* Publish Routes */}
         <Route path="/publish" element={<PrivateUserRoute><PublishLayout/></PrivateUserRoute>}>
           <Route index element={<PublishMain/>}/>
           <Route path="?cat=realestate-private" element={<PublishPrivateRealestate/>}/>
         </Route>
-        {/* Routes that do not follow the regular layout */}
-        <Route path="/login" element={<Login />} />
-        <Route path="realastate" element={<PrivateUserRoute><Realastate/></PrivateUserRoute>}/>
-        <Route path="*" element={[<Header />,<PageNotFound />]}/>
+
+        {/* Routes that fall under the regular layout with header and footer */}
+        <Route path="/" element={<Layout />}> 
+          <Route index element={<Home />} />
+          <Route path="*" element={<PageNotFound />}/>
+        </Route>     
       </Routes>
     </UserContextProvider>
     </BrowserRouter>

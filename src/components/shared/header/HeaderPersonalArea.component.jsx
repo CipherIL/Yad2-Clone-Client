@@ -32,7 +32,7 @@ const HeaderPersonalArea = () => {
                 </Link>
             </div>
             <div className="header__personal__section">
-                <Link to="/login" className="header__personal__section__icon__container" onClick={(e)=>handleLinkClick(e,"/login")}>
+                <Link to={user?"/personal":"/login"} className="header__personal__section__icon__container" onClick={(e)=>handleLinkClick(e,"/login")}>
                     <UserAvatar size={"1x"}/>
                     {width>1640 && <div className="header__personal__section__icon__text">{user?user.name:"התחברות"}</div>}
                 </Link>

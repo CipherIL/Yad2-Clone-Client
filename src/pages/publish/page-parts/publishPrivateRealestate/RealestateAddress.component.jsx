@@ -1,11 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { typeofEstate, estateCondition } from "../../../../data/privateRealestatePublishFormData";
+import FormFieldSingleInput from "../../../../components/custom/FormFieldSingleInput.component";
 const RealestateAddress = ({state,setState,selected}) => {
-
-    const getTitle = () => {
-
-    }
 
     return (
         <div className="private-realestate__selection realestate__address">
@@ -19,57 +16,45 @@ const RealestateAddress = ({state,setState,selected}) => {
                 <FontAwesomeIcon icon={["fas","pencil-alt"]}/>
                 <div className="private-realestate__selection__edit-button__text">עריכה</div>
             </div>}
-            <div className="form-container">
-                <form>
-                    <div className="form-field">
-                        <label className="form-field__label">סוג הנכס*</label>
-                        <select className="form-field__select">
-                            <option value="" disabled selected hidden>דירה או אולי פנטהאוז?</option>
-                            {typeofEstate.map(type=>{
-                                return (
-                                    <option value={type}>{type}</option>
-                                )
-                            })}
-                        </select>
-                    </div>
-                    <div className="form-field">
-                        <label className="form-field__label">מצב הנכס*</label>
-                        <select className="form-field__select">
-                            <option value="" disabled selected hidden>משופץ? חדש מקבלן?</option>
-                            {estateCondition.map(type=>{
-                                return (
-                                    <option value={type}>{type}</option>
-                                )
-                            })}
-                        </select>
-                    </div>
-                    <div className="form-field">
-                        <label className="form-field__label">ישוב*</label>
-                        <input type="text" className="form-field__input"/>
-                    </div>
-                    <div className="form-field">
-                        <label className="form-field__label">רחוב*</label>
-                        <input type="text" className="form-field__input"/>
-                    </div>
-                    <div className="form-field">
-                        <label className="form-field__label">מס' בית</label>
-                        <input type="text" className="form-field__input"/>
-                    </div>
-                    <div className="form-section">
+            {selected && 
+                <div className="form-container">
+                    <form>
                         <div className="form-field">
-                            <label className="form-field__label">קומה*</label>
-                            <input type="text" className="form-field__input"/>
+                            <label className="form-field__label">סוג הנכס*</label>
+                            <select className="form-field__select">
+                                <option value="" disabled selected hidden>דירה או אולי פנטהאוז?</option>
+                                {typeofEstate.map(type=>{
+                                    return (
+                                        <option value={type}>{type}</option>
+                                    )
+                                })}
+                            </select>
                         </div>
                         <div className="form-field">
-                            <label className="form-field__label">סה"כ קומות בבניין*</label>
-                            <input type="text" className="form-field__input"/>
+                            <label className="form-field__label">מצב הנכס*</label>
+                            <select className="form-field__select">
+                                <option value="" disabled selected hidden>משופץ? חדש מקבלן?</option>
+                                {estateCondition.map(type=>{
+                                    return (
+                                        <option value={type}>{type}</option>
+                                    )
+                                })}
+                            </select>
                         </div>
-                        <div className="form-field checkbox">
-                            <label className="form-field__label">על עמודים</label>
-                            <input type="checkbox" className="form-field__checkbox"/>
+                        <FormFieldSingleInput labelText="ישוב*" placeHolder="הכנסת שם ישוב"/>
+                        <FormFieldSingleInput labelText="רחוב*" placeHolder="הכנסת שם רחוב"/>
+                        <FormFieldSingleInput labelText="מס' בית"/>
+                        <div className="form-section">
+                            <FormFieldSingleInput labelText="קומה*"/>
+                            <FormFieldSingleInput labelText='סה"כ קומות בבניין*'/>
+                            <FormFieldSingleInput labelText="על עמודים" inputType="checkbox" customClass=" checkbox"/>
                         </div>
-                    </div>
-                </form>
+                        <FormFieldSingleInput labelText='אני רוצה לקבל הודעות עדכון חודשי במייל עם הערכת שווי מעודכנת עבור הנכס, עסקאות באזור והצעות מקצועיות מיועצי נדל"ן' inputType="checkbox" customClass=" checkbox"/>
+                    </form>
+                </div>
+            }
+            <div className="private-realestate__selection__buttons">
+                
             </div>
 
         </div>
