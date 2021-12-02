@@ -1,0 +1,107 @@
+.private-realestate__selection.realestate__about {
+    .form-container {
+
+        .form-field {
+            display: flex;
+            &.radio {
+                flex-direction: column;
+                width: 100%;
+                .form-field__radio-options {
+                    display: flex;
+                    align-items: center;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    height: 40px;
+                    width: 200px;
+
+                    .form-field__radio-option {
+                        height: 100%;
+                        width: 25%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        input {
+                            display: none;
+                            pointer-events: none;
+                        }
+                        label {
+                            text-align: center;
+                            color: $dark-gray;
+                            pointer-events: none;
+                        }
+                        border-left: 1px solid #ccc;
+                        &:last-child {
+                            border: none;
+                        }
+                        &:hover {
+                            label {
+                                color: $orange
+                            }
+                        }
+                        &.selected {
+                            background: #e9e9e9;
+                            &:hover {
+                                label{
+                                    color: $dark-gray;
+                                }
+                                background: #ccc;
+                            }
+                        }
+                    }
+                }
+            }
+            &.features {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 600px;
+                row-gap: 10px;
+                .feature-container {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    height: 36px;
+                    width: 140px;
+                    border: 1px solid #ccc;
+                    border-radius: 17px;
+                    cursor: pointer;
+                    padding-right: 10px;
+                    &.checked {
+                        background: #ccc;
+                    }
+                    svg {
+                        pointer-events: none;
+                    }
+
+                    input {
+                        display: none;
+                        pointer-events: none;
+                    }
+
+                    label {
+                        padding-right: 5px;
+                        pointer-events: none;
+                    }
+                }
+            }
+            &.text-area {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 50%;
+                .form-field__title {
+                    width: 80%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                input {
+                    width: 80%;
+                    height: 150px;
+                    padding: 16px 10px 20px 70px;
+                    
+                }
+            }
+
+        }
+    }
+}

@@ -29,3 +29,27 @@ export const estateCondition = [
     "במצב שמור (במצב טוב, לא שופץ)",
     "דרוש שיפוץ (זקוק לעבודת שיפוץ)",
 ]
+
+export const numberOfRooms = [
+    "0","0.5","1","1.5",
+    "2","2.5","3","3.5",
+    "4","4.5","5","5.5",
+    "6","6.5","7","7.5",
+    "8","8.5","9","9.5",
+    "10","10.5","11","11.5",
+    "12","12.5",
+]
+
+export const estateFeatures = [
+    {text:"מיזוג",logo:"snowflake"},
+    {text:'ממ"ד',logo:"house-user"},
+    {text:"מחסן",logo:"archive"},
+    {text:"ריהוט",logo:"chair"},
+    {text:"גישה לנכים",logo:"wheelchair"},
+    {text:"מעלית",logo:"building"},
+    {text:"מזגן תדיראן",logo:"fan"},
+    {text:"משופצת",logo:"paint-roller"},
+    {text:"מטבח כשר",logo:"sink"},
+    {text:"דוד שמש",logo:"solar-panel"},
+    {text:"סורגים",logo:"border-all"},
+]

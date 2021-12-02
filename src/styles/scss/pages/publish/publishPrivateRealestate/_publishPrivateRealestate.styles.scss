@@ -43,6 +43,28 @@
             }
             .private-realestate__selection__title__text {
                 font-size: 24px;
+                margin-left: 30px;
+                white-space: nowrap;
+            }
+            .private-realestate__selection__subtitle {
+                text-decoration: underline;
+                width: 50%;
+                margin-left: 200px;
+                text-align: center;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden !important;
+            }
+            @media (max-width: 680px) {
+                flex-wrap: wrap;
+                .private-realestate__selection__title__text {
+                    flex-grow: 1;
+                }
+                .private-realestate__selection__subtitle {
+                    width: 100%;
+                    flex-grow: 1;
+                    text-align: start;
+                }
             }
         }
 

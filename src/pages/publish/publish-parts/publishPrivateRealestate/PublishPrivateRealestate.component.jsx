@@ -9,16 +9,18 @@ import PublishPrivateRealestatePartFive from "./PublishPrivateRealestatePartFive
 import PublishPrivateRealestatePartSix from "./PublishPrivateRealestatePartSix.component";
 import PublishPrivateRealestatePartSeven from "./PublishPrivateRealestatePartSeven.component";
 // Form Reducers Imports
-import PPRSecondFormReducer, { PPR_SECOND_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRSeconForm.reducer";
-
+import PPRSecondFormReducer, { PPR_SECOND_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRSecondForm.reducer";
+import { PPRSecondFormAction } from "../../../../actions/publishPrivateRealestateForm.actions"
+import PPRThirdFormReducer, { PPR_THIRD_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRThirdForm.reducer";
 
 const PublishPrivateRealestate = () => {
     
     const [firstFormState,setFirstFormState] = useState({completed:false,value:""});
     const [secondFormState,dispatchSecondForm] = useReducer(PPRSecondFormReducer,PPR_SECOND_FORM_INITIAL_STATE);
-    
+    const [thirdFormState,dispatchThirdForm] = useReducer(PPRThirdFormReducer,PPR_THIRD_FORM_INITIAL_STATE);
         
-
+    //FIXME: add a function that when returning to a previous form for changes,
+    //sets all form after it as uncompleted
 
     return (
         <div className="private-realestate__selections">
@@ -31,8 +33,10 @@ const PublishPrivateRealestate = () => {
             returnButton={()=>{setFirstFormState({completed:false,value:firstFormState.value})}}/>
 
             <PublishPrivateRealestatePartThree 
-            state={{completed:false}}
-            selected={secondFormState.completed}/>
+            state={thirdFormState}
+            setState={dispatchThirdForm}
+            selected={secondFormState.completed}
+            returnButton={()=>{console.log("Test");dispatchSecondForm(PPRSecondFormAction("CHANGE_COMPLETED_STATE",false))}}/>
 
             <PublishPrivateRealestatePartFour state={{completed:false}} selected={false}/>
             <PublishPrivateRealestatePartFive state={{completed:false}} selected={false}/>

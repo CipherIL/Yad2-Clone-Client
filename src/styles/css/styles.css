@@ -1207,6 +1207,30 @@ svg {
 }
 .private-realestate__selections .private-realestate__selection .private-realestate__selection__title .private-realestate__selection__title__text {
   font-size: 24px;
+  margin-left: 30px;
+  white-space: nowrap;
+}
+.private-realestate__selections .private-realestate__selection .private-realestate__selection__title .private-realestate__selection__subtitle {
+  text-decoration: underline;
+  width: 50%;
+  margin-left: 200px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden !important;
+}
+@media (max-width: 680px) {
+  .private-realestate__selections .private-realestate__selection .private-realestate__selection__title {
+    flex-wrap: wrap;
+  }
+  .private-realestate__selections .private-realestate__selection .private-realestate__selection__title .private-realestate__selection__title__text {
+    flex-grow: 1;
+  }
+  .private-realestate__selections .private-realestate__selection .private-realestate__selection__title .private-realestate__selection__subtitle {
+    width: 100%;
+    flex-grow: 1;
+    text-align: start;
+  }
 }
 .private-realestate__selections .private-realestate__selection.completed {
   opacity: 0.5;
@@ -1393,6 +1417,102 @@ svg {
   justify-content: flex-end;
   align-items: center;
   padding-top: 17px;
+}
+
+.private-realestate__selection.realestate__about .form-container .form-field {
+  display: flex;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio {
+  flex-direction: column;
+  width: 100%;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio .form-field__radio-options {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 40px;
+  width: 200px;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio .form-field__radio-options .form-field__radio-option {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid #ccc;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio .form-field__radio-options .form-field__radio-option input {
+  display: none;
+  pointer-events: none;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio .form-field__radio-options .form-field__radio-option label {
+  text-align: center;
+  color: #363636;
+  pointer-events: none;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio .form-field__radio-options .form-field__radio-option:last-child {
+  border: none;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio .form-field__radio-options .form-field__radio-option:hover label {
+  color: #ff7100;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio .form-field__radio-options .form-field__radio-option.selected {
+  background: #e9e9e9;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio .form-field__radio-options .form-field__radio-option.selected:hover {
+  background: #ccc;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.radio .form-field__radio-options .form-field__radio-option.selected:hover label {
+  color: #363636;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 600px;
+  row-gap: 10px;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.features .feature-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 36px;
+  width: 140px;
+  border: 1px solid #ccc;
+  border-radius: 17px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.features .feature-container.checked {
+  background: #ccc;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.features .feature-container svg {
+  pointer-events: none;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.features .feature-container input {
+  display: none;
+  pointer-events: none;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.features .feature-container label {
+  padding-right: 5px;
+  pointer-events: none;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.text-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50%;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.text-area .form-field__title {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.private-realestate__selection.realestate__about .form-container .form-field.text-area input {
+  width: 80%;
+  height: 150px;
+  padding: 16px 10px 20px 70px;
 }
 
 .page-not-found__content-container {

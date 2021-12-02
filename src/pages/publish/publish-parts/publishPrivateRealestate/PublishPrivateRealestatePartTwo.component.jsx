@@ -9,7 +9,7 @@ import { typeofEstate, estateCondition } from "../../../../data/privateRealestat
 
 // Form Reducer Imports
 import { PPRSecondFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
-import { PPRSeconFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
+import { PPRSecondFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
 import { nanoid } from "nanoid";
 
 const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton}) => {
@@ -17,17 +17,17 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton})
     const handleInput = (e,actionType) => {
         const value = e.target.value;
         e.target.value = value;
-        setState(PPRSeconFormAction(actionType,value));
+        setState(PPRSecondFormAction(actionType,value));
     }
     const handleCheckbox = (e,actionType) => {
         const value = e.target.checked;
-        setState(PPRSeconFormAction(actionType,value))
+        setState(PPRSecondFormAction(actionType,value))
     }
     const handleNumberInput = (e,actionType) => {
         const value = e.target.value;
         if(value==="" || !isNaN(parseInt(value.at(-1)))){            
             e.target.value = value;
-            setState(PPRSeconFormAction(actionType,value));
+            setState(PPRSecondFormAction(actionType,value));
         }
         else {            
             if(value.length===1) e.target.value = "";
@@ -38,13 +38,16 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton})
         e.stopPropagation();
         //if any field is invalid
         if(Object.keys(state.isValid).some(key=>state.isValid[key] === false))
-            setState(PPRSeconFormAction(PPRSecondFormActionTypes.CHANGE_SHOW_ERROR_STATE))
+            setState(PPRSecondFormAction(PPRSecondFormActionTypes.CHANGE_SHOW_ERROR_STATE))
         else {
-            setState(PPRSeconFormAction(PPRSecondFormActionTypes.CHANGE_COMPLETED_STATE,true))
+            setState(PPRSecondFormAction(PPRSecondFormActionTypes.CHANGE_COMPLETED_STATE,true))
         }
     }
     const reopen = () => {
-        setState(PPRSeconFormAction(PPRSecondFormActionTypes.CHANGE_COMPLETED_STATE,false))
+        setState(PPRSecondFormAction(PPRSecondFormActionTypes.CHANGE_COMPLETED_STATE,false))
+    }
+    const getSubtitle = () => {
+        return `${state.values.estateType} - ${state.values.estateCondition} - ${state.values.city} - ${state.values.street} - ${state.values.number}`
     }
 
     return (
@@ -53,6 +56,7 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton})
                 <div className={"private-realestate__selection__title__number"+(selected?" selected":"")}>
                 {state.completed?<FontAwesomeIcon icon={["fas","check"]}/>:"2"}</div>
                 <div className="private-realestate__selection__title__text">כתובת הנכס</div>
+                {state.completed && <span className="private-realestate__selection__subtitle">{getSubtitle()}</span>}
             </div>
             {state.completed &&
             <div className="private-realestate__selection__edit-button">
