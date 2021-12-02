@@ -1170,6 +1170,7 @@ svg {
   justify-content: center;
   align-items: center;
   row-gap: 20px;
+  padding: 20px 0;
 }
 .private-realestate__selections .private-realestate__selection {
   position: relative;
@@ -1242,6 +1243,44 @@ svg {
 .private-realestate__selections .private-realestate__selection__edit-button .private-realestate__selection__edit-button__text {
   font-size: 14px;
   font-weight: 500;
+}
+.private-realestate__selections .private-realestate__selection__buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 40px;
+}
+.private-realestate__selections .private-realestate__selection__buttons .private-realestate__selection__button-return {
+  font-size: 14px;
+  color: #363636;
+  text-align: center;
+  height: 35px;
+  width: 90px;
+  border: 1px solid #ccc;
+  border-radius: 17.5px;
+  background: #fff;
+  cursor: pointer;
+}
+.private-realestate__selections .private-realestate__selection__buttons .private-realestate__selection__button-return:hover {
+  color: #fff;
+  background: #ff7100;
+  border: 1px solid #ff7100;
+}
+.private-realestate__selections .private-realestate__selection__buttons .private-realestate__selection__button-submit {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ff7100;
+  text-align: center;
+  background: #fff;
+  height: 35px;
+  width: 155px;
+  border: 1px solid #ff7100;
+  border-radius: 17.5px;
+  cursor: pointer;
+}
+.private-realestate__selections .private-realestate__selection__buttons .private-realestate__selection__button-submit:hover {
+  color: #fff;
+  background: #ff7100;
 }
 
 .private-realestate__selection.realestate__type .private-realestate__selection__selections {

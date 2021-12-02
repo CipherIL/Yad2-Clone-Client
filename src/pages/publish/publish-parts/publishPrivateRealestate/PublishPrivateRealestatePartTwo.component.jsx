@@ -12,7 +12,7 @@ import { PPRSecondFormActionTypes } from "../../../../types/publishPrivateReales
 import { PPRSeconFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
 import { nanoid } from "nanoid";
 
-const PublishPrivateRealestatePartTwo = ({state,setState,selected}) => {
+const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton}) => {
 
     const handleInput = (e,actionType) => {
         const value = e.target.value;
@@ -23,10 +23,32 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected}) => {
         const value = e.target.checked;
         setState(PPRSeconFormAction(actionType,value))
     }
-
+    const handleNumberInput = (e,actionType) => {
+        const value = e.target.value;
+        if(value==="" || !isNaN(parseInt(value.at(-1)))){            
+            e.target.value = value;
+            setState(PPRSeconFormAction(actionType,value));
+        }
+        else {            
+            if(value.length===1) e.target.value = "";
+            else e.target.value = value.slice(0,-1);
+        }
+    }
+    const handleSubmit = (e) => {
+        e.stopPropagation();
+        //if any field is invalid
+        if(Object.keys(state.isValid).some(key=>state.isValid[key] === false))
+            setState(PPRSeconFormAction(PPRSecondFormActionTypes.CHANGE_SHOW_ERROR_STATE))
+        else {
+            setState(PPRSeconFormAction(PPRSecondFormActionTypes.CHANGE_COMPLETED_STATE,true))
+        }
+    }
+    const reopen = () => {
+        setState(PPRSeconFormAction(PPRSecondFormActionTypes.CHANGE_COMPLETED_STATE,false))
+    }
 
     return (
-        <div className="private-realestate__selection realestate__address">
+        <div className={"private-realestate__selection realestate__address"+(state.completed?" completed":"")} onClick={reopen}>
             <div className="private-realestate__selection__title">
                 <div className={"private-realestate__selection__title__number"+(selected?" selected":"")}>
                 {state.completed?<FontAwesomeIcon icon={["fas","check"]}/>:"2"}</div>
@@ -37,7 +59,7 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected}) => {
                 <FontAwesomeIcon icon={["fas","pencil-alt"]}/>
                 <div className="private-realestate__selection__edit-button__text">עריכה</div>
             </div>}
-            {selected && 
+            {selected && <>
                 <div className="form-container">
                     <form>
                         <div className="form-field">
@@ -50,6 +72,7 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected}) => {
                                     )
                                 })}
                             </select>
+                            {state.showError.estateType && <span className="form-field__error">{state.errorMessage.estateType}</span>}
                         </div>
                         <div className="form-field">
                             <label className="form-field__label">מצב הנכס*</label>
@@ -61,23 +84,73 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected}) => {
                                     )
                                 })}
                             </select>
+                            {state.showError.estateCondition && <span className="form-field__error">{state.errorMessage.estateCondition}</span>}
                         </div>
-                        <FormFieldSingleInput labelText="ישוב*" placeHolder="הכנסת שם ישוב" updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_CITY_STATE)}/>
-                        <FormFieldSingleInput labelText="רחוב*" placeHolder="הכנסת שם רחוב" isDisabled={state.disabled.street} updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_STREET_STATE)}/>
-                        <FormFieldSingleInput labelText="מס' בית" isDisabled={state.disabled.number} updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_NUMBER_STATE)}/>
+
+                        <FormFieldSingleInput 
+                        labelText="ישוב*" 
+                        placeHolder="הכנסת שם ישוב" 
+                        updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_CITY_STATE)}
+                        defaultValue={state.values.city}
+                        errorMessage = {state.showError.city && state.errorMessage.city}
+                        />
+
+                        <FormFieldSingleInput 
+                        labelText="רחוב*" 
+                        placeHolder="הכנסת שם רחוב" 
+                        isDisabled={state.disabled.street} 
+                        updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_STREET_STATE)}
+                        defaultValue={state.values.street}
+                        errorMessage = {state.showError.street && state.errorMessage.street}/>
+                        
+                        <FormFieldSingleInput 
+                        labelText="מס' בית" 
+                        isDisabled={state.disabled.number} 
+                        updateFunction={(e)=>handleNumberInput(e,PPRSecondFormActionTypes.CHANGE_NUMBER_STATE)}
+                        defaultValue={state.values.number}
+                        errorMessage = {state.showError.number && state.errorMessage.number}/>
+                        
                         <div className="form-section">
-                            {state.showFloorsQuery && <FormFieldSingleInput labelText="קומה*" isDisabled={state.disabled.floor} updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_FLOOR_STATE)} customValue={state.values.floor}/>}
-                            {state.showTotalFloorsQuery && <FormFieldSingleInput labelText='סה"כ קומות בבניין*' isDisabled={state.disabled.totalFloors} updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_TOTAL_FLOORS_STATE)}/>}
-                            {state.showOnPillarsQuery && <FormFieldSingleInput labelText="על עמודים" inputType="checkbox" customClass=" checkbox" isDisabled={state.disabled.onPillars} updateFunction={(e)=>handleCheckbox(e,PPRSecondFormActionTypes.CHANGE_ON_PILLARS_STATE)}/>}
+                            {state.showFloorsQuery && <FormFieldSingleInput 
+                            labelText="קומה*" 
+                            placeHolder={"הכנסת מס' קומה"} 
+                            isDisabled={state.disabled.floor} 
+                            updateFunction={(e)=>handleNumberInput(e,PPRSecondFormActionTypes.CHANGE_FLOOR_STATE)} 
+                            defaultValue={state.values.floor}
+                            errorMessage = {state.showError.floor && state.errorMessage.floor}/>}
+
+                            {state.showTotalFloorsQuery && <FormFieldSingleInput 
+                            labelText='סה"כ קומות בבניין*' 
+                            placeHolder={'הכנסת סה"כ קומות'} 
+                            isDisabled={state.disabled.totalFloors} 
+                            updateFunction={(e)=>handleNumberInput(e,PPRSecondFormActionTypes.CHANGE_TOTAL_FLOORS_STATE)}
+                            defaultValue={state.values.totalFloors}
+                            errorMessage = {state.showError.totalFloors && state.errorMessage.totalFloors}/>}
+
+                            {state.showOnPillarsQuery && <FormFieldSingleInput 
+                            labelText="על עמודים" 
+                            inputType="checkbox" 
+                            customClass=" checkbox" 
+                            isDisabled={state.disabled.onPillars} 
+                            updateFunction={(e)=>handleCheckbox(e,PPRSecondFormActionTypes.CHANGE_ON_PILLARS_STATE)}
+                            defaultChecked={state.values.onPillars}/>}
                         </div>
-                        <FormFieldSingleInput labelText='אני רוצה לקבל הודעות עדכון חודשי במייל עם הערכת שווי מעודכנת עבור הנכס, עסקאות באזור והצעות מקצועיות מיועצי נדל"ן'
-                         inputType="checkbox" customClass=" checkbox" isDisabled={state.disabled.addToMailingList} updateFunction={(e)=>handleCheckbox(e,PPRSecondFormActionTypes.CHANGE_MAILING_LIST_STATE)}/>
+
+                        <FormFieldSingleInput 
+                        labelText='אני רוצה לקבל הודעות עדכון חודשי במייל עם הערכת שווי מעודכנת עבור הנכס, עסקאות באזור והצעות מקצועיות מיועצי נדל"ן'
+                        inputType="checkbox" customClass=" checkbox" 
+                        isDisabled={state.disabled.addToMailingList} 
+                        updateFunction={(e)=>handleCheckbox(e,PPRSecondFormActionTypes.CHANGE_MAILING_LIST_STATE)}
+                        defaultChecked={state.values.addToMailingList}/>
+
                     </form>
                 </div>
+                <div className="private-realestate__selection__buttons">
+                    <button className="private-realestate__selection__button-return" onClick={returnButton}>חזרה</button>
+                    <button className="private-realestate__selection__button-submit" onClick={handleSubmit}>להמשיך לשלב הבא</button>
+                </div>
+                </>
             }
-            <div className="private-realestate__selection__buttons">
-                
-            </div>
 
         </div>
     )

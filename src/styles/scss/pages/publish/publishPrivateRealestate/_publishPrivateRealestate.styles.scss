@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     row-gap: 20px;
+    padding: 20px 0;
 
     .private-realestate__selection {
         position: relative;
@@ -84,6 +85,49 @@
             font-size: 14px;
             font-weight: 500;
 
+        }
+    }
+
+    .private-realestate__selection__buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 40px;
+
+        .private-realestate__selection__button-return {
+            font-size: 14px;
+            color: $dark-gray;
+            text-align: center;
+            height: 35px;
+            width: 90px;
+            border: 1px solid #ccc;
+            border-radius: 17.5px;
+            background: #fff;
+            cursor: pointer;
+            
+            &:hover {
+                color: #fff;
+                background: $orange;
+                border: 1px solid $orange;
+            }
+        }
+        .private-realestate__selection__button-submit {
+            font-size: 14px;
+            font-weight: 500;
+            color: $orange;
+            text-align: center;
+
+            background: #fff;
+            height: 35px;
+            width: 155px;
+            border: 1px solid $orange;
+            border-radius: 17.5px;
+            cursor: pointer;
+
+            &:hover {
+                color: #fff;
+                background: $orange;
+            }
         }
     }
 }

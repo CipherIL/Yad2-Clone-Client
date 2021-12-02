@@ -8,7 +8,8 @@ const FormFieldSingleInput = ({
     passwordBubble=false,
     customClass="",
     isDisabled=false,
-    customValue=undefined,
+    defaultValue="",
+    defaultChecked=false,
 }) => {
     
     const toggleRevealPassword = (e) => {
@@ -44,6 +45,8 @@ const FormFieldSingleInput = ({
                     onInput={updateFunction} 
                     placeholder={placeHolder}
                     disabled={isDisabled}
+                    defaultValue={defaultValue}
+                    defaultChecked={defaultChecked}
                 />
                 {inputType==="password" && <div onClick={toggleRevealPassword} className="form-field__input__icon">
                     <FontAwesomeIcon icon={["fas","eye"]}/>

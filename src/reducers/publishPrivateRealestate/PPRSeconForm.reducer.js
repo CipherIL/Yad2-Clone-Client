@@ -113,6 +113,7 @@ const PPRSecondFormReducer = (state,action) => {
             }
 
             return {
+                completed: false,
                 values: {...state.values, estateType:value},
                 isValid: {...state.isValid, estateType: isValidValue, ...queries.isValid},
                 disabled: {...state.disabled},
@@ -126,6 +127,7 @@ const PPRSecondFormReducer = (state,action) => {
             const isValidValue = (value !== "");
 
             return {
+                completed: false,
                 values: {...state.values, estateCondition:value},
                 isValid: {...state.isValid, estateCondition: isValidValue},
                 disabled: {...state.disabled},
@@ -144,6 +146,7 @@ const PPRSecondFormReducer = (state,action) => {
             if(!isValidValue) errorMessage = "יש לבחור ישוב מתוך הרשימה";
 
             return {
+                completed: false,
                 values: {...state.values, city: value},
                 isValid: {...state.isValid, city: isValidValue},
                 disabled: {...state.disabled, street: false},
@@ -161,6 +164,7 @@ const PPRSecondFormReducer = (state,action) => {
             if(!isValidValue) errorMessage = "יש לבחור רחוב מתוך הרשימה";
 
             return {
+                completed: false,
                 values: {...state.values, street: value},
                 isValid: {...state.isValid, street: isValidValue},
                 disabled: {...state.disabled, number: false, addToMailingList:false},
@@ -178,6 +182,7 @@ const PPRSecondFormReducer = (state,action) => {
             if(!isValidValue) errorMessage = "יש לבחור מס' בית מתוך הרשימה";
 
             return {
+                completed: false,
                 values: {...state.values, number: value},
                 isValid: {...state.isValid, number: isValidValue},
                 disabled: {...state.disabled, floor: false, totalFloors: false, onPillars: false},
@@ -189,19 +194,16 @@ const PPRSecondFormReducer = (state,action) => {
             }
         }
         case PPRSecondFormActionTypes.CHANGE_FLOOR_STATE : {
-            let {value} = action.payload;
+            const {value} = action.payload;
             const isValidValue = (value !== "");
             let errorMessage = "";
             if(!isValidValue) errorMessage = "שדה חובה";
-
-            const valueInt = parseInt(value);
-            console.log(valueInt)
-            if(isNaN(valueInt) && value!=="") { //do not accept the new value
-                value = state.values.floor;
-            }
             
-            //FIXME: limit value to 200, cross check total floors, limit input to numbers only
+            //Check is logical with total number of floors
+            //FIXME: add logic here!!!
+
             return {
+                completed: false,
                 values: {...state.values, floor: value},
                 isValid: {...state.isValid, floor: isValidValue},
                 disabled: {...state.disabled},
@@ -213,13 +215,88 @@ const PPRSecondFormReducer = (state,action) => {
             }
         }
         case PPRSecondFormActionTypes.CHANGE_TOTAL_FLOORS_STATE : {
-
+            const {value} = action.payload;
+            const isValidValue = (value !== "");
+            let errorMessage = "";
+            if(!isValidValue) errorMessage = "שדה חובה";
+            
+            //Check is logical with floor number
+            //FIXME: add logic here!!!
+            
+            return {
+                completed: false,
+                values: {...state.values, totalFloors: value},
+                isValid: {...state.isValid, totalFloors: isValidValue},
+                disabled: {...state.disabled},
+                showError: {...state.showError, totalFloors: false},
+                errorMessage: {...state.errorMessage, totalFloors: errorMessage},
+                showFloorsQuery: state.showFloorsQuery,
+                showTotalFloorsQuery: state.showTotalFloorsQuery,
+                showOnPillarsQuery: state.showOnPillarsQuery,
+            }
         }
         case PPRSecondFormActionTypes.CHANGE_ON_PILLARS_STATE : {
-
+            const {value} = action.payload;
+            return {
+                completed: false,
+                values: {...state.values, onPillars: value},
+                isValid: {...state.isValid},
+                disabled: {...state.disabled},
+                showError: {...state.showError},
+                errorMessage: {...state.errorMessage},
+                showFloorsQuery: state.showFloorsQuery,
+                showTotalFloorsQuery: state.showTotalFloorsQuery,
+                showOnPillarsQuery: state.showOnPillarsQuery,
+            }
         }
         case PPRSecondFormActionTypes.CHANGE_MAILING_LIST_STATE : {
-
+            const {value} = action.payload;
+            return {
+                completed: false,
+                values: {...state.values, addToMailingList: value},
+                isValid: {...state.isValid},
+                disabled: {...state.disabled},
+                showError: {...state.showError},
+                errorMessage: {...state.errorMessage},
+                showFloorsQuery: state.showFloorsQuery,
+                showTotalFloorsQuery: state.showTotalFloorsQuery,
+                showOnPillarsQuery: state.showOnPillarsQuery,
+            }
+        }
+        case PPRSecondFormActionTypes.CHANGE_SHOW_ERROR_STATE : {
+            return {
+                completed: false,
+                values: {...state.values},
+                isValid: {...state.isValid},
+                disabled: {...state.disabled},
+                showError: {
+                    estateType:true,
+                    estateCondition:true,
+                    city:true,
+                    street:true,
+                    number:true,
+                    floor:true,
+                    totalFloors:true,
+                },
+                errorMessage: {...state.errorMessage},
+                showFloorsQuery: state.showFloorsQuery,
+                showTotalFloorsQuery: state.showTotalFloorsQuery,
+                showOnPillarsQuery: state.showOnPillarsQuery,
+            }
+        }
+        case PPRSecondFormActionTypes.CHANGE_COMPLETED_STATE : {
+            const {value} = action.payload;
+            return {
+                completed: value,
+                values: {...state.values},
+                isValid: {...state.isValid},
+                disabled: {...state.disabled},
+                showError: {...state.showError},
+                errorMessage: {...state.errorMessage},
+                showFloorsQuery: state.showFloorsQuery,
+                showTotalFloorsQuery: state.showTotalFloorsQuery,
+                showOnPillarsQuery: state.showOnPillarsQuery,
+            }
         }
         default: return {...state};
     }
