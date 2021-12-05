@@ -17,13 +17,22 @@ import { PPRFormActionsTypes } from "../../../../types/publishPrivateRealestateF
 const PublishPrivateRealestate = () => {
     
     const [formState,dispatchForm] = useReducer(PPRReducer,PPR_FORM_INITIAL_STATE);
+
     const changeFormValues = (actionType,values) => {
+        console.log(formState)
         dispatchForm(PPRFormAction(actionType,values))
     }
     const returnToPreviousForm = (selected)=> {
-        dispatchForm(PPRFormAction(PPRFormActionsTypes.CHANGE_SELECTED_FORM_STATE,selected))
+        if(formState.completed[selected])
+            dispatchForm(PPRFormAction(PPRFormActionsTypes.CHANGE_SELECTED_FORM_STATE,selected))
     }
-
+    const getDefaultDescription = () => {
+        let str = `ל${formState.values.category}, ${formState.values.estateType}, `;
+        if(formState.values.floor !== "") str += `קומה ${formState.values.floor}, `;
+        str += `ב${formState.values.city}`;
+        return str;
+    }
+    console.log(formState)
     return (
         <div className="private-realestate__selections">
             <PublishPrivateRealestatePartOne 
@@ -43,7 +52,8 @@ const PublishPrivateRealestate = () => {
             completed={formState.completed.thirdForm}
             submitFunction={changeFormValues}
             reopen={()=>returnToPreviousForm("thirdForm")}
-            returnButton={()=>returnToPreviousForm("secondForm")}/>
+            returnButton={()=>returnToPreviousForm("secondForm")}
+            getDefaultDescription={getDefaultDescription}/>
 
             <PublishPrivateRealestatePartFour
             selected={formState.selected.fourthForm}

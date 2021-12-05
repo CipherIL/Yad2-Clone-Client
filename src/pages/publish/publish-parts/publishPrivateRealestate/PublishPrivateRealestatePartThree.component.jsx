@@ -1,4 +1,4 @@
-import React, {useReducer} from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import { nanoid } from "nanoid";
 // Component Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,15 +7,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { numberOfRooms, estateFeatures } from '../../../../data/privateRealestatePublishFormData';
 
 // Reducer Imports
-import { PPRThirdFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
+import { PPRSecondFormActionTypes, PPRThirdFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
 import { PPRThirdFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
 import PPRThirdFormReducer, { PPR_THIRD_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRThirdForm.reducer";
 
-const PublishPrivateRealestatePartThree = ({selected,returnButton}) => {
+const PublishPrivateRealestatePartThree = ({selected,returnButton,completed,reopen,submitFunction,getDefaultDescription}) => {
+    
     const [formState,dispatchform] = useReducer(PPRThirdFormReducer,PPR_THIRD_FORM_INITIAL_STATE);
+    const [emptyDescriptionModal,setEmptyDescriptionModal] = useState(false);
+    const [emptyDescriptionModalText,setEmptyDescriptionModalText] = useState(getDefaultDescription());
 
-    const handleSubmit = () => {
-        console.log(formState)
+    useEffect(()=>{
+        setEmptyDescriptionModalText(getDefaultDescription())
+    },[selected,getDefaultDescription])
+
+    const handleSubmit = (e) => {
+        e.stopPropagation();
+        setEmptyDescriptionModal(false)
+        if(!formState.isValid.rooms)
+            return dispatchform(PPRThirdFormAction(PPRSecondFormActionTypes.CHANGE_SHOW_ERROR_STATE));
+        
+        if(!formState.isValid.description){
+            dispatchform(PPRThirdFormAction(PPRThirdFormActionTypes.CHANGE_DESCRIPTION_STATE,emptyDescriptionModalText));
+            setEmptyDescriptionModal(true);
+            console.log(emptyDescriptionModalText)
+        }
+        else {
+            submitFunction("CHANGE_THIRD_FORM_VALUES",formState.values);
+        }
     }
     const handleInput = (e,actionType) => {
         const value = e.target.children[0].value;
@@ -35,13 +54,47 @@ const PublishPrivateRealestatePartThree = ({selected,returnButton}) => {
     }
 
     return (
-        <div className="private-realestate__selection realestate__about">
+        <div className={"private-realestate__selection realestate__about"+(completed?" completed":"")} onClick={reopen}>
+            <div className={"private-realestate__selection__form-modal"+(emptyDescriptionModal?" show":"")} onClick={(e)=>{
+                handleSubmit(e);
+            }}>
+                <div className="private-realestate__selection__form-modal__content">
+                    <span className="private-realestate__selection__form-modal__content__close" onClick={(e)=>{
+                            handleSubmit(e);
+                    }}>&#10005;</span>
+                    <span className="private-realestate__selection__form-modal__content__title">
+                        בטוח שיש עוד מידע שכדאי שהגולשים ידעו   
+                    </span>
+                    <span className="private-realestate__selection__form-modal__content__subtitle">
+                        אנחנו הוספנו את כל מה שידוע לנו לגבי הנכס.
+                        <br/>
+                        לך נשאר להמשיך עם היתרונות שמוכרים רק לך.
+                    </span>
+                    <div className="private-realestate__selection__form-modal__content__input">
+                        <div className="private-realestate__selection__form-modal__content__input__title">
+                            <div className="private-realestate__selection__form-modal__content__input__title__text">פרוט הנכס</div>
+                            <div className="private-realestate__selection__form-modal__content__input__title__data">
+                                {`${emptyDescriptionModalText.length}/400`}</div>
+                        </div>
+                        <textarea cols="30" rows="10" maxLength="400" defaultValue={formState.values.description} onChange={(e)=>{setEmptyDescriptionModalText(e.target.value)}}></textarea>
+                    </div>
+                    <div className="private-realestate__selection__form-modal__content__buttons">
+                        <button className="private-realestate__selection__form-modal__content__buttons__submit" onClick={(e)=>{
+                            dispatchform(PPRThirdFormAction("CHANGE_DESCRIPTION_STATE",emptyDescriptionModalText));
+                            handleSubmit(e);
+                        }}>עדכנתי, בואו נמשיך</button>
+                        <button className="private-realestate__selection__form-modal__content__buttons__continue" onClick={(e)=>{
+                            handleSubmit(e);
+                        }}>לא כרגע</button>
+                    </div>
+                </div>
+            </div>
             <div className="private-realestate__selection__title">
                 <div className={"private-realestate__selection__title__number"+(selected?" selected":"")}>
-                {formState.completed?<FontAwesomeIcon icon={["fas","check"]}/>:"3"}</div>
+                {completed?<FontAwesomeIcon icon={["fas","check"]}/>:"3"}</div>
                 <div className="private-realestate__selection__title__text">על הנכס</div>
             </div>
-            {formState.completed &&
+            {completed &&
             <div className="private-realestate__selection__edit-button">
                 <FontAwesomeIcon icon={["fas","pencil-alt"]}/>
                 <div className="private-realestate__selection__edit-button__text">עריכה</div>
@@ -59,7 +112,7 @@ const PublishPrivateRealestatePartThree = ({selected,returnButton}) => {
                                     )
                                 })}
                             </select>
-                            {formState.showError.estateCondition && <span className="form-field__error">{formState.errorMessage.estateCondition}</span>}
+                            {formState.showError.rooms && <span className="form-field__error">{formState.errorMessage.rooms}</span>}
                         </div>
                         <div className="form-field radio">
                             <label className="form-field__label">חניה</label>

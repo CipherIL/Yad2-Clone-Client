@@ -48,7 +48,7 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
     const getSubtitle = () => {
         return `${formState.values.estateType} - ${formState.values.estateCondition} - ${formState.values.city} - ${formState.values.street} - ${formState.values.number}`
     }
-
+    
     return (
         <div className={"private-realestate__selection realestate__address"+(completed?" completed":"")} onClick={reopen}>
             <div className="private-realestate__selection__title">

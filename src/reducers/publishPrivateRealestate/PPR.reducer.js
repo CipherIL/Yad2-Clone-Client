@@ -88,6 +88,21 @@ const PPRReducer = (state,action) => {
                 completed: updatedCompleted,
             }
         }
+        case PPRFormActionsTypes.CHANGE_THIRD_FORM_VALUES : {
+            const {values} = action.payload;
+
+            //select next form
+            const updatedCompleted = {...state.completed, thirdForm: true}
+            const updatedSelected = {...state.selected, thirdForm:false}
+            updatedSelected[nextIncompleteForm(updatedCompleted)] = true;
+            console.log(values)
+            console.log(updatedCompleted,updatedSelected)
+            return {
+                values:{...state.values,...values},
+                selected: updatedSelected,
+                completed: updatedCompleted,
+            }
+        }
         case PPRFormActionsTypes.CHANGE_SELECTED_FORM_STATE : {
             const {values} = action.payload;
 
