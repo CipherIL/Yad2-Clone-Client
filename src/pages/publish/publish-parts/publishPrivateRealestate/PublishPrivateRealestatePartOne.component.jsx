@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const PublishPrivateRealestatePartOne = ({state,setState}) => {
+const PublishPrivateRealestatePartOne = ({selectFunction,reopen,completed}) => {
+    
+    const [state,setState] = useState("");
 
     const getTitle = (value) => {
         switch(value) {
@@ -23,44 +25,41 @@ const PublishPrivateRealestatePartOne = ({state,setState}) => {
 
     const selectType = (e,type) => {
         e.stopPropagation();
-        setState({completed:true,value:type})
-    }
-
-    const reopen = () => {
-        setState({completed:false,value:state.value})
+        setState(type);
+        selectFunction("CHANGE_FIRST_FORM_VALUES",{category:type});
     }
 
     return (
-        <div className={"private-realestate__selection realestate__type"+(state.completed?" completed":"")} onClick={reopen}>
+        <div className={"private-realestate__selection realestate__type"+(completed?" completed":"")} onClick={reopen}>
             <div className="private-realestate__selection__title">
-                <div className={"private-realestate__selection__title__number"+(!state.completed?" selected":"")}>
-                    {state.completed?<FontAwesomeIcon icon={["fas","check"]}/>:"1"}</div>
+                <div className={"private-realestate__selection__title__number"+(!completed?" selected":"")}>
+                    {completed?<FontAwesomeIcon icon={["fas","check"]}/>:"1"}</div>
                 <div className="private-realestate__selection__title__text">
-                    {state.completed && getTitle(state.value)}
-                    {!state.completed && "באיזו קטגוריה נפרסם היום?"}
+                    {completed && getTitle(state)}
+                    {!completed && "באיזו קטגוריה נפרסם היום?"}
                 </div>
             </div>
-            {state.completed &&
+            {completed &&
             <div className="private-realestate__selection__edit-button">
                 <FontAwesomeIcon icon={["fas","pencil-alt"]}/>
                 <div className="private-realestate__selection__edit-button__text">עריכה</div>
             </div>}
-            { !state.completed && <>
+            { !completed && <>
             <div className="private-realestate__selection__selections">
                 <button className="private-realestate__selection__button" onClick={(e)=>selectType(e,"מכירה")}>
                     <img src="/svgs/sale_realestate.svg" alt="sale" className="private-realestate__selection__button__icon"/>
                     <div className="private-realestate__selection__button__title">מכירה</div>
                 </button>
                 <button className="private-realestate__selection__button" onClick={(e)=>selectType(e,"השכרה")}>
-                    <img src="/svgs/renting_realestate.svg" alt="sale" className="private-realestate__selection__button__icon"/>
+                    <img src="/svgs/renting_realestate.svg" alt="rent" className="private-realestate__selection__button__icon"/>
                     <div className="private-realestate__selection__button__title">השכרה</div>
                 </button>
                 <button className="private-realestate__selection__button" onClick={(e)=>selectType(e,"שותפים")}>
-                    <img src="/svgs/partners_realestate.svg" alt="sale" className="private-realestate__selection__button__icon"/>
+                    <img src="/svgs/partners_realestate.svg" alt="roomates" className="private-realestate__selection__button__icon"/>
                     <div className="private-realestate__selection__button__title">שותפים</div>
                 </button>
                 <button className="private-realestate__selection__button" onClick={(e)=>selectType(e,"מסחרי")}>
-                    <img src="/svgs/business_realestate.svg" alt="sale" className="private-realestate__selection__button__icon"/>
+                    <img src="/svgs/business_realestate.svg" alt="business" className="private-realestate__selection__button__icon"/>
                     <div className="private-realestate__selection__button__title">מסחרי</div>
                 </button>
             </div>

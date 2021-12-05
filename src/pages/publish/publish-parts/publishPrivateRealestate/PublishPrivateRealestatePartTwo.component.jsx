@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useReducer } from "react";
+import { nanoid } from "nanoid";
 
 // Component Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,26 +9,27 @@ import FormFieldSingleInput from "../../../../components/custom/FormFieldSingleI
 import { typeofEstate, estateCondition } from "../../../../data/privateRealestatePublishFormData";
 
 // Form Reducer Imports
+import PPRSecondFormReducer, { PPR_SECOND_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRSecondForm.reducer";
 import { PPRSecondFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
 import { PPRSecondFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
-import { nanoid } from "nanoid";
 
-const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton}) => {
+const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reopen,returnButton}) => {
 
+    const [formState,dispatchForm] = useReducer(PPRSecondFormReducer,PPR_SECOND_FORM_INITIAL_STATE);
     const handleInput = (e,actionType) => {
         const value = e.target.value;
         e.target.value = value;
-        setState(PPRSecondFormAction(actionType,value));
+        dispatchForm(PPRSecondFormAction(actionType,value));
     }
     const handleCheckbox = (e,actionType) => {
         const value = e.target.checked;
-        setState(PPRSecondFormAction(actionType,value))
+        dispatchForm(PPRSecondFormAction(actionType,value))
     }
     const handleNumberInput = (e,actionType) => {
         const value = e.target.value;
         if(value==="" || !isNaN(parseInt(value.at(-1)))){            
             e.target.value = value;
-            setState(PPRSecondFormAction(actionType,value));
+            dispatchForm(PPRSecondFormAction(actionType,value));
         }
         else {            
             if(value.length===1) e.target.value = "";
@@ -37,28 +39,25 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton})
     const handleSubmit = (e) => {
         e.stopPropagation();
         //if any field is invalid
-        if(Object.keys(state.isValid).some(key=>state.isValid[key] === false))
-            setState(PPRSecondFormAction(PPRSecondFormActionTypes.CHANGE_SHOW_ERROR_STATE))
+        if(Object.keys(formState.isValid).some(key=>formState.isValid[key] === false))
+            dispatchForm(PPRSecondFormAction(PPRSecondFormActionTypes.CHANGE_SHOW_ERROR_STATE))
         else {
-            setState(PPRSecondFormAction(PPRSecondFormActionTypes.CHANGE_COMPLETED_STATE,true))
+            submitFunction("CHANGE_SECOND_FORM_VALUES",formState.values);
         }
     }
-    const reopen = () => {
-        setState(PPRSecondFormAction(PPRSecondFormActionTypes.CHANGE_COMPLETED_STATE,false))
-    }
     const getSubtitle = () => {
-        return `${state.values.estateType} - ${state.values.estateCondition} - ${state.values.city} - ${state.values.street} - ${state.values.number}`
+        return `${formState.values.estateType} - ${formState.values.estateCondition} - ${formState.values.city} - ${formState.values.street} - ${formState.values.number}`
     }
 
     return (
-        <div className={"private-realestate__selection realestate__address"+(state.completed?" completed":"")} onClick={reopen}>
+        <div className={"private-realestate__selection realestate__address"+(completed?" completed":"")} onClick={reopen}>
             <div className="private-realestate__selection__title">
                 <div className={"private-realestate__selection__title__number"+(selected?" selected":"")}>
-                {state.completed?<FontAwesomeIcon icon={["fas","check"]}/>:"2"}</div>
+                {completed?<FontAwesomeIcon icon={["fas","check"]}/>:"2"}</div>
                 <div className="private-realestate__selection__title__text">כתובת הנכס</div>
-                {state.completed && <span className="private-realestate__selection__subtitle">{getSubtitle()}</span>}
+                {completed && <span className="private-realestate__selection__subtitle">{getSubtitle()}</span>}
             </div>
-            {state.completed &&
+            {completed &&
             <div className="private-realestate__selection__edit-button">
                 <FontAwesomeIcon icon={["fas","pencil-alt"]}/>
                 <div className="private-realestate__selection__edit-button__text">עריכה</div>
@@ -68,7 +67,7 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton})
                     <form>
                         <div className="form-field">
                             <label className="form-field__label">סוג הנכס*</label>
-                            <select className="form-field__select" value={state.values.estateType} onChange={(e)=>{handleInput(e,PPRSecondFormActionTypes.CHANGE_ESTATE_TYPE_STATE)}}>
+                            <select className="form-field__select" value={formState.values.estateType} onChange={(e)=>{handleInput(e,PPRSecondFormActionTypes.CHANGE_ESTATE_TYPE_STATE)}}>
                                 <option value="" disabled hidden>דירה או אולי פנטהאוז?</option>
                                 {typeofEstate.map(type=>{
                                     return (
@@ -76,11 +75,11 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton})
                                     )
                                 })}
                             </select>
-                            {state.showError.estateType && <span className="form-field__error">{state.errorMessage.estateType}</span>}
+                            {formState.showError.estateType && <span className="form-field__error">{formState.errorMessage.estateType}</span>}
                         </div>
                         <div className="form-field">
                             <label className="form-field__label">מצב הנכס*</label>
-                            <select className="form-field__select" value={state.values.estateCondition} onChange={(e)=>{handleInput(e,PPRSecondFormActionTypes.CHANGE_ESTATE_CONDITION_STATE)}}>
+                            <select className="form-field__select" value={formState.values.estateCondition} onChange={(e)=>{handleInput(e,PPRSecondFormActionTypes.CHANGE_ESTATE_CONDITION_STATE)}}>
                                 <option value="" disabled hidden>משופץ? חדש מקבלן?</option>
                                 {estateCondition.map(type=>{
                                     return (
@@ -88,64 +87,64 @@ const PublishPrivateRealestatePartTwo = ({state,setState,selected,returnButton})
                                     )
                                 })}
                             </select>
-                            {state.showError.estateCondition && <span className="form-field__error">{state.errorMessage.estateCondition}</span>}
+                            {formState.showError.estateCondition && <span className="form-field__error">{formState.errorMessage.estateCondition}</span>}
                         </div>
 
                         <FormFieldSingleInput 
                         labelText="ישוב*" 
                         placeHolder="הכנסת שם ישוב" 
                         updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_CITY_STATE)}
-                        defaultValue={state.values.city}
-                        errorMessage = {state.showError.city && state.errorMessage.city}
+                        defaultValue={formState.values.city}
+                        errorMessage = {formState.showError.city && formState.errorMessage.city}
                         />
 
                         <FormFieldSingleInput 
                         labelText="רחוב*" 
                         placeHolder="הכנסת שם רחוב" 
-                        isDisabled={state.disabled.street} 
+                        isDisabled={formState.disabled.street} 
                         updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_STREET_STATE)}
-                        defaultValue={state.values.street}
-                        errorMessage = {state.showError.street && state.errorMessage.street}/>
+                        defaultValue={formState.values.street}
+                        errorMessage = {formState.showError.street && formState.errorMessage.street}/>
                         
                         <FormFieldSingleInput 
                         labelText="מס' בית" 
-                        isDisabled={state.disabled.number} 
+                        isDisabled={formState.disabled.number} 
                         updateFunction={(e)=>handleNumberInput(e,PPRSecondFormActionTypes.CHANGE_NUMBER_STATE)}
-                        defaultValue={state.values.number}
-                        errorMessage = {state.showError.number && state.errorMessage.number}/>
+                        defaultValue={formState.values.number}
+                        errorMessage = {formState.showError.number && formState.errorMessage.number}/>
                         
                         <div className="form-section">
-                            {state.showFloorsQuery && <FormFieldSingleInput 
+                            {formState.showFloorsQuery && <FormFieldSingleInput 
                             labelText="קומה*" 
                             placeHolder={"הכנסת מס' קומה"} 
-                            isDisabled={state.disabled.floor} 
+                            isDisabled={formState.disabled.floor} 
                             updateFunction={(e)=>handleNumberInput(e,PPRSecondFormActionTypes.CHANGE_FLOOR_STATE)} 
-                            defaultValue={state.values.floor}
-                            errorMessage = {state.showError.floor && state.errorMessage.floor}/>}
+                            defaultValue={formState.values.floor}
+                            errorMessage = {formState.showError.floor && formState.errorMessage.floor}/>}
 
-                            {state.showTotalFloorsQuery && <FormFieldSingleInput 
+                            {formState.showTotalFloorsQuery && <FormFieldSingleInput 
                             labelText='סה"כ קומות בבניין*' 
                             placeHolder={'הכנסת סה"כ קומות'} 
-                            isDisabled={state.disabled.totalFloors} 
+                            isDisabled={formState.disabled.totalFloors} 
                             updateFunction={(e)=>handleNumberInput(e,PPRSecondFormActionTypes.CHANGE_TOTAL_FLOORS_STATE)}
-                            defaultValue={state.values.totalFloors}
-                            errorMessage = {state.showError.totalFloors && state.errorMessage.totalFloors}/>}
+                            defaultValue={formState.values.totalFloors}
+                            errorMessage = {formState.showError.totalFloors && formState.errorMessage.totalFloors}/>}
 
-                            {state.showOnPillarsQuery && <FormFieldSingleInput 
+                            {formState.showOnPillarsQuery && <FormFieldSingleInput 
                             labelText="על עמודים" 
                             inputType="checkbox" 
                             customClass=" checkbox" 
-                            isDisabled={state.disabled.onPillars} 
+                            isDisabled={formState.disabled.onPillars} 
                             updateFunction={(e)=>handleCheckbox(e,PPRSecondFormActionTypes.CHANGE_ON_PILLARS_STATE)}
-                            defaultChecked={state.values.onPillars}/>}
+                            defaultChecked={formState.values.onPillars}/>}
                         </div>
 
                         <FormFieldSingleInput 
                         labelText='אני רוצה לקבל הודעות עדכון חודשי במייל עם הערכת שווי מעודכנת עבור הנכס, עסקאות באזור והצעות מקצועיות מיועצי נדל"ן'
                         inputType="checkbox" customClass=" checkbox" 
-                        isDisabled={state.disabled.addToMailingList} 
+                        isDisabled={formState.disabled.addToMailingList} 
                         updateFunction={(e)=>handleCheckbox(e,PPRSecondFormActionTypes.CHANGE_MAILING_LIST_STATE)}
-                        defaultChecked={state.values.addToMailingList}/>
+                        defaultChecked={formState.values.addToMailingList}/>
 
                     </form>
                 </div>

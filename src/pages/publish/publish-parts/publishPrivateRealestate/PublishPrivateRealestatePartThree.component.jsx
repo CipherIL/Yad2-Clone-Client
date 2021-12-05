@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useReducer} from "react";
 import { nanoid } from "nanoid";
 // Component Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,35 +7,41 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { numberOfRooms, estateFeatures } from '../../../../data/privateRealestatePublishFormData';
 
 // Reducer Imports
-import { PPRSecondFormActionTypes, PPRThirdFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
+import { PPRThirdFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
 import { PPRThirdFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
+import PPRThirdFormReducer, { PPR_THIRD_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRThirdForm.reducer";
 
-const PublishPrivateRealestatePartThree = ({state,setState,selected,returnButton}) => {
+const PublishPrivateRealestatePartThree = ({selected,returnButton}) => {
+    const [formState,dispatchform] = useReducer(PPRThirdFormReducer,PPR_THIRD_FORM_INITIAL_STATE);
 
     const handleSubmit = () => {
-
+        console.log(formState)
     }
     const handleInput = (e,actionType) => {
         const value = e.target.children[0].value;
-        setState(PPRThirdFormAction(actionType,value))
+        dispatchform(PPRThirdFormAction(actionType,value))
     }
     const handleCheckboxInput = (e,key,actionType) => {
         const value = e.target.children[0].checked;
-        setState(PPRThirdFormAction(actionType,!value,key))
+        dispatchform(PPRThirdFormAction(actionType,!value,key))
     }
     const handleTextareaInput = (e,actionType) => {
         const value = e.target.value;
-        setState(PPRThirdFormAction(actionType,value))
+        dispatchform(PPRThirdFormAction(actionType,value))
+    }
+    const handleSelectInput = (e,actionType) => {
+        const value = e.target.value
+        dispatchform(PPRThirdFormAction(actionType,value))
     }
 
     return (
         <div className="private-realestate__selection realestate__about">
             <div className="private-realestate__selection__title">
                 <div className={"private-realestate__selection__title__number"+(selected?" selected":"")}>
-                {state.completed?<FontAwesomeIcon icon={["fas","check"]}/>:"3"}</div>
+                {formState.completed?<FontAwesomeIcon icon={["fas","check"]}/>:"3"}</div>
                 <div className="private-realestate__selection__title__text">על הנכס</div>
             </div>
-            {state.completed &&
+            {formState.completed &&
             <div className="private-realestate__selection__edit-button">
                 <FontAwesomeIcon icon={["fas","pencil-alt"]}/>
                 <div className="private-realestate__selection__edit-button__text">עריכה</div>
@@ -45,7 +51,7 @@ const PublishPrivateRealestatePartThree = ({state,setState,selected,returnButton
                     <form>
                         <div className="form-field select">
                             <label className="form-field__label">מספר חדרים*</label>
-                            <select className="form-field__select" value={state.values.rooms} onChange={(e)=>{handleInput(e,PPRThirdFormActionTypes.CHANGE_ROOMS_STATE)}}>
+                            <select className="form-field__select" value={formState.values.rooms} onChange={(e)=>{handleSelectInput(e,PPRThirdFormActionTypes.CHANGE_ROOMS_STATE)}}>
                                 <option value="" disabled hidden>בחירת מספר חדרים</option>
                                 {numberOfRooms.map(type=>{
                                     return (
@@ -53,29 +59,29 @@ const PublishPrivateRealestatePartThree = ({state,setState,selected,returnButton
                                     )
                                 })}
                             </select>
-                            {state.showError.estateCondition && <span className="form-field__error">{state.errorMessage.estateCondition}</span>}
+                            {formState.showError.estateCondition && <span className="form-field__error">{formState.errorMessage.estateCondition}</span>}
                         </div>
                         <div className="form-field radio">
                             <label className="form-field__label">חניה</label>
                             <div className="form-field__radio-options">
-                                <div className={"form-field__radio-option"+(state.values.parkingSpots==="ללא"?" selected":"")}
+                                <div className={"form-field__radio-option"+(formState.values.parkingSpots==="ללא"?" selected":"")}
                                 onClick={(e)=>handleInput(e,PPRThirdFormActionTypes.CHANGE_PARKING_STATE)}>
-                                    <input type="radio" name="parking" value="ללא" checked={state.values.parkingSpots==="ללא"} readOnly/>
+                                    <input type="radio" name="parking" value="ללא" checked={formState.values.parkingSpots==="ללא"} readOnly/>
                                     <label>ללא</label>
                                 </div>
-                                <div className={"form-field__radio-option"+(state.values.parkingSpots==="1"?" selected":"")}
+                                <div className={"form-field__radio-option"+(formState.values.parkingSpots==="1"?" selected":"")}
                                 onClick={(e)=>handleInput(e,PPRThirdFormActionTypes.CHANGE_PARKING_STATE)}>
-                                    <input type="radio" name="parking" value="1" checked={state.values.parkingSpots==="1"} readOnly/>
+                                    <input type="radio" name="parking" value="1" checked={formState.values.parkingSpots==="1"} readOnly/>
                                     <label>1</label>
                                 </div>
-                                <div className={"form-field__radio-option"+(state.values.parkingSpots==="2"?" selected":"")}
+                                <div className={"form-field__radio-option"+(formState.values.parkingSpots==="2"?" selected":"")}
                                 onClick={(e)=>handleInput(e,PPRThirdFormActionTypes.CHANGE_PARKING_STATE)}>
-                                    <input type="radio" name="parking" value="2" checked={state.values.parkingSpots==="2"} readOnly/>
+                                    <input type="radio" name="parking" value="2" checked={formState.values.parkingSpots==="2"} readOnly/>
                                     <label>2</label>
                                 </div>
-                                <div className={"form-field__radio-option"+(state.values.parkingSpots==="3"?" selected":"")}
+                                <div className={"form-field__radio-option"+(formState.values.parkingSpots==="3"?" selected":"")}
                                 onClick={(e)=>handleInput(e,PPRThirdFormActionTypes.CHANGE_PARKING_STATE)}>
-                                    <input type="radio" name="parking" value="3" checked={state.values.parkingSpots==="3"} readOnly/>
+                                    <input type="radio" name="parking" value="3" checked={formState.values.parkingSpots==="3"} readOnly/>
                                     <label>3</label>
                                 </div>                                
                             </div>                        
@@ -83,24 +89,24 @@ const PublishPrivateRealestatePartThree = ({state,setState,selected,returnButton
                         <div className="form-field radio">
                             <label className="form-field__label">מרפסת</label>
                             <div className="form-field__radio-options">
-                                <div className={"form-field__radio-option"+(state.values.balconies==="ללא"?" selected":"")}
+                                <div className={"form-field__radio-option"+(formState.values.balconies==="ללא"?" selected":"")}
                                 onClick={(e)=>handleInput(e,PPRThirdFormActionTypes.CHANGE_BALCONIES_STATE)}>
-                                    <input type="radio" name="balconies" value="ללא" checked={state.values.balconies==="ללא"} readOnly/>
+                                    <input type="radio" name="balconies" value="ללא" checked={formState.values.balconies==="ללא"} readOnly/>
                                     <label>ללא</label>
                                 </div>
-                                <div className={"form-field__radio-option"+(state.values.balconies==="1"?" selected":"")}
+                                <div className={"form-field__radio-option"+(formState.values.balconies==="1"?" selected":"")}
                                 onClick={(e)=>handleInput(e,PPRThirdFormActionTypes.CHANGE_BALCONIES_STATE)}>
-                                    <input type="radio" name="balconies" value="1" checked={state.values.balconies==="1"} readOnly/>
+                                    <input type="radio" name="balconies" value="1" checked={formState.values.balconies==="1"} readOnly/>
                                     <label>1</label>
                                 </div>
-                                <div className={"form-field__radio-option"+(state.values.balconies==="2"?" selected":"")}
+                                <div className={"form-field__radio-option"+(formState.values.balconies==="2"?" selected":"")}
                                 onClick={(e)=>handleInput(e,PPRThirdFormActionTypes.CHANGE_BALCONIES_STATE)}>
-                                    <input type="radio" name="balconies" value="2" checked={state.values.balconies==="2"} readOnly/>
+                                    <input type="radio" name="balconies" value="2" checked={formState.values.balconies==="2"} readOnly/>
                                     <label>2</label>
                                 </div>
-                                <div className={"form-field__radio-option"+(state.values.balconies==="3"?" selected":"")}
+                                <div className={"form-field__radio-option"+(formState.values.balconies==="3"?" selected":"")}
                                 onClick={(e)=>handleInput(e,PPRThirdFormActionTypes.CHANGE_BALCONIES_STATE)}>
-                                    <input type="radio" name="balconies" value="3" checked={state.values.balconies==="3"} readOnly/>
+                                    <input type="radio" name="balconies" value="3" checked={formState.values.balconies==="3"} readOnly/>
                                     <label>3</label>
                                 </div>                                
                             </div>   
@@ -109,9 +115,9 @@ const PublishPrivateRealestatePartThree = ({state,setState,selected,returnButton
                         <div className="form-field features">
                             {estateFeatures.map(feature=>{
                                 return (
-                                    <div className={"feature-container"+(state.values.features[feature.text]?" checked":"")} key={nanoid()}
+                                    <div className={"feature-container"+(formState.values.features[feature.text]?" checked":"")} key={nanoid()}
                                     onClick={(e)=>handleCheckboxInput(e,feature.text,PPRThirdFormActionTypes.CHANGE_FEATURES_STATE)}>
-                                        <input readOnly type="checkbox" checked={state.values.features[feature.text]}/>
+                                        <input readOnly type="checkbox" checked={formState.values.features[feature.text]}/>
                                         <FontAwesomeIcon icon={feature.logo}/>
                                         <label>{feature.text}</label>
                                     </div>
@@ -122,10 +128,9 @@ const PublishPrivateRealestatePartThree = ({state,setState,selected,returnButton
                         <div className="form-field text-area">
                             <div className="form-field__title">
                                 <div className="form-field__title__label">פרוט הנכס</div>
-                                <div className="form-field__title__limit">{state.values.description.length+"/400"}</div>
+                                <div className="form-field__title__limit">{formState.values.description.length+"/400"}</div>
                             </div>
-                            {/* FIXME: fix this input */}
-                            <input type="textarea" maxLength="400"
+                            <textarea maxLength="400" defaultValue={formState.values.description}
                             onChange={(e)=>handleTextareaInput(e,PPRThirdFormActionTypes.CHANGE_DESCRIPTION_STATE)}
                             placeholder={"זה המקום לתאר את הפרטים הבולטים, למשל, האם נערך שיפוץ במבנה, מה שופץ, כיווני אוויר, האווירה ברחוב וכו'"}/>
                         </div>

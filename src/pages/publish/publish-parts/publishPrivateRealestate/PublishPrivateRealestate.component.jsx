@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 
 // Component Imports
 import PublishPrivateRealestatePartOne from "./PublishPrivateRealestatePartOne.component";
@@ -8,40 +8,70 @@ import PublishPrivateRealestatePartFour from "./PublishPrivateRealestatePartFour
 import PublishPrivateRealestatePartFive from "./PublishPrivateRealestatePartFive.component";
 import PublishPrivateRealestatePartSix from "./PublishPrivateRealestatePartSix.component";
 import PublishPrivateRealestatePartSeven from "./PublishPrivateRealestatePartSeven.component";
+
 // Form Reducers Imports
-import PPRSecondFormReducer, { PPR_SECOND_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRSecondForm.reducer";
-import { PPRSecondFormAction } from "../../../../actions/publishPrivateRealestateForm.actions"
-import PPRThirdFormReducer, { PPR_THIRD_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRThirdForm.reducer";
+import PPRReducer, { PPR_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPR.reducer";
+import { PPRFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
+import { PPRFormActionsTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
 
 const PublishPrivateRealestate = () => {
     
-    const [firstFormState,setFirstFormState] = useState({completed:false,value:""});
-    const [secondFormState,dispatchSecondForm] = useReducer(PPRSecondFormReducer,PPR_SECOND_FORM_INITIAL_STATE);
-    const [thirdFormState,dispatchThirdForm] = useReducer(PPRThirdFormReducer,PPR_THIRD_FORM_INITIAL_STATE);
-        
-    //FIXME: add a function that when returning to a previous form for changes,
-    //sets all form after it as uncompleted
+    const [formState,dispatchForm] = useReducer(PPRReducer,PPR_FORM_INITIAL_STATE);
+    const changeFormValues = (actionType,values) => {
+        dispatchForm(PPRFormAction(actionType,values))
+    }
+    const returnToPreviousForm = (selected)=> {
+        dispatchForm(PPRFormAction(PPRFormActionsTypes.CHANGE_SELECTED_FORM_STATE,selected))
+    }
 
     return (
         <div className="private-realestate__selections">
             <PublishPrivateRealestatePartOne 
-            state={firstFormState} setState={setFirstFormState}/>
+            selectFunction={changeFormValues}
+            reopen={()=>returnToPreviousForm("firstForm")}
+            completed={formState.completed.firstForm}/>
 
             <PublishPrivateRealestatePartTwo 
-            state={secondFormState} setState={dispatchSecondForm} 
-            selected={firstFormState.completed && !secondFormState.completed}
-            returnButton={()=>{setFirstFormState({completed:false,value:firstFormState.value})}}/>
+            selected={formState.selected.secondForm}
+            completed={formState.completed.secondForm}
+            submitFunction={changeFormValues}
+            reopen={()=>returnToPreviousForm("secondForm")}
+            returnButton={()=>returnToPreviousForm("firstForm")}/>
 
             <PublishPrivateRealestatePartThree 
-            state={thirdFormState}
-            setState={dispatchThirdForm}
-            selected={secondFormState.completed}
-            returnButton={()=>{console.log("Test");dispatchSecondForm(PPRSecondFormAction("CHANGE_COMPLETED_STATE",false))}}/>
+            selected={formState.selected.thirdForm}
+            completed={formState.completed.thirdForm}
+            submitFunction={changeFormValues}
+            reopen={()=>returnToPreviousForm("thirdForm")}
+            returnButton={()=>returnToPreviousForm("secondForm")}/>
 
-            <PublishPrivateRealestatePartFour state={{completed:false}} selected={false}/>
-            <PublishPrivateRealestatePartFive state={{completed:false}} selected={false}/>
-            <PublishPrivateRealestatePartSix state={{completed:false}} selected={false}/>
-            <PublishPrivateRealestatePartSeven state={{completed:false}} selected={false}/>
+            <PublishPrivateRealestatePartFour
+            selected={formState.selected.fourthForm}
+            completed={formState.completed.fourthForm}
+            submitFunction={changeFormValues}
+            reopen={()=>returnToPreviousForm("fourthForm")}
+            returnButton={()=>returnToPreviousForm("thirdForm")}/>
+
+            <PublishPrivateRealestatePartFive
+            selected={formState.selected.fifthForm}
+            completed={formState.completed.fifthForm}
+            submitFunction={changeFormValues}
+            reopen={()=>returnToPreviousForm("fifthForm")}
+            returnButton={()=>returnToPreviousForm("fourthForm")}/>
+
+            <PublishPrivateRealestatePartSix
+            selected={formState.selected.sixthForm}
+            completed={formState.completed.sixthForm}
+            submitFunction={changeFormValues}
+            reopen={()=>returnToPreviousForm("sixthForm")}
+            returnButton={()=>returnToPreviousForm("fifthForm")}/>
+
+            <PublishPrivateRealestatePartSeven
+            selected={formState.selected.seventhForm}
+            completed={formState.completed.seventhForm}
+            submitFunction={changeFormValues}
+            reopen={()=>returnToPreviousForm("seventhForm")}
+            returnButton={()=>returnToPreviousForm("sixthForm")}/>
         </div>
     )
 }

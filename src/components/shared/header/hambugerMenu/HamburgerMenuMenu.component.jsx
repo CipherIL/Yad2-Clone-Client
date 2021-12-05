@@ -13,7 +13,7 @@ const HamburgerMenuMenu = ({showHamburgerMenu,setShowHamburgerMenu}) => {
     const [modalBGClassName,setModalBGClassName] = useState("hamburger-menu__menu__modal__background hide");
     const [modalSideBarClassName,setModalSideBarClassName] = useState("hamburger-menu__menu__modal__sidebar hide");
     const [selectedCategory,setSelectedCategory] = useState(undefined);
-    const {user,setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     
     const closeHamburgerMenu = () => {
         setShowHamburgerMenu(false);

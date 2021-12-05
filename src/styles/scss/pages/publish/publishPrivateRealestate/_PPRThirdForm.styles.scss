@@ -1,8 +1,25 @@
 .private-realestate__selection.realestate__about {
     .form-container {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 40px;
+
+        .form__section-name {
+            font-weight: 500;
+            font-size: 16.8px;
+            color: #333333
+        }
 
         .form-field {
             display: flex;
+            row-gap: 10px;
+            margin: 20px 0;
+        
+            .form-field__label,
+            .form-field__title__label {
+                font-size: 14px;
+            }
+
             &.radio {
                 flex-direction: column;
                 width: 100%;
@@ -50,6 +67,7 @@
                     }
                 }
             }
+
             &.features {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
@@ -83,25 +101,35 @@
                     }
                 }
             }
+
             &.text-area {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
-                width: 50%;
+                width: 100%;
                 .form-field__title {
-                    width: 80%;
+                    width: 50%;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                 }
-                input {
-                    width: 80%;
-                    height: 150px;
+                textarea {
+                    width: 50% !important ;
+                    height: 156px !important;
                     padding: 16px 10px 20px 70px;
-                    
+                    resize: none;
+                    font-size: 16px;
                 }
             }
 
+            &.select {
+                flex-direction: column;
+                width: 25%;
+                .form-field__select {
+                    height: 42px;
+                    font-size: 14px;
+                }
+            }
         }
     }
 }

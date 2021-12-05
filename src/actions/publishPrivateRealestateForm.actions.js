@@ -1,3 +1,10 @@
+export const PPRFormAction = (type,values) => ({
+    type,
+    payload: {
+        values
+    }  
+})
+
 export const PPRSecondFormAction = (type,value) => ({
     type,
     payload: {

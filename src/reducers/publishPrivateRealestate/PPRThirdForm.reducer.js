@@ -38,11 +38,10 @@ const PPRThirdFormReducer = (state,action) => {
     switch(action.type) {
         case PPRThirdFormActionTypes.CHANGE_ROOMS_STATE : {
             const {value} = action.payload;
-            console.log(value)
             return {
                 completed: false,
                 values: {...state.values, rooms: value},
-                isValid: {...state.isValid},
+                isValid: {...state.isValid, rooms: true},
                 showError: {...state.showError},
                 errorMessage:{...state.errorMessage, rooms: ""}
             }
