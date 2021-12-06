@@ -26,3 +26,10 @@ export const PPRFourthFormAction = (type,value) => ({
         value
     }
 })
+
+export const PPRSixthFormAction = (type,value) => ({
+    type,
+    payload: {
+        value
+    }
+})
