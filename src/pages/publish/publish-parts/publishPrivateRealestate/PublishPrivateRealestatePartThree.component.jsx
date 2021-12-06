@@ -52,7 +52,9 @@ const PublishPrivateRealestatePartThree = ({selected,returnButton,completed,reop
         const value = e.target.value
         dispatchform(PPRThirdFormAction(actionType,value))
     }
-
+    const getSubtitle = () => {
+        return `${formState.values.rooms} חדרים`
+    }
     return (
         <div className={"private-realestate__selection realestate__about"+(completed?" completed":"")} onClick={reopen}>
             <div className={"private-realestate__selection__form-modal"+(emptyDescriptionModal?" show":"")} onClick={(e)=>{
@@ -93,6 +95,7 @@ const PublishPrivateRealestatePartThree = ({selected,returnButton,completed,reop
                 <div className={"private-realestate__selection__title__number"+(selected?" selected":"")}>
                 {completed?<FontAwesomeIcon icon={["fas","check"]}/>:"3"}</div>
                 <div className="private-realestate__selection__title__text">על הנכס</div>
+                {completed && <span className="private-realestate__selection__subtitle">{getSubtitle()}</span>}
             </div>
             {completed &&
             <div className="private-realestate__selection__edit-button">

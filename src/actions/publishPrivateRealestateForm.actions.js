@@ -19,3 +19,10 @@ export const PPRThirdFormAction = (type,value,key="") => ({
         value,
     }
 })
+
+export const PPRFourthFormAction = (type,value) => ({
+    type,
+    payload: {
+        value
+    }
+})

@@ -19,8 +19,8 @@ const PublishPrivateRealestate = () => {
     const [formState,dispatchForm] = useReducer(PPRReducer,PPR_FORM_INITIAL_STATE);
 
     const changeFormValues = (actionType,values) => {
-        console.log(formState)
         dispatchForm(PPRFormAction(actionType,values))
+        console.log(values)
     }
     const returnToPreviousForm = (selected)=> {
         if(formState.completed[selected])
@@ -32,7 +32,8 @@ const PublishPrivateRealestate = () => {
         str += `ב${formState.values.city}`;
         return str;
     }
-    console.log(formState)
+    
+
     return (
         <div className="private-realestate__selections">
             <PublishPrivateRealestatePartOne 

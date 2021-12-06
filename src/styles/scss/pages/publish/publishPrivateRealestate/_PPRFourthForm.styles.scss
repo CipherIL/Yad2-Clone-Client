@@ -1,0 +1,52 @@
+.private-realestate__selection.realestate-payment {
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        
+        width: 100%;
+        margin: 20px 0;
+        padding: 0 50px;
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            row-gap: 5px;
+            width: 50%;
+
+            .form-field__label {
+                font-size: 14px;
+                color: #333333;
+                width: 50%;
+            }
+            .form-field__input {
+                input {
+                    width: 50%;
+                    height: 40px;
+                }
+            }
+            &.check {
+                width: 25%;
+                flex-direction: row;
+                justify-content: space-between;
+                .form-field__check-field {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    input {
+                        width: 20px;
+                        height: 20px;
+                        &:checked {
+                            width: 15px;
+                            height: 15px;
+                        }
+                    }
+                    label {
+                        font-size: 14px;
+                        color: #333333;
+                    }
+                }
+            }
+        }
+    }
+}

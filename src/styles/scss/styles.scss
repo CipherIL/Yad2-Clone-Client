@@ -14,6 +14,7 @@
 @import './components/custom/publishAdButton.styles';
 @import './components/custom/userAvatar.styles';
 @import './components/custom/formSubmitButton.styles';
+@import './components/custom/imageUpload.styles';
 
 /////////////////////////////////Pages/////////////////////////////////
 @import './pages/page-content.styles';
@@ -33,5 +34,7 @@
 @import './pages/publish/publishPrivateRealestate/realestateTypeSelection.styles';
 @import './pages/publish/publishPrivateRealestate/realestateAddress.styles';
 @import './pages/publish/publishPrivateRealestate/PPRThirdForm.styles';
+@import './pages/publish/publishPrivateRealestate/PPRFourthForm.styles';
+@import './pages/publish/publishPrivateRealestate/PPRFifthForm.styles';
 //Page Not Found
 @import './pages/notFound/pageNotFound.styles';

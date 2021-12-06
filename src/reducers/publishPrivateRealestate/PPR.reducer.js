@@ -32,6 +32,10 @@ export const PPR_FORM_INITIAL_STATE = {
             metalBars: false,
         },
         description: "",
+        //fourthFormValues
+
+        //fifthFormValues
+
     },
     selected: {
         firstForm: true,
@@ -95,13 +99,40 @@ const PPRReducer = (state,action) => {
             const updatedCompleted = {...state.completed, thirdForm: true}
             const updatedSelected = {...state.selected, thirdForm:false}
             updatedSelected[nextIncompleteForm(updatedCompleted)] = true;
-            console.log(values)
-            console.log(updatedCompleted,updatedSelected)
+
             return {
                 values:{...state.values,...values},
                 selected: updatedSelected,
                 completed: updatedCompleted,
             }
+        }
+        case PPRFormActionsTypes.CHANGE_FOURTH_FORM_VALUES : {
+            const {values} = action.payload;
+
+            //select next form
+            const updatedCompleted = {...state.completed, fourthForm: true}
+            const updatedSelected = {...state.selected, fourthForm: false}
+            updatedSelected[nextIncompleteForm(updatedCompleted)] = true;
+
+            return {
+                values: {...state.values,...values},
+                selected: updatedSelected,
+                completed: updatedCompleted,
+            }
+        }
+        case PPRFormActionsTypes.CHANGE_FIFTH_FORM_VALUES : {
+            const {values} = action.payload;
+            
+            //select next form
+            const updatedCompleted = {...state.completed, fifthForm: true}
+            const updatedSelected = {...state.selected, fifthForm: false}
+            updatedSelected[nextIncompleteForm(updatedCompleted)] = true;
+
+            return {
+                values: {...state.values,...values},
+                selected: updatedSelected,
+                completed: updatedCompleted,
+            }        
         }
         case PPRFormActionsTypes.CHANGE_SELECTED_FORM_STATE : {
             const {values} = action.payload;
@@ -120,6 +151,7 @@ const PPRReducer = (state,action) => {
                 completed: updatedCompleted,
             }
         }
+        
         default : return {...state};
     }
 }
