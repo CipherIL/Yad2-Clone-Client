@@ -33,7 +33,7 @@ const PublishPrivateRealestate = () => {
         return str;
     }
     
-
+    console.log(formState)
     return (
         <div className="private-realestate__selections">
             <PublishPrivateRealestatePartOne 
