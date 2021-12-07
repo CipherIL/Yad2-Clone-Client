@@ -24,7 +24,7 @@ const PublishPrivateRealestate = () => {
     }
     const returnToPreviousForm = (selected)=> {
         if(formState.completed[selected])
-            dispatchForm(PPRFormAction(PPRFormActionsTypes.CHANGE_SELECTED_FORM_STATE,selected))
+            dispatchForm(PPRFormAction(PPRFormActionsTypes.CHANGE_SELECTED_FORM_STATE,selected));           
     }
     const getDefaultDescription = () => {
         let str = `ל${formState.values.category}, ${formState.values.estateType}, `;

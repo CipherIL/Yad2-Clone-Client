@@ -34,7 +34,7 @@ const Login = () => {
         .catch(err=>{
             setIsLoading(false);
         })
-    },[user,setUser])
+    },[user,setUser,searchParams,setSearchParams])
 
     return (
         <>

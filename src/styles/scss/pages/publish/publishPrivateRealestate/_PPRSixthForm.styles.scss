@@ -1,0 +1,178 @@
+.private-realestate__selection.realestate__contact {
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            row-gap: 20px;
+            align-items: flex-start;
+            margin: 20px 30px;
+            
+            .add-new-contact {
+                width: 240px;
+                border-top: 1px solid #d9d9d9;
+                padding: 20px 0;
+
+                .add-new-contact__button {
+                    display: flex;
+                    column-gap: 5px;
+                    cursor: pointer;
+
+                    .add-new-contact__button__symbol {
+                        width: 15px;
+                        height: 15px;
+                        border: 1px solid $orange;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        line-height: 1;
+                        font-size: 14px;
+                        font-weight: bold;
+                        color: $orange;
+                        pointer-events: none;
+                    }
+                    .add-new-contact__button__text {
+                        font-size: 14px;
+                        color: $orange;
+                        pointer-events: none;
+                    }
+                }
+
+                .add-new-contact__form {
+                    display: none;
+                    flex-direction: column;
+                    row-gap: 20px;
+
+                    .add-new-contact__form__close {
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        column-gap: 5px;
+
+                        .add-new-contact__form__close__symbol {
+                            font-size: 20px;
+                            font-weight: bold;
+                        }
+
+                        .add-new-contact__form__close__text {
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                &.active {
+                    .add-new-contact__button {
+                        display: none;
+                    }
+                    .add-new-contact__form {
+                        display: flex;
+                    }
+                }
+            }
+
+            .form-field {
+
+                .form-field__label {
+                    font-size: 14px;
+                    color: #363636
+                }
+
+                .form-field__input__input {
+                    width: 240px;
+                    height: 40px;
+                }
+
+                &.checkbox {
+                    display: flex;
+                    align-items: center;
+                    column-gap: 5px;
+                    &.graybg {
+                        font-weight: bold;
+                        background: #f9f9f9;
+                        width: 240px;
+                        height: 40px;
+                    }
+                    &.disabled {
+                        opacity: 0.6;
+                    }
+                    .form-field__label__link {
+                        color: $orange;
+                    }
+                }
+            }
+
+            .add-virtual {
+                display: flex;
+                flex-direction: column;
+                row-gap: 20px;
+                .form-field.checkbox {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    column-gap: 10px;
+
+                    .form-field__description {
+                        width: 100%;
+                        margin-right: 30px;
+                        font-size: 14px;
+                        color: #808080;
+
+                        .form-field__description__link {
+                            color: $orange;
+                        }
+                    }
+
+                    .form-field__info-button {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .private-realestate__selection__modal {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,0.6);
+        z-index: 10;
+        transform: scale(0);
+        opacity: 0;
+        transition: opacity .5s linear;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .private-realestate__selection__modal__content {
+            width: 300px;
+            height: 450px;
+            background: #fff;
+            border-radius: 4px;
+            position: relative;
+
+            .private-realestate__selection__modal__content__close {
+                position: absolute;
+                top: 10px;
+                left: 15px;
+                font-size: 20px;
+                font-weight: bold;    
+                cursor: pointer;
+            }
+        }
+    }
+
+    .private-realestate__selection__subtitle {
+        margin: 20px 30px 0;
+    }
+}

@@ -134,6 +134,34 @@ const PPRReducer = (state,action) => {
                 completed: updatedCompleted,
             }        
         }
+        case PPRFormActionsTypes.CHANGE_SIXTH_FORM_VALUES : {
+            const {values} = action.payload;
+
+            //select next form
+            const updatedCompleted = {...state.completed, sixthForm: true}
+            const updatedSelected = {...state.selected, sixthForm: false}
+            updatedSelected[nextIncompleteForm(updatedCompleted)] = true;
+            
+            return {
+                values: {...state.values,...values},
+                selected: updatedSelected,
+                completed: updatedCompleted,
+            }     
+        }
+        case PPRFormActionsTypes.CHANGE_SEVENTH_FORM_VALUES : {
+            const {values} = action.payload;
+
+            //select next form
+            const updatedCompleted = {...state.completed, seventhForm: true}
+            const updatedSelected = {...state.selected, seventhForm: false}
+            updatedSelected[nextIncompleteForm(updatedCompleted)] = true;
+            
+            return {
+                values: {...state.values,...values},
+                selected: updatedSelected,
+                completed: updatedCompleted,
+            } 
+        }
         case PPRFormActionsTypes.CHANGE_SELECTED_FORM_STATE : {
             const {values} = action.payload;
 
@@ -151,7 +179,6 @@ const PPRReducer = (state,action) => {
                 completed: updatedCompleted,
             }
         }
-        
         default : return {...state};
     }
 }
