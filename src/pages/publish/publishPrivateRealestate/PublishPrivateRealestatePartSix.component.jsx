@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Link } from 'react-router-dom';
-import {UserContext} from '../../../../contexts/User.context';
+import {UserContext} from '../../../contexts/User.context';
 
 // Component Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FormFieldSingleInput from "../../../../components/custom/FormFieldSingleInput.component";
+import FormFieldSingleInput from "../../../components/custom/FormFieldSingleInput.component";
 
 //Reducer Imports
-import PPRSixthFormReducer, {PPR_SIXTH_FROM_INITIAL_STATE} from "../../../../reducers/publishPrivateRealestate/PPRSixthForm.reducer";
-import { PPRSixthFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
-import { PPRSixthFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
+import PPRSixthFormReducer, {PPR_SIXTH_FROM_INITIAL_STATE} from "../../../reducers/publishPrivateRealestate/PPRSixthForm.reducer";
+import { PPRSixthFormActionTypes } from "../../../types/publishPrivateRealestateFormAction.types";
+import { PPRSixthFormAction } from "../../../actions/publishPrivateRealestateForm.actions";
 
 const PublishPrivateRealestatePartSix = ({selected,completed,returnButton,reopen,submitFunction}) => {
     
@@ -72,7 +72,7 @@ const PublishPrivateRealestatePartSix = ({selected,completed,returnButton,reopen
             {selected && <>
             <div className="form-container">
                 <span className="private-realestate__selection__subtitle">רגע לפני שמפרסמים את המודעה, נבדוק שפרטי הקשר נכונים</span>
-                <form>
+                <form onSubmit={(e)=>e.preventDefault()}>
                     <FormFieldSingleInput
                     labelText="שם איש קשר*"
                     defaultValue={formState.values.contactName}

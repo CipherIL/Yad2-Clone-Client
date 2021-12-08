@@ -3,15 +3,15 @@ import { nanoid } from "nanoid";
 
 // Component Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FormFieldSingleInput from "../../../../components/custom/FormFieldSingleInput.component";
+import FormFieldSingleInput from "../../../components/custom/FormFieldSingleInput.component";
 
 //Data Imports
-import { typeofEstate, estateCondition } from "../../../../data/privateRealestatePublishFormData";
+import { typeofEstate, estateCondition } from "../../../data/privateRealestatePublishFormData";
 
 // Form Reducer Imports
-import PPRSecondFormReducer, { PPR_SECOND_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRSecondForm.reducer";
-import { PPRSecondFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
-import { PPRSecondFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
+import PPRSecondFormReducer, { PPR_SECOND_FORM_INITIAL_STATE } from "../../../reducers/publishPrivateRealestate/PPRSecondForm.reducer";
+import { PPRSecondFormActionTypes } from "../../../types/publishPrivateRealestateFormAction.types";
+import { PPRSecondFormAction } from "../../../actions/publishPrivateRealestateForm.actions";
 
 const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reopen,returnButton}) => {
 
@@ -64,7 +64,7 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
             </div>}
             {selected && <>
                 <div className="form-container">
-                    <form>
+                    <form onSubmit={(e)=>e.preventDefault()}>
                         <div className="form-field">
                             <label className="form-field__label">סוג הנכס*</label>
                             <select className="form-field__select" value={formState.values.estateType} onChange={(e)=>{handleInput(e,PPRSecondFormActionTypes.CHANGE_ESTATE_TYPE_STATE)}}>

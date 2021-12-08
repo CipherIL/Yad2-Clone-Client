@@ -1,6 +1,9 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
+import { publishRealestate } from "../../../server/user.requests";
+import { useNavigate } from "react-router-dom";
 
 // Component Imports
+import Loader from '../../../components/custom/Loader.component';
 import PublishPrivateRealestatePartOne from "./PublishPrivateRealestatePartOne.component";
 import PublishPrivateRealestatePartTwo from "./PublishPrivateRealestatePartTwo.component";
 import PublishPrivateRealestatePartThree from "./PublishPrivateRealestatePartThree.component";
@@ -10,14 +13,14 @@ import PublishPrivateRealestatePartSix from "./PublishPrivateRealestatePartSix.c
 import PublishPrivateRealestatePartSeven from "./PublishPrivateRealestatePartSeven.component";
 
 // Form Reducers Imports
-import PPRReducer, { PPR_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPR.reducer";
-import { PPRFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
-import { PPRFormActionsTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
+import PPRReducer, { PPR_FORM_INITIAL_STATE } from "../../../reducers/publishPrivateRealestate/PPR.reducer";
+import { PPRFormAction } from "../../../actions/publishPrivateRealestateForm.actions";
+import { PPRFormActionsTypes } from "../../../types/publishPrivateRealestateFormAction.types";
 
 const PublishPrivateRealestate = () => {
-    
+    const navigate = useNavigate();
     const [formState,dispatchForm] = useReducer(PPRReducer,PPR_FORM_INITIAL_STATE);
-
+    const [isLoading,setIsLoading] = useState(false);
     const changeFormValues = (actionType,values) => {
         dispatchForm(PPRFormAction(actionType,values))
         console.log(values)
@@ -33,8 +36,21 @@ const PublishPrivateRealestate = () => {
         return str;
     }
     
-    console.log(formState)
+    useEffect(()=>{
+        if(!isLoading && !Object.values(formState.completed).some(val=>val===false)) {
+            setIsLoading(true);
+            publishRealestate(formState.values)
+            .then(res=>{
+                navigate('/publish/finishArea');
+            })
+            .catch(err=>{
+                navigate('/errorPage');
+            })
+        }
+    },[formState,navigate,isLoading])
+    
     return (
+        isLoading ? <Loader/> : <>
         <div className="private-realestate__selections">
             <PublishPrivateRealestatePartOne 
             selectFunction={changeFormValues}
@@ -80,10 +96,9 @@ const PublishPrivateRealestate = () => {
             <PublishPrivateRealestatePartSeven
             selected={formState.selected.seventhForm}
             completed={formState.completed.seventhForm}
-            submitFunction={changeFormValues}
-            reopen={()=>returnToPreviousForm("seventhForm")}
-            returnButton={()=>returnToPreviousForm("sixthForm")}/>
+            submitFunction={changeFormValues}/>
         </div>
+        </>
     )
 }
 

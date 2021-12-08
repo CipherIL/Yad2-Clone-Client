@@ -30,6 +30,7 @@
 //Publish
 @import './pages/publish/publishHeader/publishHeader.styles';
 @import './pages/publish/publishMain/publishMain.styles';
+@import './pages/publish/finishArea/finishArea.styles';
 @import './pages/publish/publishPrivateRealestate/publishPrivateRealestate.styles';
 @import './pages/publish/publishPrivateRealestate/realestateTypeSelection.styles';
 @import './pages/publish/publishPrivateRealestate/realestateAddress.styles';
@@ -38,5 +39,7 @@
 @import './pages/publish/publishPrivateRealestate/PPRFifthForm.styles';
 @import './pages/publish/publishPrivateRealestate/PPRSixthForm.styles';
 @import './pages/publish/publishPrivateRealestate/PPRSeventhForm.styles';
+//Realestate
+@import './pages/realestate/realestateSubHeader.styles';
 //Page Not Found
 @import './pages/notFound/pageNotFound.styles';

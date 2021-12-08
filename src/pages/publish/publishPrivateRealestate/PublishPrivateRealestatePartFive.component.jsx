@@ -2,14 +2,14 @@ import React, { useState } from "react";
 
 // Component Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UploadImage from "../../../../components/custom/UploadImage.component";
+import UploadImage from "../../../components/custom/UploadImage.component";
 import { nanoid } from "nanoid";
 
 const PublishPrivateRealestatePartFive = ({selected,completed,returnButton,reopen,submitFunction}) => {
     const [mainImg,setMainImg] = useState("");
     const [images,setImages] = useState(["","","","","","","","",""]);
     const handleSubmit = () => {
-        submitFunction("CHANGE_FIFTH_FORM_VALUES",{mainImg:mainImg,images:images.filter(img=>img!=="")})
+        submitFunction("CHANGE_FIFTH_FORM_VALUES",{mainImage:mainImg,images:images.filter(img=>img!=="")})
     }
 
     return (

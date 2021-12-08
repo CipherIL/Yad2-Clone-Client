@@ -1,16 +1,17 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ExpandableNavigationMenu from "./ExpandableNavigationMenu.component";
 import { headerNavItems } from "../../../data/headerNavItems";
 import { nanoid } from "nanoid";
 import HeaderPersonalArea from "./HeaderPersonalArea.component";
 import useWindowDimensions from '../../../hooks/useWindowDimensions';
 import HamburgerMenu from "./hambugerMenu/HamburgerMenu.component";
+import CustomLink from "../../custom/CustomLink.component";
 
 const Header = () => {
     const {width} = useWindowDimensions();
     const handleNavItemClick = (e,url) => {
-        if(url==="") {
+        if(url==="/null") {
             e.preventDefault();
             alert("This button is not functional");
         }  
@@ -21,18 +22,18 @@ const Header = () => {
                 {width <= 900 && <div className="header__nav__empty-div"></div>}
                 <Link to="/">
                     <div className="header__nav-logo__container">
-                        <img src="images/yad2Logo.png" alt="yad2Logo" className="header__nav-logo"/>
+                        <img src="/images/yad2Logo.png" alt="yad2Logo" className="header__nav-logo"/>
                     </div>
                 </Link>
                 {width < 1261 && <HamburgerMenu/>}
                 {headerNavItems.map(navItem=>{
                     return (
-                        <div className="header__nav-item" key={nanoid()}>
-                            <Link to={navItem.url} className="header__nav-item__link" onClick={(e)=> handleNavItemClick(e,navItem.url)}>
+                        <div className={"header__nav-item"} key={nanoid()}>
+                            <CustomLink to={navItem.url} baseClass={"header__nav-item__link"} onClick={(e)=> handleNavItemClick(e,navItem.url)}>
                                 <div className="header__nav-item__link__inner-container">
                                     <div className="header__nav-item__link__text">{navItem.text}</div>
                                 </div>
-                            </Link>
+                            </CustomLink>
                             <ExpandableNavigationMenu linksList={navItem.expandableMenu}/>
                         </div>
                     );

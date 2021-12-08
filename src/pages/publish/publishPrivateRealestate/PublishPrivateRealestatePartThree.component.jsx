@@ -4,12 +4,12 @@ import { nanoid } from "nanoid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Data Imports
-import { numberOfRooms, estateFeatures } from '../../../../data/privateRealestatePublishFormData';
+import { numberOfRooms, estateFeatures } from '../../../data/privateRealestatePublishFormData';
 
 // Reducer Imports
-import { PPRSecondFormActionTypes, PPRThirdFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
-import { PPRThirdFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
-import PPRThirdFormReducer, { PPR_THIRD_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRThirdForm.reducer";
+import { PPRSecondFormActionTypes, PPRThirdFormActionTypes } from "../../../types/publishPrivateRealestateFormAction.types";
+import { PPRThirdFormAction } from "../../../actions/publishPrivateRealestateForm.actions";
+import PPRThirdFormReducer, { PPR_THIRD_FORM_INITIAL_STATE } from "../../../reducers/publishPrivateRealestate/PPRThirdForm.reducer";
 
 const PublishPrivateRealestatePartThree = ({selected,returnButton,completed,reopen,submitFunction,getDefaultDescription}) => {
     
@@ -104,7 +104,7 @@ const PublishPrivateRealestatePartThree = ({selected,returnButton,completed,reop
             </div>}
             {selected && <>
                 <div className="form-container">
-                    <form>
+                    <form onSubmit={(e)=>e.preventDefault()}>
                         <div className="form-field select">
                             <label className="form-field__label">מספר חדרים*</label>
                             <select className="form-field__select" value={formState.values.rooms} onChange={(e)=>{handleSelectInput(e,PPRThirdFormActionTypes.CHANGE_ROOMS_STATE)}}>

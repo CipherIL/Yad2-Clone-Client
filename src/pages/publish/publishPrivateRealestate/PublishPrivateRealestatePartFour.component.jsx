@@ -2,12 +2,12 @@ import React, { useReducer } from "react";
 
 // Component Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FormFieldSingleInput from "../../../../components/custom/FormFieldSingleInput.component";
+import FormFieldSingleInput from "../../../components/custom/FormFieldSingleInput.component";
 
 // Reducer Imports
-import { PPRFourthFormActionTypes } from "../../../../types/publishPrivateRealestateFormAction.types";
-import { PPRFourthFormAction } from "../../../../actions/publishPrivateRealestateForm.actions";
-import PPRFourthFormReducer, { PPR_FOURTH_FORM_INITIAL_STATE } from "../../../../reducers/publishPrivateRealestate/PPRFourthForm.reducer";
+import { PPRFourthFormActionTypes } from "../../../types/publishPrivateRealestateFormAction.types";
+import { PPRFourthFormAction } from "../../../actions/publishPrivateRealestateForm.actions";
+import PPRFourthFormReducer, { PPR_FOURTH_FORM_INITIAL_STATE } from "../../../reducers/publishPrivateRealestate/PPRFourthForm.reducer";
 
 const PublishPrivateRealestatePartFour = ({selected,completed,returnButton,reopen,submitFunction}) => {
 

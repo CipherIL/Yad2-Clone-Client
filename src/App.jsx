@@ -8,10 +8,13 @@ import UserContextProvider from "./contexts/User.context";
 import Home from "./pages/home/Home.component";
 import Login from "./pages/login-register/Login.component";
 import PageNotFound from "./pages/notFound/PageNotFound.component";
-import Realastate from './pages/realastate/Realastate.component'
+import RealastateForSale from './pages/realastate/RealastateForSale.component'
 import PublishHeader from "./pages/publish/publish-parts/publishHeader/PublishHeader.component";
 import PublishMain from "./pages/publish/publish-parts/publishMain/PublishMain.component";
-import PublishPrivateRealestate from "./pages/publish/publish-parts/publishPrivateRealestate/PublishPrivateRealestate.component";
+import PublishPrivateRealestate from "./pages/publish/publishPrivateRealestate/PublishPrivateRealestate.component";
+import FinishArea from "./pages/publish/finishArea/FinishArea.component";
+import RealestateSubHeader from './pages/realastate/RealestateSubHeader.component';
+import Realestate from './pages/realastate/Realestate.component';
 
 //FontAwesome imports
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -27,17 +30,21 @@ function App() {
       <Routes>
         {/* Routes that do not follow a layout */}
         <Route path="/login" element={<Login />} />
-        <Route path="/realastate" element={<PrivateUserRoute><Realastate/></PrivateUserRoute>}/>
         
         {/* Publish Routes */}
         <Route path="/publish" element={<PublishLayout/>}>
           <Route index element={<PublishMain/>}/>
           <Route path="realestate-private" element={<PublishPrivateRealestate/>}/>
+          <Route path="finishArea" element={<FinishArea/>}/>
         </Route>
 
         {/* Routes that fall under the regular layout with header and footer */}
         <Route path="/" element={<Layout />}> 
           <Route index element={<Home />} />
+          <Route path="realestate" element={<RealestateLayout/>}>
+            <Route index element={<Realestate/>}/>
+            <Route path="forsale" element={<RealastateForSale/>}/>
+          </Route>
           <Route path="*" element={<PageNotFound />}/>
         </Route>     
       </Routes>
@@ -68,4 +75,12 @@ function PublishLayout () {
   )
 }
 
+function RealestateLayout () {
+  return (
+    <>
+    <RealestateSubHeader/>
+    <Outlet/>
+    </>
+  )
+}
 export default App;

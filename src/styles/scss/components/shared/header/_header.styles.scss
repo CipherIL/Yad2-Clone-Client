@@ -33,6 +33,9 @@
             align-items: center;
             .header__nav-item__link {
                 height: 100%;
+                &.active {
+                    background: rgba(54,54,54,0.1);
+                }
                 .header__nav-item__link__inner-container {
                     height: 100%;
                     padding: 0 20px;
@@ -54,7 +57,7 @@
                 padding: 25px;
                 border-radius: 0 0 4px 4px;
                 box-shadow: 0 3px 10px 0 rgba(0,0,0,0.2);
-                z-index: 1;
+                z-index: 2;
                 .header__nav-item__expandable-menu__section {
                     display: flex;
                     flex-direction: column;
@@ -145,7 +148,7 @@
                 left: 192px;
                 background: #fff;
                 width: 150px;
-                z-index: 1;
+                z-index: 2;
                 box-shadow: 0 3px 5px rgba(0,0,0,0.2), 0 1px 18px 0 rgba(0,0,0,0.12), 0 6px 10px rgba(0,0,0,0.14);
                 .user-avatar__expandable-content__link {
                     height: 40px;

@@ -3,10 +3,11 @@ import HomeHeader from './HomeHeader.component';
 import { Outlet } from 'react-router-dom';
 import { UserContext } from '../../contexts/User.context';
 import getUserInfo from "../../utils/getUserInfo";
-import Loader from '../loader/Loader.component'
+import Loader from '../../components/custom/Loader.component'
 const Home = () => {
     const {user,setUser} = useContext(UserContext);
     const [isLoading,setIsLoading] = useState(true);
+    
     useEffect(()=>{
         if(!user)
             getUserInfo()
@@ -18,7 +19,7 @@ const Home = () => {
                 setIsLoading(false);
             })
         else setIsLoading(false);
-    },[])
+    },[user,setUser])
 
     return (
         <>

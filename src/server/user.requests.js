@@ -31,3 +31,9 @@ export const loginUser = async (email,password) => {
     const response = await axios.post(link,{email,password},{withCredentials:true});
     return response;
 }
+
+export const publishRealestate = async (realestateData) => {
+    const link = apiUrl+"/user/publish-realestate";
+    const response = await axios.post(link,{...realestateData},{withCredentials:true});
+    return response;
+}

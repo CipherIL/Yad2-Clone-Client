@@ -8,7 +8,7 @@ import RegistrationForm from "./registration/RegistrationForm.component";
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { UserContext } from '../../contexts/User.context'
 import getUserInfo from "../../utils/getUserInfo";
-import Loader from "../loader/Loader.component";
+import Loader from "../../components/custom/Loader.component";
 
 const Login = () => {
     const {width} = useWindowDimensions();
