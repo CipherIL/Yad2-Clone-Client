@@ -15,6 +15,7 @@
 @import './components/custom/userAvatar.styles';
 @import './components/custom/formSubmitButton.styles';
 @import './components/custom/imageUpload.styles';
+@import './components/custom/realestatePost.styles';
 
 /////////////////////////////////Pages/////////////////////////////////
 @import './pages/page-content.styles';
@@ -41,5 +42,6 @@
 @import './pages/publish/publishPrivateRealestate/PPRSeventhForm.styles';
 //Realestate
 @import './pages/realestate/realestateSubHeader.styles';
+@import './pages/realestate/realestateForsale.styles';
 //Page Not Found
 @import './pages/notFound/pageNotFound.styles';

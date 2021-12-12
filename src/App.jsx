@@ -15,6 +15,7 @@ import PublishPrivateRealestate from "./pages/publish/publishPrivateRealestate/P
 import FinishArea from "./pages/publish/finishArea/FinishArea.component";
 import RealestateSubHeader from './pages/realastate/RealestateSubHeader.component';
 import Realestate from './pages/realastate/Realestate.component';
+import ErrorPage from './pages/errorPage/ErrorPage.component'
 
 //FontAwesome imports
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -45,6 +46,7 @@ function App() {
             <Route index element={<Realestate/>}/>
             <Route path="forsale" element={<RealastateForSale/>}/>
           </Route>
+          <Route path="error" element={<ErrorPage/>}/>
           <Route path="*" element={<PageNotFound />}/>
         </Route>     
       </Routes>
