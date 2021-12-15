@@ -13,13 +13,16 @@ import { typeofEstate, estateCondition } from "../../../data/privateRealestatePu
 import PPRSecondFormReducer, { PPR_SECOND_FORM_INITIAL_STATE } from "../../../reducers/publishPrivateRealestate/PPRSecondForm.reducer";
 import { PPRSecondFormActionTypes } from "../../../types/publishPrivateRealestateFormAction.types";
 import { PPRSecondFormAction } from "../../../actions/publishPrivateRealestateForm.actions";
-import { getCitySuggestions } from "../../../server/publish.requests";
+import { getCitySuggestions, getStreetSuggestions } from "../../../server/publish.requests";
 
 const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reopen,returnButton}) => {
 
     const [formState,dispatchForm] = useReducer(PPRSecondFormReducer,PPR_SECOND_FORM_INITIAL_STATE);
     const [showCitySuggestions,setShowCitySuggestions] = useState(false);
     const [citySuggestions,setCitySuggestions] = useState([]);
+    const [showStreetSuggestions,setShowStreetSuggestions] = useState(false);
+    const [streetSuggestions,setStreetSuggestions] = useState([]);
+    
     //City Variables
     const [cityTimer,setCityTimer] = useState(null);
     const cityRef = useRef();
@@ -31,6 +34,15 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
     })
 
     //Street Variables
+    const [streetTimer,setStreetTimer] = useState(null);
+    const streetRef = useRef();
+    useOnClickOutside(streetRef,()=>{
+        setShowStreetSuggestions(false);
+        setStreetSuggestions([]);
+        if(!formState.isValid.street)
+            handleStreetInput("",PPRSecondFormActionTypes.CHANGE_STREET_STATE,false);
+    })
+
 
     const handleInput = (e,actionType) => {
         const value = e.target.value;
@@ -64,6 +76,18 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
             },1000)
         }
     }
+    const handleStreetInput = (value,actionType,isValid) => {
+        dispatchForm(PPRSecondFormAction(actionType,value,isValid));
+        if(isValid) {
+            setTimeout(()=>{
+                if(value.length>=3) setShowStreetSuggestions(true);
+                else {
+                    setShowStreetSuggestions(false);
+                    setStreetSuggestions([]);
+                }
+            })
+        }
+    }
     const handleSubmit = (e) => {
         e.stopPropagation();
         //if any field is invalid
@@ -78,7 +102,7 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
     }
 
     useEffect(()=>{
-        if(cityTimer) clearTimeout(cityTimer);
+        clearTimeout(cityTimer);
         if(showCitySuggestions) {
             setCityTimer(setTimeout(()=>{   
                 getCitySuggestions(formState.values.city)
@@ -90,7 +114,7 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
                 })
             },500))
         }
-    },[formState.values.city,showCitySuggestions])
+    },[formState.values.city])
 
     return (
         <div className={"private-realestate__selection realestate__address"+(completed?" completed":"")} onClick={reopen}>
@@ -153,6 +177,32 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
                                             setShowCitySuggestions(false);
                                         }} key={nanoid()}>
                                             {city.city}
+                                        </div>
+                                    )
+                                })}    
+                            </div>}
+                        </div>
+                        {/* FIXME: make sure this input works properly */}
+                        <div className="form-field" ref={cityRef}>
+                            <label className="form-field__label">רחוב*</label>
+                            <div className="form-field__input">
+                                <input type="text" 
+                                className={`form-field__input__input ${(formState.showError.city && formState.errorMessage.city!=="" ? "error":"")}`}
+                                onChange={(e)=>{handleCityInput(e.target.value,PPRSecondFormActionTypes.CHANGE_CITY_STATE,false)}}
+                                value={formState.values.city}
+                                placeholder="הכנסת שם רחוב"
+                                />
+                            </div>
+                            {formState.showError.city && <span className="form-field__error">{formState.errorMessage.city}</span>}
+                            {showCitySuggestions && citySuggestions.length>0 && <div className="form-field__suggestions">
+                                {citySuggestions.map(street=>{
+                                    return (
+                                        <div className="form-field__suggestion" onClick={(e)=>{
+                                            e.stopPropagation();
+                                            handleStreetInput(street.street,PPRSecondFormActionTypes.CHANGE_STREET_STATE,true);
+                                            setShowStreetSuggestions(false);
+                                        }} key={nanoid()}>
+                                            {street.street}
                                         </div>
                                     )
                                 })}    
