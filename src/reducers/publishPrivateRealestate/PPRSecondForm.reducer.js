@@ -140,15 +140,14 @@ const PPRSecondFormReducer = (state,action) => {
 
         }
         case PPRSecondFormActionTypes.CHANGE_CITY_STATE : {
-            const {value} = action.payload;
-            const isValidValue = (value !== "");
+            const {value,isValid} = action.payload;
             let errorMessage = "";
-            if(!isValidValue) errorMessage = "יש לבחור ישוב מתוך הרשימה";
+            if(!isValid) errorMessage = "יש לבחור ישוב מתוך הרשימה";
 
             return {
                 completed: false,
                 values: {...state.values, city: value},
-                isValid: {...state.isValid, city: isValidValue},
+                isValid: {...state.isValid, city: isValid},
                 disabled: {...state.disabled, street: false},
                 showError: {...state.showError, city: false},
                 errorMessage: {...state.errorMessage, city: errorMessage},

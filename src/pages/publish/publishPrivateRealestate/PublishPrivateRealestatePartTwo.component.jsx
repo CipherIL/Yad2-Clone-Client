@@ -1,9 +1,10 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer, useState, useRef } from "react";
 import { nanoid } from "nanoid";
 
 // Component Imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormFieldSingleInput from "../../../components/custom/FormFieldSingleInput.component";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
 
 //Data Imports
 import { typeofEstate, estateCondition } from "../../../data/privateRealestatePublishFormData";
@@ -12,10 +13,25 @@ import { typeofEstate, estateCondition } from "../../../data/privateRealestatePu
 import PPRSecondFormReducer, { PPR_SECOND_FORM_INITIAL_STATE } from "../../../reducers/publishPrivateRealestate/PPRSecondForm.reducer";
 import { PPRSecondFormActionTypes } from "../../../types/publishPrivateRealestateFormAction.types";
 import { PPRSecondFormAction } from "../../../actions/publishPrivateRealestateForm.actions";
+import { getCitySuggestions } from "../../../server/publish.requests";
 
 const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reopen,returnButton}) => {
 
     const [formState,dispatchForm] = useReducer(PPRSecondFormReducer,PPR_SECOND_FORM_INITIAL_STATE);
+    const [showCitySuggestions,setShowCitySuggestions] = useState(false);
+    const [citySuggestions,setCitySuggestions] = useState([]);
+    //City Variables
+    const [cityTimer,setCityTimer] = useState(null);
+    const cityRef = useRef();
+    useOnClickOutside(cityRef,()=>{
+        setShowCitySuggestions(false);
+        setCitySuggestions([]);
+        if(!formState.isValid.city)
+            handleCityInput("",PPRSecondFormActionTypes.CHANGE_CITY_STATE,false);
+    })
+
+    //Street Variables
+
     const handleInput = (e,actionType) => {
         const value = e.target.value;
         e.target.value = value;
@@ -36,6 +52,18 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
             else e.target.value = value.slice(0,-1);
         }
     }
+    const handleCityInput = (value,actionType,isValid) => {
+        dispatchForm(PPRSecondFormAction(actionType,value,isValid));
+        if(!isValid) {
+            setTimeout(()=>{
+                if(value.length>=3) setShowCitySuggestions(true);
+                else {
+                    setShowCitySuggestions(false);
+                    setCitySuggestions([]);
+                }
+            },1000)
+        }
+    }
     const handleSubmit = (e) => {
         e.stopPropagation();
         //if any field is invalid
@@ -48,7 +76,22 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
     const getSubtitle = () => {
         return `${formState.values.estateType} - ${formState.values.estateCondition} - ${formState.values.city} - ${formState.values.street} - ${formState.values.number}`
     }
-    
+
+    useEffect(()=>{
+        if(cityTimer) clearTimeout(cityTimer);
+        if(showCitySuggestions) {
+            setCityTimer(setTimeout(()=>{   
+                getCitySuggestions(formState.values.city)
+                .then(res=>{
+                    setCitySuggestions(res.data)
+                })
+                .catch(err=>{
+                    setCitySuggestions([]);
+                })
+            },500))
+        }
+    },[formState.values.city,showCitySuggestions])
+
     return (
         <div className={"private-realestate__selection realestate__address"+(completed?" completed":"")} onClick={reopen}>
             <div className="private-realestate__selection__title">
@@ -90,13 +133,31 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
                             {formState.showError.estateCondition && <span className="form-field__error">{formState.errorMessage.estateCondition}</span>}
                         </div>
 
-                        <FormFieldSingleInput 
-                        labelText="ישוב*" 
-                        placeHolder="הכנסת שם ישוב" 
-                        updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_CITY_STATE)}
-                        defaultValue={formState.values.city}
-                        errorMessage = {formState.showError.city && formState.errorMessage.city}
-                        />
+                        <div className="form-field" ref={cityRef}>
+                            <label className="form-field__label">ישוב*</label>
+                            <div className="form-field__input">
+                                <input type="text" 
+                                className={`form-field__input__input ${(formState.showError.city && formState.errorMessage.city!=="" ? "error":"")}`}
+                                onChange={(e)=>{handleCityInput(e.target.value,PPRSecondFormActionTypes.CHANGE_CITY_STATE,false)}}
+                                value={formState.values.city}
+                                placeholder="הכנסת שם ישוב"
+                                />
+                            </div>
+                            {formState.showError.city && <span className="form-field__error">{formState.errorMessage.city}</span>}
+                            {showCitySuggestions && citySuggestions.length>0 && <div className="form-field__suggestions">
+                                {citySuggestions.map(city=>{
+                                    return (
+                                        <div className="form-field__suggestion" onClick={(e)=>{
+                                            e.stopPropagation();
+                                            handleCityInput(city.city,PPRSecondFormActionTypes.CHANGE_CITY_STATE,true);
+                                            setShowCitySuggestions(false);
+                                        }} key={nanoid()}>
+                                            {city.city}
+                                        </div>
+                                    )
+                                })}    
+                            </div>}
+                        </div>
 
                         <FormFieldSingleInput 
                         labelText="רחוב*" 

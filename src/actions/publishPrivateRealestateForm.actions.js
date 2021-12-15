@@ -5,10 +5,11 @@ export const PPRFormAction = (type,values) => ({
     }  
 })
 
-export const PPRSecondFormAction = (type,value) => ({
+export const PPRSecondFormAction = (type,value,isValid) => ({
     type,
     payload: {
         value,
+        isValid,
     }
 });
 

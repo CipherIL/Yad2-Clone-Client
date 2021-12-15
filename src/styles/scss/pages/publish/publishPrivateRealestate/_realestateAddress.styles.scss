@@ -3,19 +3,21 @@
     .form-container {
         margin: 20px 40px;
         .form-field {
-
             display: flex;
             flex-direction: column;
             margin: 20px 0;
+            position: relative;
+            width: 33%;
 
             .form-field__label {
                 font-size: 14px;
                 color: #333333;
+                white-space: nowrap;
             }
 
             .form-field__select {
                 height: 35px;
-                width: 33%;
+                width: 100%;
                 font-size: 14px;
                 
                 option {
@@ -25,7 +27,7 @@
             
             .form-field__input {
                 height: 35px;
-                width: 33%;
+                width: 100%;
                 .form-field__input__input {
                     height: 35px;
                     width: 100%;
@@ -37,6 +39,7 @@
                 justify-content: flex-end;
                 align-items: center;
                 column-gap: 5px;
+                width: 33%;
                 .form-field__input {
                     width: 20px !important;
                     display: flex;
@@ -46,6 +49,23 @@
                 .form-field__input__input {
                     height: 15px;
                     width: 15px;
+                }
+            }
+
+            .form-field__suggestions {
+                position: absolute;
+                right: 0;
+                top: 52px;
+                background: #fff;
+                z-index: 1;
+                width: 265px;
+                border: 1px solid $dark-gray;
+                
+                .form-field__suggestion {
+                    cursor: pointer;
+                    &:hover {
+                        background: $light-gray;
+                    }
                 }
             }
         }
