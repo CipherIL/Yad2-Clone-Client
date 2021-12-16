@@ -18,6 +18,7 @@ const RealestatePost = ({post}) => {
     const [showPreview,setShowPreview] = useState(true);
     const [showPictureReel,setShowPictureReel] = useState(false);
     const [selectedImageIndex,setSelectedImageIndex] = useState(0);
+    const [carouselDir,setCarouselDir] = useState(1);
 
     const getAddress = () => {
         return `${post.realestateData.street} ${post.realestateData.number}`
@@ -150,22 +151,34 @@ const RealestatePost = ({post}) => {
                     <div className="realestate-post__fullview__picture-reel__right">
                         <img src="/images/button-arrow.png" alt="arrow" onClick={(e)=>{
                             e.stopPropagation();
-                            setSelectedImageIndex(selectedImageIndex+1);
+                            if(selectedImageIndex<post.realestateData.images.length) {
+                                setCarouselDir(1);
+                                setSelectedImageIndex(selectedImageIndex+1);
+                            }
                         }}/>
                     </div>
                     <div className="realestate-post__fullview__picture-reel__images">
+                    <img src={post.realestateData.mainImage} alt="" 
+                            className={"realestate-post__fullview__picture-reel__image"+
+                            (selectedImageIndex===0?` selected ${carouselDir===1?"from-right":"from-left"}`:"") +
+                            (selectedImageIndex===1?" prev":"")}
+                            />
                     {post.realestateData.images.map((image,i)=>{
                         return (
                             <img src={image} alt="" 
                             className={"realestate-post__fullview__picture-reel__image"+
-                            (i===selectedImageIndex?" selected":"")+(i===selectedImageIndex+1?" next":"")+
-                            (i===selectedImageIndex-1?" prev":"")}/>
+                            (i+1===selectedImageIndex?` selected ${carouselDir===1?"from-right":"from-left"}`:"") +
+                            (i+1===selectedImageIndex+1?" next":"") +
+                            (i+1===selectedImageIndex-1?" prev":"")}/>
                         )
                     })}
                     </div>
                     <div className="realestate-post__fullview__picture-reel__left" onClick={(e)=>{
                             e.stopPropagation();
-                            setSelectedImageIndex(selectedImageIndex-1);
+                            if(selectedImageIndex>0) {
+                                setCarouselDir(-1);
+                                setSelectedImageIndex(selectedImageIndex-1);
+                            }
                         }}>
                         <img src="/images/button-arrow.png" alt="arrow" />
                     </div>

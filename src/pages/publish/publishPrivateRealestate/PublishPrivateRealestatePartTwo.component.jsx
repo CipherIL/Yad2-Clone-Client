@@ -24,9 +24,11 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
     const [streetSuggestions,setStreetSuggestions] = useState([]);
     
     //City Variables
-    const [cityTimer,setCityTimer] = useState(null);
     const cityRef = useRef();
-    useOnClickOutside(cityRef,()=>{
+    const [cityTimer,setCityTimer] = useState(null);
+    const [cityInFocus,setCityInFocus] = useState(false);
+    useOnClickOutside(cityRef,cityInFocus,()=>{
+        setCityInFocus(false);
         setShowCitySuggestions(false);
         setCitySuggestions([]);
         if(!formState.isValid.city)
@@ -34,16 +36,17 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
     })
 
     //Street Variables
-    const [streetTimer,setStreetTimer] = useState(null);
     const streetRef = useRef();
-    useOnClickOutside(streetRef,()=>{
+    const [streetTimer,setStreetTimer] = useState(null);
+    const [streetInFocus,setStreetInFocus] = useState(false);
+    useOnClickOutside(streetRef, streetInFocus, ()=>{
+        setStreetInFocus(false);
         setShowStreetSuggestions(false);
         setStreetSuggestions([]);
         if(!formState.isValid.street)
             handleStreetInput("",PPRSecondFormActionTypes.CHANGE_STREET_STATE,false);
     })
-
-
+    
     const handleInput = (e,actionType) => {
         const value = e.target.value;
         e.target.value = value;
@@ -65,27 +68,52 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
         }
     }
     const handleCityInput = (value,actionType,isValid) => {
+        clearTimeout(cityTimer);
         dispatchForm(PPRSecondFormAction(actionType,value,isValid));
         if(!isValid) {
-            setTimeout(()=>{
-                if(value.length>=3) setShowCitySuggestions(true);
-                else {
-                    setShowCitySuggestions(false);
-                    setCitySuggestions([]);
-                }
-            },1000)
+            if(value.length>=3) {
+                setCityTimer(
+                    setTimeout(()=>{
+                        setShowCitySuggestions(true);
+                        getCitySuggestions(value)
+                        .then(res=>{
+                            setCitySuggestions(res.data)
+                        })
+                        .catch(err=>{
+                            setCitySuggestions([]);
+                        })
+                    },1000)
+                )
+            }
+            else {
+                setShowCitySuggestions(false);
+                setCitySuggestions([]);
+            }
         }
     }
     const handleStreetInput = (value,actionType,isValid) => {
+        clearTimeout(streetTimer);
         dispatchForm(PPRSecondFormAction(actionType,value,isValid));
-        if(isValid) {
-            setTimeout(()=>{
-                if(value.length>=3) setShowStreetSuggestions(true);
-                else {
-                    setShowStreetSuggestions(false);
-                    setStreetSuggestions([]);
-                }
-            })
+        console.log(value)
+        if(!isValid) {
+            if(value.length>=3) {
+                setStreetTimer(
+                    setTimeout(()=>{
+                        setShowStreetSuggestions(true);
+                        getStreetSuggestions(value,formState.values.city)
+                        .then(res=>{
+                            setStreetSuggestions(res.data);
+                        })
+                        .catch(err=>{
+                            setStreetSuggestions([]);
+                        })
+                    })
+                )
+            }
+            else {
+                setShowStreetSuggestions(false);
+                setStreetSuggestions([]);
+            }
         }
     }
     const handleSubmit = (e) => {
@@ -101,20 +129,6 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
         return `${formState.values.estateType} - ${formState.values.estateCondition} - ${formState.values.city} - ${formState.values.street} - ${formState.values.number}`
     }
 
-    useEffect(()=>{
-        clearTimeout(cityTimer);
-        if(showCitySuggestions) {
-            setCityTimer(setTimeout(()=>{   
-                getCitySuggestions(formState.values.city)
-                .then(res=>{
-                    setCitySuggestions(res.data)
-                })
-                .catch(err=>{
-                    setCitySuggestions([]);
-                })
-            },500))
-        }
-    },[formState.values.city])
 
     return (
         <div className={"private-realestate__selection realestate__address"+(completed?" completed":"")} onClick={reopen}>
@@ -165,6 +179,7 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
                                 onChange={(e)=>{handleCityInput(e.target.value,PPRSecondFormActionTypes.CHANGE_CITY_STATE,false)}}
                                 value={formState.values.city}
                                 placeholder="הכנסת שם ישוב"
+                                onClick={()=>setCityInFocus(true)}
                                 />
                             </div>
                             {formState.showError.city && <span className="form-field__error">{formState.errorMessage.city}</span>}
@@ -182,40 +197,35 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
                                 })}    
                             </div>}
                         </div>
-                        {/* FIXME: make sure this input works properly */}
-                        <div className="form-field" ref={cityRef}>
+
+                        <div className="form-field" ref={streetRef}>
                             <label className="form-field__label">רחוב*</label>
                             <div className="form-field__input">
                                 <input type="text" 
-                                className={`form-field__input__input ${(formState.showError.city && formState.errorMessage.city!=="" ? "error":"")}`}
-                                onChange={(e)=>{handleCityInput(e.target.value,PPRSecondFormActionTypes.CHANGE_CITY_STATE,false)}}
-                                value={formState.values.city}
+                                className={`form-field__input__input ${(formState.showError.street && formState.errorMessage.street!=="" ? "error":"")}`}
+                                onChange={(e)=>{handleStreetInput(e.target.value,PPRSecondFormActionTypes.CHANGE_STREET_STATE,false)}}
+                                value={formState.values.street}
                                 placeholder="הכנסת שם רחוב"
+                                onClick={()=>setStreetInFocus(true)}
+                                disabled={formState.disabled.street}
                                 />
                             </div>
-                            {formState.showError.city && <span className="form-field__error">{formState.errorMessage.city}</span>}
-                            {showCitySuggestions && citySuggestions.length>0 && <div className="form-field__suggestions">
-                                {citySuggestions.map(street=>{
+                            {formState.showError.street && <span className="form-field__error">{formState.errorMessage.street}</span>}
+                            {showStreetSuggestions && streetSuggestions.length>0 && <div className="form-field__suggestions">
+                                {streetSuggestions.map(street=>{
+                                    console.log(street)
                                     return (
                                         <div className="form-field__suggestion" onClick={(e)=>{
                                             e.stopPropagation();
-                                            handleStreetInput(street.street,PPRSecondFormActionTypes.CHANGE_STREET_STATE,true);
+                                            handleStreetInput(street,PPRSecondFormActionTypes.CHANGE_STREET_STATE,true);
                                             setShowStreetSuggestions(false);
                                         }} key={nanoid()}>
-                                            {street.street}
+                                            {street}
                                         </div>
                                     )
                                 })}    
                             </div>}
                         </div>
-
-                        <FormFieldSingleInput 
-                        labelText="רחוב*" 
-                        placeHolder="הכנסת שם רחוב" 
-                        isDisabled={formState.disabled.street} 
-                        updateFunction={(e)=>handleInput(e,PPRSecondFormActionTypes.CHANGE_STREET_STATE)}
-                        defaultValue={formState.values.street}
-                        errorMessage = {formState.showError.street && formState.errorMessage.street}/>
                         
                         <FormFieldSingleInput 
                         labelText="מס' בית" 

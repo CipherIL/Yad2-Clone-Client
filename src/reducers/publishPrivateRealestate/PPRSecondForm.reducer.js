@@ -148,7 +148,7 @@ const PPRSecondFormReducer = (state,action) => {
                 completed: false,
                 values: {...state.values, city: value},
                 isValid: {...state.isValid, city: isValid},
-                disabled: {...state.disabled, street: false},
+                disabled: {...state.disabled, street: !isValid},
                 showError: {...state.showError, city: false},
                 errorMessage: {...state.errorMessage, city: errorMessage},
                 showFloorsQuery: state.showFloorsQuery,
@@ -157,16 +157,15 @@ const PPRSecondFormReducer = (state,action) => {
             }
         }
         case PPRSecondFormActionTypes.CHANGE_STREET_STATE : {
-            const {value} = action.payload;
-            const isValidValue = (value !== "");
+            const {value,isValid} = action.payload;
             let errorMessage = "";
-            if(!isValidValue) errorMessage = "יש לבחור רחוב מתוך הרשימה";
+            if(!isValid) errorMessage = "יש לבחור רחוב מתוך הרשימה";
 
             return {
                 completed: false,
                 values: {...state.values, street: value},
-                isValid: {...state.isValid, street: isValidValue},
-                disabled: {...state.disabled, number: false, addToMailingList:false},
+                isValid: {...state.isValid, street: isValid},
+                disabled: {...state.disabled, number: !isValid, addToMailingList:!isValid},
                 showError: {...state.showError, street: false},
                 errorMessage: {...state.errorMessage, street: errorMessage},
                 showFloorsQuery: state.showFloorsQuery,

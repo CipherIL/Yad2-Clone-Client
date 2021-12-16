@@ -9,6 +9,7 @@ export const getCitySuggestions = async (query) => {
 }
 
 export const getStreetSuggestions = async (query,city) => {
+    console.log("request")
     const link = apiUrl + `/street?limit=5&city=${city}&q=${query}`;
     const response = await axios.get(link);
     return response;
