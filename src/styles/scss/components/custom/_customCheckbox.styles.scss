@@ -1,0 +1,22 @@
+.custom-checkbox {
+    border: 1px solid $orange;
+    border-radius: 2px;
+    width: 16px;
+    height: 16px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background: #fff;
+    
+    .custom-checkbox__symbol {
+        font-weight: bold;
+        color: #fff;
+        font-size: 12px;
+    }
+
+    &.checked {
+        background: $orange;
+    }
+}

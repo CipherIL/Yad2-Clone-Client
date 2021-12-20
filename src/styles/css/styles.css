@@ -21,6 +21,10 @@ svg {
   pointer-events: none;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .header-container {
   width: 100%;
   height: 75px;
@@ -902,6 +906,25 @@ svg {
     transform: translateX(0);
   }
 }
+.custom-checkbox {
+  border: 1px solid #ff7100;
+  border-radius: 2px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+}
+.custom-checkbox .custom-checkbox__symbol {
+  font-weight: bold;
+  color: #fff;
+  font-size: 12px;
+}
+.custom-checkbox.checked {
+  background: #ff7100;
+}
+
 .page-content {
   min-height: calc(100vh - 75px);
 }
@@ -2615,9 +2638,202 @@ svg {
   max-width: 960px;
   min-width: 500px;
   padding: 20px;
+  margin: 30px 0;
   background: #fff;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.realestate__search-form .realestate__search-form__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.realestate__search-form .realestate__search-form__header .realestate__search-form__title {
+  font-size: 18px;
+  font-weight: 500;
+}
+.realestate__search-form .realestate__search-form__header .realestate__search-form__title .realestate__search-form__title__type {
+  color: #ff7100;
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.realestate__search-form .realestate__search-form__header .realestate__search-form__notification .realestate__search-form__notification__button {
+  height: 30px;
+  width: 215px;
+  background: #fff;
+  color: #ff7100;
+  border: 1px solid #ff7100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.realestate__search-form .realestate__search-form__header .realestate__search-form__notification .realestate__search-form__notification__button .realestate__search-form__notification__button__icon {
+  filter: invert(57%) sepia(60%) saturate(4578%) hue-rotate(360deg) brightness(101%) contrast(108%);
+}
+.realestate__search-form .realestate__search-form__basic-search {
+  width: 100%;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  width: 100%;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+  flex-basis: 1;
+  min-width: 100px;
+  position: relative;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__label {
+  font-size: 14px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__multi-input {
+  display: flex;
+  width: 100%;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__multi-input .form-field__input {
+  max-width: 80px;
+  width: 50%;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__input {
+  height: 40px;
+  border: 1px solid #ccc;
+  min-width: 100px;
+  flex-grow: 1;
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__input span {
+  color: #ccc;
+  cursor: pointer;
+  flex-grow: 1;
+  pointer-events: none;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__input .button-arrow {
+  width: 8px;
+  height: 8px;
+  cursor: pointer;
+  pointer-events: none;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__input:focus-visible {
+  outline: none;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable {
+  position: absolute;
+  display: none;
+  min-width: 180px;
+  min-height: 80px;
+  background: #fff;
+  top: 100%;
+  right: 0;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable.col {
+  flex-direction: column;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable.show {
+  display: flex;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section {
+  width: 100%;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section .form-field__expandable__section__header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  background: #f9f9f9;
+  height: 44px;
+  width: 280px;
+  padding: 10px;
+  cursor: pointer;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section .form-field__expandable__section__header .button-arrow__container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  margin-right: auto;
+  cursor: pointer;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section .form-field__expandable__section__header .button-arrow__container .button-arrow {
+  width: 10px;
+  height: 10px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section .form-field__expandable__section__dropdown {
+  width: 82%;
+  margin: 0 auto;
+  height: 0;
+  overflow: hidden;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section .form-field__expandable__section__dropdown .form-field__expandable__section__dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section .form-field__expandable__section__dropdown.show {
+  height: unset;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable select {
+  width: 50px;
+  height: 30px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-button {
+  height: 40px;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  padding: 0 20px;
+  border: none;
+  cursor: pointer;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-button .form-button__icon {
+  filter: invert(98%) sepia(0%) saturate(0%) hue-rotate(272deg) brightness(116%) contrast(100%);
+  transform: scale(0.9);
+  margin-top: 1px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-button.advanced::before {
+  content: "+";
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #363636;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 2px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-button:hover {
+  background: #ccc;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-button.submit {
+  background: #ff7100;
+  color: #fff;
+  font-weight: 500;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-button.submit:hover {
+  background: #d86000;
 }
 
 .page-not-found__content-container {
