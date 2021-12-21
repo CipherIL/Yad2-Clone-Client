@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { estateFeatures } from "../../data/privateRealestatePublishFormData";
+import { nanoid } from "nanoid";
 
 const noGardenTypes = [
 "דירה",
@@ -109,7 +110,7 @@ const RealestatePost = ({post}) => {
         return (
             <div className="realestate-post__fullview__content__features__features">
                 {estateFeatures.map(feature=>{
-                    return <div className={"realestate-post__fullview__content__feature"+(post.realestateData.features.includes(feature.text)?" bold":"")}>
+                    return <div key={nanoid()} className={"realestate-post__fullview__content__feature"+(post.realestateData.features.includes(feature.text)?" bold":"")}>
                         {<FontAwesomeIcon icon={feature.logo} className="realestate-post__fullview__content__feature__logo"/>}
                         <span className="realestate-post__fullview__content__feature__text">{feature.text}</span>
                     </div>
@@ -169,7 +170,7 @@ const RealestatePost = ({post}) => {
                             className={"realestate-post__fullview__picture-reel__image"+
                             (i+1===selectedImageIndex?` selected ${carouselDir===1?"from-right":"from-left"}`:"") +
                             (i+1===selectedImageIndex+1?" next":"") +
-                            (i+1===selectedImageIndex-1?" prev":"")}/>
+                            (i+1===selectedImageIndex-1?" prev":"")} key={nanoid()}/>
                         )
                     })}
                     </div>

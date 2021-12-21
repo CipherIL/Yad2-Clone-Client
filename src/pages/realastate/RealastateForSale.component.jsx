@@ -7,6 +7,7 @@ import Loader from "../../components/custom/Loader.component";
 import RealestatePost from "../../components/custom/RealestatePost.component";
 import RealestateSearchForm from "./RealestateSearchForm.component";
 import realestateSearchFormReducer, { REALESTATE_SEARCH_FORM_INITIAL_STATE } from "../../reducers/privateRealestate/privateRealestate.reducer";
+import { nanoid } from "nanoid";
 
 const RealastateForSale = () => {
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ const RealastateForSale = () => {
             <RealestateSearchForm type={"מכירה"} formState={formState} dispatchForm={dispatchForm}/>
             <div className="realestate-forsale__posts">
                 {posts.map(post=>{
-                    return <RealestatePost post={post}/>
+                    return <RealestatePost post={post} key={nanoid()}/>
                 })}
             </div>
         </div>}

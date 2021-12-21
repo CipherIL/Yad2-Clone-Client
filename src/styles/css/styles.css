@@ -2741,6 +2741,7 @@ svg {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  border: 1px solid #ccc;
   gap: 5px;
 }
 .realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable.col {
@@ -2794,6 +2795,28 @@ svg {
 .realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable select {
   width: 50px;
   height: 30px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section-title {
+  background: #f9f9f9;
+  width: 100%;
+  height: 30px;
+  width: 448px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  padding-right: 10px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-right: 10px;
+}
+.realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-field .form-field__expandable .form-field__expandable__section-content .form-field__expandable__section-content__item {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 .realestate__search-form .realestate__search-form__basic-search .realestate__search-form__basic-search__form .form-button {
   height: 40px;

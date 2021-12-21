@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState, useRef } from "react";
+import React, { useReducer, useState, useRef } from "react";
 import { nanoid } from "nanoid";
 
 // Component Imports

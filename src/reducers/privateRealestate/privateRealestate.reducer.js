@@ -8,8 +8,8 @@ export const REALESTATE_SEARCH_FORM_INITIAL_STATE = {
             houses: [],
             others: [],
         },
-        minRooms: "",
-        maxRooms: "",
+        minRooms: "0",
+        maxRooms: "12.5",
         minPrice: "",
         maxPrice: "",
         features: [],
@@ -125,6 +125,40 @@ const realestateSearchFormReducer = (state,action) => {
                 values: {...state.values, types:updatedTypes},
             }
 
+        }
+        case realestateSearchFormActionTypes.CHANGE_ADDRESS_STATE : {
+            const {value} = action.payload;
+            return {
+                values: {...state.values,address:value},
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_MIN_ROOMS_STATE : {
+            const {value} = action.payload;
+            return {
+                values: {...state.values,minRooms:value}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_MAX_ROOMS_STATE : {
+            const {value} = action.payload;
+            return {
+                values: {...state.values,maxRooms:value}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_MIN_PRICE_STATE : {
+            const regex = /^[0-9]*$/;
+            const {value} = action.payload;
+            let updatedValue = value;
+            if(!regex.test(value)) updatedValue = state.values.minPrice;
+            //FIXME: something is wrong with numbers of 7 digits and up
+            return {
+                values: {...state.values,minPrice:updatedValue}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_MAX_PRICE_STATE : {
+            const {value} = action.payload;
+            return {
+                values: {...state.values,maxPrice:value}
+            }
         }
         default: return {...state}; 
     }
