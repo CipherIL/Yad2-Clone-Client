@@ -16,7 +16,7 @@ const RealastateForSale = () => {
     const [formState,dispatchForm] = useReducer(realestateSearchFormReducer,REALESTATE_SEARCH_FORM_INITIAL_STATE);
     
     useEffect(()=>{
-        getRealestatePosts({'realestateData.category':'מכירה'})
+        getRealestatePosts({category:'מכירה'})
         .then(res=>{
             setPosts(res.data);
             setIsLoading(false);

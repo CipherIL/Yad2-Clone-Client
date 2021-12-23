@@ -58,7 +58,7 @@ const RealestatePost = ({post}) => {
     const getPrice = () => {
         return (
             <div>
-                {numberWithCommas(post.realestateData.price) + " ₪"}
+                {numberWithCommas(""+post.realestateData.price) + " ₪"}
             </div>
         )
     }
