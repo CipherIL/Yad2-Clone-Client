@@ -20,6 +20,7 @@ const RealastateForSale = () => {
         .then(res=>{
             setPosts(res.data);
             setIsLoading(false);
+            console.log(res.data)
         })
         .catch(err=>{
             if(err.response.status===404) {
@@ -38,7 +39,7 @@ const RealastateForSale = () => {
         {!isLoading &&
         <div className="realestate-forsale">
     
-            <RealestateSearchForm type={"מכירה"} formState={formState} dispatchForm={dispatchForm}/>
+            <RealestateSearchForm type={"מכירה"} formState={formState} dispatchForm={dispatchForm} setPosts={setPosts}/>
             <div className="realestate-forsale__posts">
                 {posts.map(post=>{
                     return <RealestatePost post={post} key={nanoid()}/>

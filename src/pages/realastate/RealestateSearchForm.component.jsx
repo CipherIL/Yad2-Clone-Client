@@ -6,15 +6,17 @@ import { nanoid } from 'nanoid'
 //Import Reducer components
 import { realestateSearchFormAction } from "../../actions/realestateSearchForm.actions";
 import { realestateSearchFormActionTypes } from "../../types/realestateSearchFormAction.types";
-import { getAddressAutocomplete } from "../../server/realestate.requests";
+import { getAddressAutocomplete, getRealestatePosts } from "../../server/realestate.requests";
+import RealestateSearchFormAdvanced from "./RealestateSearchFormAdvanced.component";
 
-const RealestateSearchForm = ({type,formState,dispatchForm}) => {
+const RealestateSearchForm = ({type,formState,dispatchForm,setPosts}) => {
 
     const apartments = ["דירה","דירת גן","גג/פנטהאוז","דופלקס","דירת נופש","מרתף/פרטר","טריפלקס","יחידת דיור","סטודיו/לופט"];
     const houses = ["בית פרטי/קוטג'","דו משפחתי","משחק חקלאי/נחלה","משק עזר"];
     const others = ["מגרשים","דיור מוגן","בנייו מגורים","מחסן","חניה","קב' רכישה/ זכות לנכס","כללי"];
 
     const [autocompleteResults,setAutocompleteResults] = useState(undefined);
+    const [showAdvanced,setShowAdvanced] = useState(false);
     const [timer,setTimer] = useState(undefined);
 
     const apartmentsRef = useRef();
@@ -109,6 +111,16 @@ const RealestateSearchForm = ({type,formState,dispatchForm}) => {
         //clear results if input is to short
         else if(autocompleteResults) setAutocompleteResults(undefined);
         dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_ADDRESS_STATE,value))
+    }
+    const handleSearch = () => {
+        getRealestatePosts({...formState.values,category:"מכירה"})
+        .then(res=>{
+            console.log(res);
+            setPosts(res.data)
+        })
+        .catch(err=>{
+            console.log(err);
+        })
     }
     
     return (
@@ -325,27 +337,32 @@ const RealestateSearchForm = ({type,formState,dispatchForm}) => {
                         <label className="form-field__label">מחיר</label>
                         <div className="form-field__multi-input">
                             <input type="text" className="form-field__input" placeholder="מ-"
-                            value={formState.values.minPrice===""?"":numberWithCommas(formState.values.minPrice)}
-                            onChange={(e)=>{dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_MIN_PRICE_STATE,e.target.value.replace(",","")))}}/>
+                            value={numberWithCommas(formState.values.minPrice)}
+                            onChange={(e)=>{dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_MIN_PRICE_STATE,e.target.value))}}/>
                             <input type="text" className="form-field__input" placeholder="עד-"
-                            value={formState.values.maxPrice===""?"":numberWithCommas(formState.values.maxPrice)}
-                            onChange={(e)=>{dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_MAX_PRICE_STATE,e.target.value.replace(",","")))}}/>
+                            value={numberWithCommas(formState.values.maxPrice)}
+                            onChange={(e)=>{dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_MAX_PRICE_STATE,e.target.value))}}/>
                         </div>
                     </div>
                     
+                    
                     <button className="form-button advanced" onClick={(e)=>{
                         e.preventDefault();
+                        setShowAdvanced(!showAdvanced);
                     }}>
                         חיפוש מתקדם
                     </button>
                     <button className="form-button submit" onClick={(e)=>{
                         e.preventDefault(); 
+                        handleSearch();
                     }}>
                         <FontAwesomeIcon icon={"search"} className="form-button__icon"/>
                         חיפוש
                     </button>
                 </form>
             </div>
+            {showAdvanced &&
+            <RealestateSearchFormAdvanced formState={formState} dispatchForm={dispatchForm}/>}
         </div>
     )
 }

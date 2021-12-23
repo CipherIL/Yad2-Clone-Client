@@ -13,8 +13,8 @@ export const REALESTATE_SEARCH_FORM_INITIAL_STATE = {
         minPrice: "",
         maxPrice: "",
         features: [],
-        minFloor: "",
-        maxFloor: "",
+        minFloor: "0",
+        maxFloor: "18",
         minSize: "",
         maxSize: "",
         entryDate: "",
@@ -147,17 +147,45 @@ const realestateSearchFormReducer = (state,action) => {
         case realestateSearchFormActionTypes.CHANGE_MIN_PRICE_STATE : {
             const regex = /^[0-9]*$/;
             const {value} = action.payload;
-            let updatedValue = value;
-            if(!regex.test(value)) updatedValue = state.values.minPrice;
-            //FIXME: something is wrong with numbers of 7 digits and up
+            let updatedValue = value.replaceAll(",","");
+            if(!regex.test(updatedValue)) updatedValue = state.values.minPrice;
             return {
                 values: {...state.values,minPrice:updatedValue}
             }
         }
         case realestateSearchFormActionTypes.CHANGE_MAX_PRICE_STATE : {
+            const regex = /^[0-9]*$/;
+            const {value} = action.payload;
+            let updatedValue = value.replaceAll(",","");
+            if(!regex.test(updatedValue)) updatedValue = state.values.maxPrice;
+            return {
+                values: {...state.values,maxPrice:updatedValue}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_FEATURES_STATE : {
+            const {value} = action.payload;
+            let updatedFeatures = [...state.values.features];
+            const index = updatedFeatures.indexOf(value);
+            if(index === -1) {
+                updatedFeatures.push(value);
+            }
+            else {
+                updatedFeatures.splice(index,1);
+            }
+            return {
+                values: {...state.values, features:updatedFeatures}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_MIN_FLOORS : {
             const {value} = action.payload;
             return {
-                values: {...state.values,maxPrice:value}
+                values: {...state.values,minFloor:value}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_MAX_FLOORS : {
+            const {value} = action.payload;
+            return {
+                values: {...state.values,maxFloor:value}
             }
         }
         default: return {...state}; 
