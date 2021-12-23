@@ -72,7 +72,7 @@ const RealestatePost = ({post}) => {
         )
     }
     const numberWithCommas = (num) => {
-        return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return (num+"").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     const getEntryDate = () => {
         if(post.realestateData.entryNow) return "כניסה מיידית";

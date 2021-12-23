@@ -1,0 +1,47 @@
+.realestate__search-form__advanced {
+    width: 100%;
+    max-width: 960px;
+    min-height: 100px;
+    
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    background: #fff;
+    border-top: 1px solid #ccc;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.1);
+
+    .realestate__search-form__advanced__input-section {
+        width: 90%;
+        border-bottom: 1px solid #ccc;
+        margin: 10px auto;
+        padding: 0 0 20px;
+
+        .realestate__search-form__advanced__input-section__title {
+            color: #363636;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 10px 0;
+        }
+
+        .realestate__search-form__advanced__input-section__features {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            row-gap: 15px;
+            padding: 0 20px 0 0;
+
+            .realestate__search-form__advanced__input-section__feature {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 5px;
+                flex-grow: 1;
+                flex-basis: 0;
+            }
+            .realestate__search-form__advanced__input-section__features__break {
+                flex-basis: 100%;
+            }
+        }
+    }
+}

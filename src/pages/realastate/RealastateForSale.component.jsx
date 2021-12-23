@@ -16,10 +16,11 @@ const RealastateForSale = () => {
     const [formState,dispatchForm] = useReducer(realestateSearchFormReducer,REALESTATE_SEARCH_FORM_INITIAL_STATE);
     
     useEffect(()=>{
-        getRealestatePosts({'realestateData.category':'מכירה'})
+        getRealestatePosts({'category':'מכירה'})
         .then(res=>{
             setPosts(res.data);
             setIsLoading(false);
+            console.log(res.data)
         })
         .catch(err=>{
             if(err.response.status===404) {
@@ -38,7 +39,7 @@ const RealastateForSale = () => {
         {!isLoading &&
         <div className="realestate-forsale">
     
-            <RealestateSearchForm type={"מכירה"} formState={formState} dispatchForm={dispatchForm}/>
+            <RealestateSearchForm type={"מכירה"} formState={formState} dispatchForm={dispatchForm} setPosts={setPosts}/>
             <div className="realestate-forsale__posts">
                 {posts.map(post=>{
                     return <RealestatePost post={post} key={nanoid()}/>
