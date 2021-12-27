@@ -30,7 +30,7 @@ const RealestateSearchFormAdvanced = ({formState,dispatchForm}) => {
 
     return (
         <div className="realestate__search-form__advanced">
-            <section className="realestate__search-form__advanced__input-section">
+            <section className="realestate__search-form__advanced__input-section first">
                 <h2 className="realestate__search-form__advanced__input-section__title">מאפנייני דירה</h2>
                 <div className="realestate__search-form__advanced__input-section__features">
                     {features.map((feature,i)=>{
@@ -40,14 +40,14 @@ const RealestateSearchFormAdvanced = ({formState,dispatchForm}) => {
                             <span className="realestate__search-form__advanced__input-section__feature">
                                 <CustomCheckbox isChecked={formState.values.features.includes(feature)}
                                 clickCallback={(e)=>{dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_FEATURES_STATE,feature))}}/>
-                                {feature}
+                                <span style={{pointerEvents:"none"}}>{feature}</span>
                             </span>
                             </>
                         )
                     })}
                 </div>
             </section>
-            <section className="realestate__search-form__advanced__input-section">
+            <section className="realestate__search-form__advanced__input-section second">
                 <div className="realestate__search-form__advanced__input-section__floor">
                     <h3 className="realestate__search-form__advanced__input-section__title">קומה</h3>
                     <select className="realestate__search-form__advanced__input-section__floor__select"
@@ -97,14 +97,29 @@ const RealestateSearchFormAdvanced = ({formState,dispatchForm}) => {
                     className="realestate__search-form__advanced__input-section__area__title__input"/>
                 </div>
                 <div className="realestate__search-form__advanced__input-section__date">
-                    <h3 className="realestate__search-form__advanced__input-section__title">גודל דירה (במ"ר)</h3>
-                    
+                    <h3 className="realestate__search-form__advanced__input-section__title">תאריך כניסה</h3>
                     <DatePicker
                     value={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    className={"realestate__search-form__advanced__input-section__date__input"}
+                    locale="heb"
+                    onChange={(date) => {
+                        setStartDate(date);
+                        dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_ENTRY_DATE_STATE,date));
+                    }}
                     />
+                    <div className="realestate__search-form__advanced__input-section__entry-now">
+                        <CustomCheckbox/> כניסה מיידית
+                    </div>
                 </div>
             </section>
+            <section className="realestate__search-form__advanced__input-section third">
+                <h3 className="realestate__search-form__advanced__input-section__title">חיפוש חופשי</h3>
+                <input type="text" />
+            </section>
+            <div className="realestate__search-form__advanced__buttons">
+                <button className="realestate__search-form__advanced__buttons__submit">חיפוש</button>
+                <button className="realestate__search-form__advanced__buttons__clear">נקה</button>
+            </div>
         </div>
     )
 }

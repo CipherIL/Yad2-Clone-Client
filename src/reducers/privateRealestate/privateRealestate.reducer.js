@@ -188,6 +188,12 @@ const realestateSearchFormReducer = (state,action) => {
                 values: {...state.values,maxFloor:value}
             }
         }
+        case realestateSearchFormActionTypes.CHANGE_ENTRY_DATE_STATE : {
+            const {value} = action.payload;
+            return {
+                values: {...state.values, entryDate:value}
+            }
+        }
         default: return {...state}; 
     }
 }
