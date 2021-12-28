@@ -9,7 +9,7 @@ import { realestateSearchFormActionTypes } from "../../types/realestateSearchFor
 import { getAddressAutocomplete, getRealestatePosts } from "../../server/realestate.requests";
 import RealestateSearchFormAdvanced from "./RealestateSearchFormAdvanced.component";
 
-const RealestateSearchForm = ({type,formState,dispatchForm,setPosts}) => {
+const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
 
     const apartments = ["דירה","דירת גן","גג/פנטהאוז","דופלקס","דירת נופש","מרתף/פרטר","טריפלקס","יחידת דיור","סטודיו/לופט"];
     const houses = ["בית פרטי/קוטג'","דו משפחתי","משחק חקלאי/נחלה","משק עזר"];
@@ -113,14 +113,7 @@ const RealestateSearchForm = ({type,formState,dispatchForm,setPosts}) => {
         dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_ADDRESS_STATE,value))
     }
     const handleSearch = () => {
-        getRealestatePosts({...formState.values,category:"מכירה"})
-        .then(res=>{
-            console.log(res);
-            setPosts(res.data)
-        })
-        .catch(err=>{
-            console.log(err);
-        })
+        setFilter({...formState.values,category:"מכירה"})
     }
     
     return (
@@ -362,7 +355,7 @@ const RealestateSearchForm = ({type,formState,dispatchForm,setPosts}) => {
                 </form>
             </div>
             {showAdvanced &&
-            <RealestateSearchFormAdvanced formState={formState} dispatchForm={dispatchForm}/>}
+            <RealestateSearchFormAdvanced formState={formState} dispatchForm={dispatchForm} handleSearch={handleSearch}/>}
         </div>
     )
 }

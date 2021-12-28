@@ -4,7 +4,7 @@
     width: 100%;
     max-width: 960px;
     min-width: 500px;
-
+    
     padding: 20px;
     margin: 30px 0;
 
@@ -196,7 +196,7 @@
                     }
 
                     .form-field__expandable__section-title {
-                        background: $light-gray;
+                        background: #f4f4f4;
                         width: 100%;
                         height: 30px;
                         width: 448px;
@@ -209,13 +209,17 @@
                         display: flex;
                         flex-direction: column;
                         width: 100%;
-                        padding-right: 10px;
 
                         .form-field__expandable__section-content__item {
                             width: 100%;
                             height: 40px;
                             display: flex;
                             align-items: center;
+                            padding-right: 10px;
+                            cursor: pointer;
+                            &:hover {
+                                background: #eee;
+                            }
                         }
                     }
                 }

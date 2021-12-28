@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import React from "react";
 
 const CustomCheckbox = ({isChecked,isPartial,clickCallback}) => {

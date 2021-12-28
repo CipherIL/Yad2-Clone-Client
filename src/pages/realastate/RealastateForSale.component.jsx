@@ -8,30 +8,32 @@ import RealestatePost from "../../components/custom/RealestatePost.component";
 import RealestateSearchForm from "./RealestateSearchForm.component";
 import realestateSearchFormReducer, { REALESTATE_SEARCH_FORM_INITIAL_STATE } from "../../reducers/privateRealestate/privateRealestate.reducer";
 import { nanoid } from "nanoid";
+import NoPostsPlaceholder from "./NoPostsPlaceholder.component";
 
 const RealastateForSale = () => {
     const navigate = useNavigate();
     const [posts,setPosts] = useState([]);
     const [isLoading,setIsLoading] = useState(true);
     const [formState,dispatchForm] = useReducer(realestateSearchFormReducer,REALESTATE_SEARCH_FORM_INITIAL_STATE);
-    
+    const [filter,setFilter] = useState({category:'מכירה'});
+
+
     useEffect(()=>{
-        getRealestatePosts({category:'מכירה'})
+        getRealestatePosts(filter)
         .then(res=>{
             setPosts(res.data);
             setIsLoading(false);
-            console.log(res.data)
         })
         .catch(err=>{
             if(err.response.status===404) {
-                return console.log("Bad Request")
+                return setPosts([])
             }
             if(err.response.status === 500) {
                 return navigate("/error");
             }
             console.log(err);
         })
-    },[]);
+    },[filter]);
 
     return(
         <>
@@ -39,11 +41,12 @@ const RealastateForSale = () => {
         {!isLoading &&
         <div className="realestate-forsale">
     
-            <RealestateSearchForm type={"מכירה"} formState={formState} dispatchForm={dispatchForm} setPosts={setPosts}/>
+            <RealestateSearchForm type={"מכירה"} formState={formState} dispatchForm={dispatchForm} setFilter={setFilter}/>
             <div className="realestate-forsale__posts">
-                {posts.map(post=>{
+                {posts.length!==0 && posts.map(post=>{
                     return <RealestatePost post={post} key={nanoid()}/>
                 })}
+                {posts.length===0 && <NoPostsPlaceholder/>}
             </div>
         </div>}
         </>

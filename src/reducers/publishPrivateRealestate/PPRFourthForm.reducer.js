@@ -85,7 +85,7 @@ const PPRFourthFormReducer = (state,action) => {
         case PPRFourthFormActionTypes.CHANGE_ENTRY_DATE_STATE : {
             const {value} = action.payload;
             const isValidValue = value !== "";
-
+            console.log(value)
             let errorMessage = "";
             if(!isValidValue) errorMessage = "שדה חובה";
             

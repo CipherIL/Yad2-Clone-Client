@@ -77,6 +77,7 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
                         setShowCitySuggestions(true);
                         getCitySuggestions(value)
                         .then(res=>{
+                            console.log(res.data)
                             setCitySuggestions(res.data)
                         })
                         .catch(err=>{
@@ -188,10 +189,10 @@ const PublishPrivateRealestatePartTwo = ({selected,completed,submitFunction,reop
                                     return (
                                         <div className="form-field__suggestion" onClick={(e)=>{
                                             e.stopPropagation();
-                                            handleCityInput(city.city,PPRSecondFormActionTypes.CHANGE_CITY_STATE,true);
+                                            handleCityInput(city,PPRSecondFormActionTypes.CHANGE_CITY_STATE,true);
                                             setShowCitySuggestions(false);
                                         }} key={nanoid()}>
-                                            {city.city}
+                                            {city}
                                         </div>
                                     )
                                 })}    

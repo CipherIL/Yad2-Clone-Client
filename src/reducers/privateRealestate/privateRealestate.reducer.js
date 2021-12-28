@@ -13,11 +13,11 @@ export const REALESTATE_SEARCH_FORM_INITIAL_STATE = {
         minPrice: "",
         maxPrice: "",
         features: [],
-        minFloor: "0",
+        minFloor: "-1",
         maxFloor: "18",
-        minSize: "",
-        maxSize: "",
-        entryDate: "",
+        minArea: "",
+        maxArea: "",
+        entryDate: new Date(),
         entryNow: false,
         freeText: "",
     },
@@ -192,6 +192,29 @@ const realestateSearchFormReducer = (state,action) => {
             const {value} = action.payload;
             return {
                 values: {...state.values, entryDate:value}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_ENTRY_NOW_STATE : {
+            return {
+                values: {...state.values, entryNow: !state.values.entryNow}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_MIN_AREA_STATE : {
+            const {value} = action.payload;
+            return {
+                values: {...state.values, minArea: value}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_MAX_AREA_STATE : {
+            const {value} = action.payload;
+            return {
+                values: {...state.values, maxArea: value}
+            }
+        }
+        case realestateSearchFormActionTypes.CHANGE_FREE_TEXT_STATE : {
+            const {value} = action.payload;
+            return {
+                values: {...state.values,freeText: value}
             }
         }
         default: return {...state}; 
