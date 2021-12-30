@@ -17,7 +17,7 @@ export const REALESTATE_SEARCH_FORM_INITIAL_STATE = {
         maxFloor: "18",
         minArea: "",
         maxArea: "",
-        entryDate: new Date(),
+        entryDate: undefined,
         entryNow: false,
         freeText: "",
     },
