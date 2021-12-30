@@ -17,23 +17,55 @@ const RealastateForSale = () => {
     const [formState,dispatchForm] = useReducer(realestateSearchFormReducer,REALESTATE_SEARCH_FORM_INITIAL_STATE);
     const [filter,setFilter] = useState({category:'מכירה'});
 
+    //infinite Scroll Vars
+    const [postsSkip,setPostsSkip] = useState(0);
+    const [scrollingEvents,setScrollingEvents] = useState(true);
+    const postLimit = 8;
+
+    const incSkipCount = () => {
+        setPostsSkip(postsSkip+postLimit);
+    }
+    const zeroSkipCount = () => {
+        setPostsSkip(0);
+    }
 
     useEffect(()=>{
-        getRealestatePosts(filter)
+        getRealestatePosts(filter,postsSkip,postLimit)
         .then(res=>{
-            setPosts(res.data);
-            setIsLoading(false);
+            if(postsSkip===0) {
+                setPosts(res.data);
+                setIsLoading(false);
+            } else {
+                setPosts([...posts,...res.data]);
+                setScrollingEvents(true);
+            }
         })
         .catch(err=>{
             if(err.response.status===404) {
-                return setPosts([])
+                if(postsSkip===0) {
+                    return setPosts([]);
+                }
             }
             if(err.response.status === 500) {
                 return navigate("/error");
             }
-            console.log(err);
+            else {
+                console.log(err);
+            }
         })
-    },[filter]);
+    },[filter,postsSkip]);
+
+    window.onscroll = (e) => {
+        if(scrollingEvents) {
+            const scrollOffset = window.scrollY;
+            const pageHeight = document.documentElement.clientHeight;
+            const windowHeight = document.body.scrollHeight;
+            if((scrollOffset+pageHeight) >= windowHeight) {
+                setScrollingEvents(false);
+                incSkipCount();
+            }
+        }
+    }
 
     return(
         <>

@@ -63,9 +63,9 @@ const RealestatePost = ({post}) => {
         )
     }
     const getPostDate = () => {
-        const date = new Date(parseInt(post.date));
+        const date = new Date(post.date)
         return (
-            Date.now()-date > 86400000 ?
+            Date.now()-parseInt(post.date) > 86400000 ?
             <div className="realestate-post__preview__third-section__date">
                 {date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()}
             </div> : "עודכן היום"
@@ -75,9 +75,10 @@ const RealestatePost = ({post}) => {
         return (num+"").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     const getEntryDate = () => {
+        const date = new Date(post.realestateData.entryDate)
         if(post.realestateData.entryNow) return "כניסה מיידית";
         if(post.realestateData.entryFlexible) return "כניסה גמישה";
-        else return post.realestateData.entryDate;
+        else return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
     }
     const getRealestateSpecs = () => {
         return (

@@ -2,11 +2,12 @@ import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CustomCheckbox from "../../components/custom/CustomCheckbox.component";
 import { nanoid } from 'nanoid'
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 //Import Reducer components
 import { realestateSearchFormAction } from "../../actions/realestateSearchForm.actions";
 import { realestateSearchFormActionTypes } from "../../types/realestateSearchFormAction.types";
-import { getAddressAutocomplete, getRealestatePosts } from "../../server/realestate.requests";
+import { getAddressAutocomplete } from "../../server/realestate.requests";
 import RealestateSearchFormAdvanced from "./RealestateSearchFormAdvanced.component";
 
 const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
@@ -22,6 +23,8 @@ const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
     const apartmentsRef = useRef();
     const housesRef = useRef();
     const othersRef = useRef();
+
+    const {width} = useWindowDimensions();
 
     const getEstateTypeText = () => {
         const count = formState.values.types.apartments.length + 
@@ -91,8 +94,6 @@ const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
     const numberWithCommas = (num) => {
         return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
-
     const handleAddressInput = (value,isValid) => {
         clearTimeout(timer);
         if(!isValid && value.length >= 3) {
@@ -170,7 +171,7 @@ const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
                             })}
                         </div>
                     </div>
-
+                    {width<=900 && <div className="form-line-break"></div>}
                     <div className="form-field">
                         <label className="form-field__label">סוג נכס</label>
                         <div className="form-field__input pointer" onClick={(e)=>{
@@ -287,7 +288,7 @@ const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
                             
                         </div>
                     </div>
-
+                    {width<=500 && <div className="form-line-break"></div>}
                     <div className="form-field">
                         <label className="form-field__label">חדרים</label>
                         <div className="form-field__input pointer" onClick={(e)=>{
@@ -325,8 +326,8 @@ const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
                             </select>
                         </div>
                     </div>
-
-                    <div className="form-field">
+                    {width<=900 && <div className="form-line-break"></div>}
+                    <div className="form-field multi">
                         <label className="form-field__label">מחיר</label>
                         <div className="form-field__multi-input">
                             <input type="text" className="form-field__input" placeholder="מ-"
@@ -337,25 +338,27 @@ const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
                             onChange={(e)=>{dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_MAX_PRICE_STATE,e.target.value))}}/>
                         </div>
                     </div>
-                    
-                    
-                    <button className="form-button advanced" onClick={(e)=>{
-                        e.preventDefault();
-                        setShowAdvanced(!showAdvanced);
-                    }}>
-                        חיפוש מתקדם
-                    </button>
-                    <button className="form-button submit" onClick={(e)=>{
-                        e.preventDefault(); 
-                        handleSearch();
-                    }}>
-                        <FontAwesomeIcon icon={"search"} className="form-button__icon"/>
-                        חיפוש
-                    </button>
+                    {width<=1260 && <div className="form-line-break"></div>}
+                    <div className="form-buttons-container">
+                        <button className="form-button advanced" onClick={(e)=>{
+                            e.preventDefault();
+                            setShowAdvanced(!showAdvanced);
+                        }}>
+                            חיפוש מתקדם
+                        </button>
+                        <button className="form-button submit" onClick={(e)=>{
+                            e.preventDefault(); 
+                            handleSearch();
+                        }}>
+                            <FontAwesomeIcon icon={"search"} className="form-button__icon"/>
+                            חיפוש
+                        </button>
+                    </div>
                 </form>
             </div>
             {showAdvanced &&
-            <RealestateSearchFormAdvanced formState={formState} dispatchForm={dispatchForm} handleSearch={handleSearch}/>}
+            <RealestateSearchFormAdvanced formState={formState} dispatchForm={dispatchForm} 
+            handleSearch={handleSearch} width={width}/>}
         </div>
     )
 }

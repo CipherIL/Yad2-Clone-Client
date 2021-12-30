@@ -4,7 +4,7 @@
         display: grid;
         grid-template-columns: 50% 27% 23%;
         width: 693px;
-        height: 86px;
+        
         border: 1px solid rgba(0,0,0,0.1);
         background: #fff;
         cursor: pointer;
@@ -13,7 +13,7 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            height: 100%;
+            height: 86px;
             padding-right: 10px;
             column-gap: 20px;
             border-left: 1px solid rgba(0,0,0,0.1);
@@ -35,6 +35,7 @@
             justify-content: center;
             align-items: center;
             column-gap: 20px;
+            height: 86px;
 
             .realestate-post__info {
                 display: flex;
@@ -50,10 +51,27 @@
             justify-content: center;
             align-items: flex-end;
             padding-left: 10px;
+            height: 86px;
         }
 
         &:hover {
             box-shadow: 0 1px 6px 1px rgba(0,0,0,0.16);
+        }
+
+        @media (max-width: $mobile-breakpoint) {
+            display: flex;
+            flex-wrap: wrap;
+            border: 1px solid rgba(0,0,0,0.5);
+            width: 100%;
+            .realestate-post__preview__first-section {
+                width: 100%;
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+                border-left: none;
+            }
+            .realestate-post__preview__second-section,
+            .realestate-post__preview__third-section {
+                width: 50%;
+            }
         }
     }
 
@@ -170,6 +188,38 @@
 
                         &.show {
                             height: 150px;
+                        }
+                    }
+                }
+            }
+
+            @media (max-width:$mobile-breakpoint) {
+                flex-direction: column;
+                height: fit-content;
+
+                .realestate-post__fullview__header__image-container {
+                    width: 100%;
+                    .realestate-post__fullview__header__image {
+                        width: 100%;
+                        height:fit-content
+                    }
+                }
+                .realestate-post__fullview__header__data {
+                    width: 100%;
+                    height: 120px;
+                    @media (max-width: 450px) {
+                        display: flex;
+                        flex-direction: column;
+                        height: fit-content;
+                        align-items: center;
+                        gap: 20px;
+                        .realestate-post__fullview__header__data__address {
+                            flex-direction: row;
+                            gap: 10px;
+                        }
+                        .realestate-post__fullview__header__data__contact {
+                            justify-self: flex-start;
+                            align-self: center;
                         }
                     }
                 }
@@ -333,6 +383,10 @@
                     }
                 }
             }
+        }
+
+        @media (max-width: $mobile-breakpoint) {
+            width: 100%;
         }
     }
 }

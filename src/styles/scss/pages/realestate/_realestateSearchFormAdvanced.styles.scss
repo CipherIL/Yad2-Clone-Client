@@ -103,8 +103,23 @@
                     align-items: center;
                     gap: 5px;
                 }
+                
             }
-
+            @media (max-width: 950px) {
+                flex-direction: column;
+                .realestate__search-form__advanced__input-section__floor {
+                    width: 100%;
+                }
+                .realestate__search-form__advanced__input-section__area {
+                    width: 100%;
+                    .realestate__search-form__advanced__input-section__area__title__input {
+                        flex-grow: 1;
+                    }
+                }
+                .realestate__search-form__advanced__input-section__date {
+                    width: 100%;
+                }
+            }
         }
 
         &.third {
@@ -114,6 +129,11 @@
             input {
                 height: 40px;
                 width: 40%;
+            }
+            @media (max-width: 950px) {
+                input {
+                    width: 100%;
+                }
             }
         }
     }

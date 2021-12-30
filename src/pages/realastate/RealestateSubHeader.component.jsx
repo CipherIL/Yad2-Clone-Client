@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import CustomLink from "../../components/custom/CustomLink.component";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const RealastateSubHeader = () => {
+    const {width} = useWindowDimensions()
     return(
         <div className="realestate__sub-header">
             <div className="realestate__sub-header__categories">
@@ -19,6 +21,7 @@ const RealastateSubHeader = () => {
                     נדל"ן מסחרי
                 </CustomLink>
             </div>
+            { width >= 1260 &&
             <div className="realestate__sub-header__tools">
                 <CustomLink to="/null" baseClass="realestate__sub-header__tool" exact={true}>
                     <FontAwesomeIcon icon={"gavel"}/> כונס נכסים 
@@ -32,7 +35,7 @@ const RealastateSubHeader = () => {
                 <CustomLink to="/null" baseClass="realestate__sub-header__tool" exact={true}>
                     <img src="/svgs/yadata_logo_black.svg" alt="yadata" className="realestate__sub-header__tool__image yadata"/> הערכת שווי נכס 
                 </CustomLink>
-            </div>
+            </div>}
         </div>
     )
 }

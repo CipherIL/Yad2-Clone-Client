@@ -1,14 +1,13 @@
 import { nanoid } from "nanoid";
-import React, { useState } from "react";
+import React from "react";
 import DatePicker from "react-date-picker";
 import { realestateSearchFormAction } from "../../actions/realestateSearchForm.actions";
 import CustomCheckbox from "../../components/custom/CustomCheckbox.component";
 import { realestateSearchFormActionTypes } from "../../types/realestateSearchFormAction.types";
 
 const features = ["חניה","מעלית","מיזוג","מרפסת",'ממ"ד',"סורגים","מחסן","גישה לנכים","משופצת","מרוהטת","בבלעדיות"];
-const floors = ["מרתף/פרטר","0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"];
-const RealestateSearchFormAdvanced = ({formState,dispatchForm,handleSearch}) => {
-    
+const RealestateSearchFormAdvanced = ({formState,dispatchForm,handleSearch,width}) => {
+
     const getMinFloor = () => {
         const max = parseInt(formState.values.maxFloor);
         const floors = ["-1","מרתף/פרטר","0"];
@@ -35,7 +34,7 @@ const RealestateSearchFormAdvanced = ({formState,dispatchForm,handleSearch}) => 
                     {features.map((feature,i)=>{
                         return (
                             <>
-                            {i!==0 && i%5===0 && <div className="realestate__search-form__advanced__input-section__features__break" key={nanoid()}></div>}
+                            {i!==0 && i%(width>650?5:3)===0 && <div className="realestate__search-form__advanced__input-section__features__break" key={nanoid()}></div>}
                             <span className="realestate__search-form__advanced__input-section__feature" key={nanoid()}>
                                 <CustomCheckbox isChecked={formState.values.features.includes(feature)}
                                 clickCallback={(e)=>{dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_FEATURES_STATE,feature))}}/>
