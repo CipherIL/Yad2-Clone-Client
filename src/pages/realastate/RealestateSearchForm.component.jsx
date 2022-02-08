@@ -10,7 +10,7 @@ import { realestateSearchFormActionTypes } from "../../types/realestateSearchFor
 import { getAddressAutocomplete } from "../../server/realestate.requests";
 import RealestateSearchFormAdvanced from "./RealestateSearchFormAdvanced.component";
 
-const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
+const RealestateSearchForm = ({type,formState,dispatchForm,setFilter,zeroSkipCount}) => {
 
     const apartments = ["דירה","דירת גן","גג/פנטהאוז","דופלקס","דירת נופש","מרתף/פרטר","טריפלקס","יחידת דיור","סטודיו/לופט"];
     const houses = ["בית פרטי/קוטג'","דו משפחתי","משחק חקלאי/נחלה","משק עזר"];
@@ -114,7 +114,8 @@ const RealestateSearchForm = ({type,formState,dispatchForm,setFilter}) => {
         dispatchForm(realestateSearchFormAction(realestateSearchFormActionTypes.CHANGE_ADDRESS_STATE,value))
     }
     const handleSearch = () => {
-        setFilter({...formState.values,category:"מכירה"})
+        setFilter({...formState.values,category:"מכירה"});
+        zeroSkipCount();
     }
     
     return (

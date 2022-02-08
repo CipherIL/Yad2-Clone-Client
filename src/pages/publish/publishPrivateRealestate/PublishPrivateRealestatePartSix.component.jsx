@@ -20,6 +20,7 @@ const PublishPrivateRealestatePartSix = ({selected,completed,returnButton,reopen
     const [showWeekendModal,setShowWeekendModal] = useState(false);
 
     useEffect(()=>{
+        console.log(user)
         dispatchForm(PPRSixthFormAction(PPRSixthFormActionTypes.CHANGE_CONTACT_NAME_STATE,user.name));
         dispatchForm(PPRSixthFormAction(PPRSixthFormActionTypes.CHANGE_CONTACT_CELLPHONE_STATE,user.cellphone));
         dispatchForm(PPRSixthFormAction(PPRSixthFormActionTypes.CHANGE_CONTACT_EMAIL_STATE,user.email));

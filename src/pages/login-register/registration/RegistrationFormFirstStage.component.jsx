@@ -25,11 +25,12 @@ const RegistrationFormFirstStage = ({formState,dispatchForm,toggleForm,setFirstS
     const handleFormSubmit = (e) => {
         e.preventDefault();
         let isValidForm = true;
-        for(let key in formState.isValid)
-        if(!formState.isValid[key]) {
-            isValidForm = false;
-            dispatchForm(registrationFormAction(registrationFirstFormActionTypes.CHANGE_SHOW_ERROR_MESSAGES_STATE));
-            break;
+        for(let key in formState.isValid) {
+            if(!formState.isValid[key]) {
+                isValidForm = false;
+                dispatchForm(registrationFormAction(registrationFirstFormActionTypes.CHANGE_SHOW_ERROR_MESSAGES_STATE));
+                break;
+            }
         }
         if(isValidForm) {
             checkEmailAvailability(formState.values.email,formState.values.password)
@@ -37,10 +38,10 @@ const RegistrationFormFirstStage = ({formState,dispatchForm,toggleForm,setFirstS
                 if(res.status === 200) setFirstStageRegistration(false);
             })
             .catch(err=>{
-                if(err.response.status === 400)
-                    dispatchForm(registrationFormAction(registrationFirstFormActionTypes.CHANGE_EMAIL_ERROR_MESSAGE_STATE,err.response.data));
-                else
-                    dispatchForm(registrationFormAction(registrationFirstFormActionTypes.CHANGE_FORM_MESSAGE_STATE),err.response.data)
+                dispatchForm(registrationFormAction(registrationFirstFormActionTypes.CHANGE_FORM_MESSAGE_STATE,{
+                    text: err.response.data.message,
+                    addClass: 'error'
+                }));
             })
         }
     }

@@ -73,7 +73,7 @@ const RealastateForSale = () => {
         {!isLoading &&
         <div className="realestate-forsale">
     
-            <RealestateSearchForm type={"מכירה"} formState={formState} dispatchForm={dispatchForm} setFilter={setFilter}/>
+            <RealestateSearchForm type={"מכירה"} formState={formState} dispatchForm={dispatchForm} setFilter={setFilter} zeroSkipCount={zeroSkipCount}/>
             <div className="realestate-forsale__posts">
                 {posts.length!==0 && posts.map(post=>{
                     return <RealestatePost post={post} key={nanoid()}/>

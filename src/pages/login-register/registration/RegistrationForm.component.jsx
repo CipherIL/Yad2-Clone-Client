@@ -36,7 +36,7 @@ const RegistrationForm = ({toggleForm}) => {
         .catch(err=>{
             button.disabled = false;
             dispatchSecondForm(registrationFormAction(registrationSecondFormActionTypes.CHANGE_FORM_MESSAGE_STATE,
-                {text:err.response.data,addClass:"error"}))
+                {text:err.response.data.message,addClass:"error"}))
         })
     }
     return (

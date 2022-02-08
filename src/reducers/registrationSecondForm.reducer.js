@@ -6,7 +6,7 @@ export const REGISTRATION_SECOND_FORM_INITIAL_STATE = {
         name:"",
         surname:"",
         cellphone:"",
-        agreedToTerms: true,
+        terms: true,
         isOnMailingList: false,
     },
     isValid: {
